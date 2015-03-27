@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="642.0" prefWidth="916.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.noony.handstats.team.hmi.TeamCreatorController">
+   <children>
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="87.0" layoutY="8.0" prefHeight="93.0" prefWidth="685.0" text="Création d'une équipe" textAlignment="CENTER" underline="true">
+         <font>
+            <Font size="64.0" />
+         </font>
+      </Label>
+      <Button fx:id="createTeamButton" layoutX="624.0" layoutY="535.0" mnemonicParsing="false" onAction="#createTeamAction" text="Créer l'équipe">
+         <font>
+            <Font size="36.0" />
+         </font>
+      </Button>
+      <Button layoutX="28.0" layoutY="535.0" mnemonicParsing="false" onAction="#cancelTeamCreationAction" text="Menu Principal">
+         <font>
+            <Font size="36.0" />
+         </font>
+      </Button>
+      <TextField fx:id="teamField" layoutX="430.0" layoutY="139.0" prefHeight="51.0" prefWidth="412.0" />
+      <Label layoutX="25.0" layoutY="120.0" text="Nom de l'équipe">
+         <font>
+            <Font size="48.0" />
+         </font>
+      </Label>
+      <Label layoutX="25.0" layoutY="239.0" text="Championnat">
+         <font>
+            <Font size="48.0" />
+         </font>
+      </Label>
+      <ChoiceBox fx:id="championshipChoiceB" layoutX="430.0" layoutY="249.0" prefHeight="51.0" prefWidth="412.0" />
+   </children>
+</Pane>

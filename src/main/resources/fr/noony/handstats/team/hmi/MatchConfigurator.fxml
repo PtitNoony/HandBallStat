@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="706.0" prefWidth="924.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.noony.handstats.team.hmi.MatchConfiguratorController">
+   <children>
+      <Label layoutX="306.0" layoutY="27.0" text="Match Configurator">
+         <font>
+            <Font size="36.0" />
+         </font>
+      </Label>
+      <Separator layoutX="334.0" layoutY="90.0" orientation="VERTICAL" prefHeight="527.0" prefWidth="0.0" />
+      <ListView fx:id="homePlayersList" editable="true" layoutX="33.0" layoutY="185.0" prefHeight="336.0" prefWidth="258.0" />
+      <Label layoutX="76.0" layoutY="103.0" text="Mon équipe">
+         <font>
+            <Font size="32.0" />
+         </font>
+      </Label>
+      <Button fx:id="previousMenuButton" layoutX="703.0" layoutY="28.0" mnemonicParsing="false" text="Menu précedent">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Button>
+      <Label layoutX="532.0" layoutY="103.0" text="Equipe adverse">
+         <font>
+            <Font size="32.0" />
+         </font>
+      </Label>
+      <ListView fx:id="awayPlayersList" layoutX="371.0" layoutY="278.0" prefHeight="325.0" prefWidth="125.0" />
+      <Separator layoutX="6.0" layoutY="620.0" prefHeight="0.0" prefWidth="911.0" />
+      <DatePicker fx:id="datePicker" layoutX="382.0" layoutY="632.0" prefHeight="60.0" prefWidth="258.0" />
+      <Button fx:id="startButton" layoutX="650.0" layoutY="637.0" mnemonicParsing="false" onAction="#startAction" text="Commencer le match">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Button>
+      <ColorPicker fx:id="colorPicker" layoutX="650.0" layoutY="533.0" prefHeight="51.0" prefWidth="145.0" />
+      <Button fx:id="supprPlayerButton" layoutX="594.0" layoutY="420.0" mnemonicParsing="false" onAction="#supprPlayerAction" prefHeight="51.0" prefWidth="258.0" text="Supprimer Joueur">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Button>
+      <Button fx:id="addPlayerButton" layoutX="593.0" layoutY="353.0" mnemonicParsing="false" onAction="#addPlayerAction" prefHeight="51.0" prefWidth="258.0" text="Ajouter Joueur">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Button>
+      <CheckBox fx:id="isGoalKCheckBox" layoutX="716.0" layoutY="295.0" mnemonicParsing="false" text="Gardien">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </CheckBox>
+      <TextField fx:id="playerNumberField" layoutX="607.0" layoutY="287.0" prefHeight="25.0" prefWidth="87.0">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </TextField>
+      <CheckBox fx:id="alreadyPlayedCheckBox" layoutX="356.0" layoutY="161.0" mnemonicParsing="false" onAction="#alreadyPlayedToggeld" text="Déjà jouée">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </CheckBox>
+      <Separator layoutX="388.0" layoutY="210.0" prefHeight="3.0" prefWidth="491.0" />
+      <ChoiceBox fx:id="oppTeamChoiceBox" layoutX="544.0" layoutY="161.0" prefHeight="35.0" prefWidth="220.0" />
+      <Button layoutX="33.0" layoutY="543.0" mnemonicParsing="false" prefHeight="51.0" prefWidth="258.0" text="Editer">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Button>
+      <Separator layoutX="340.0" layoutY="90.0" orientation="VERTICAL" prefHeight="527.0" prefWidth="0.0" />
+      <TextField fx:id="oppTeamNameField" layoutX="552.0" layoutY="227.0" prefHeight="35.0" prefWidth="343.0">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </TextField>
+      <Label layoutX="356.0" layoutY="235.0" text="Nom de l'équipe :">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+   </children>
+</Pane>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="642.0" prefWidth="916.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.noony.handstats.team.hmi.TeamSelectionController">
+   <children>
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="87.0" layoutY="8.0" prefHeight="93.0" prefWidth="685.0" text="Choix d'une équipe" textAlignment="CENTER" underline="true">
+         <font>
+            <Font size="64.0" />
+         </font>
+      </Label>
+      <Button fx:id="choiceTeamButton" layoutX="596.0" layoutY="535.0" mnemonicParsing="false" onAction="#teamSelectionAction" text="Choisir l'équipe">
+         <font>
+            <Font size="36.0" />
+         </font>
+      </Button>
+      <Button layoutX="28.0" layoutY="495.0" mnemonicParsing="false" onAction="#cancelTeamSelectionAction" prefHeight="137.0" prefWidth="293.0" text="Retour menu principal" textAlignment="CENTER" wrapText="true">
+         <font>
+            <Font size="36.0" />
+         </font>
+      </Button>
+      <ListView fx:id="possibleTeamsList" layoutX="231.0" layoutY="119.0" prefHeight="366.0" prefWidth="397.0" />
+      <Button fx:id="deleteTeamButton" layoutX="351.0" layoutY="535.0" mnemonicParsing="false" onAction="#deleteTeamAction" prefHeight="77.0" prefWidth="214.0" text="Supprimer">
+         <font>
+            <Font size="36.0" />
+         </font>
+      </Button>
+   </children>
+</Pane>

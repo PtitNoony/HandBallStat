@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="592.0" prefWidth="854.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.noony.handstats.team.hmi.TeamMainController">
+   <children>
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="14.0" layoutY="14.0" prefHeight="93.0" prefWidth="210.0" text="Equipe :" textAlignment="CENTER" underline="true">
+         <font>
+            <Font size="48.0" />
+         </font>
+      </Label>
+      <Label fx:id="teamLabel" layoutX="224.0" layoutY="14.0" prefHeight="93.0" prefWidth="464.0" text="Label">
+         <font>
+            <Font name="System Bold" size="48.0" />
+         </font>
+      </Label>
+      <Separator layoutX="8.0" layoutY="103.0" prefHeight="16.0" prefWidth="836.0" />
+      <Separator layoutX="266.0" layoutY="126.0" orientation="VERTICAL" prefHeight="461.0" prefWidth="0.0" />
+      <Separator layoutX="546.0" layoutY="126.0" orientation="VERTICAL" prefHeight="461.0" prefWidth="6.0" />
+      <Label layoutX="20.0" layoutY="126.0" text="Gestion de l'équpe">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <Label layoutX="336.0" layoutY="126.0" text="Saisir un match">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <Label layoutX="570.0" layoutY="126.0" text="Consulter les statistiques">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <Button layoutX="8.0" layoutY="235.0" mnemonicParsing="false" onAction="#editTeamAction" prefHeight="194.0" prefWidth="251.0" text="Editer l'équipe" textAlignment="CENTER" wrapText="true">
+         <font>
+            <Font size="36.0" />
+         </font>
+      </Button>
+      <Button layoutX="291.0" layoutY="182.0" mnemonicParsing="false" prefHeight="194.0" prefWidth="251.0" text="Saisir un match déjà joué" textAlignment="CENTER" wrapText="true">
+         <font>
+            <Font size="36.0" />
+         </font>
+      </Button>
+      <Button layoutX="291.0" layoutY="393.0" mnemonicParsing="false" onAction="#configureMatchAction" prefHeight="194.0" prefWidth="251.0" text="Jouer un match" textAlignment="CENTER" wrapText="true">
+         <font>
+            <Font size="36.0" />
+         </font>
+      </Button>
+      <Button layoutX="575.0" layoutY="235.0" mnemonicParsing="false" prefHeight="194.0" prefWidth="251.0" text="Consulter les statistiques" textAlignment="CENTER" wrapText="true">
+         <font>
+            <Font size="36.0" />
+         </font>
+      </Button>
+      <Button layoutX="699.0" layoutY="14.0" mnemonicParsing="false" onAction="#retourAction" text="Retour">
+         <font>
+            <Font size="36.0" />
+         </font>
+      </Button>
+   </children>
+</Pane>
