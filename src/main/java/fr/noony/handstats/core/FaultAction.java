@@ -16,7 +16,6 @@
  */
 package fr.noony.handstats.core;
 
-import fr.noony.handstats.team.Team;
 import static fr.noony.handstats.utils.XMLSaver.GAMEACTION_FAULT;
 import static fr.noony.handstats.utils.XMLSaver.GAMEACTION_FAULT_DESCRIPTION;
 import static fr.noony.handstats.utils.XMLSaver.GAMEACTION_PLAYER_FIRSTNAME;

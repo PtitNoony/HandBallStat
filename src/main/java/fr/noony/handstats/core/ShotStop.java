@@ -16,7 +16,6 @@
  */
 package fr.noony.handstats.core;
 
-import fr.noony.handstats.team.Team;
 import static fr.noony.handstats.utils.XMLSaver.GAMEACTION_GOALKEEPER_FIRSTNAME;
 import static fr.noony.handstats.utils.XMLSaver.GAMEACTION_GOALKEEPER_NAME;
 import static fr.noony.handstats.utils.XMLSaver.GAMEACTION_GOALKEEPER_NUMBER;

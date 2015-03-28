@@ -18,7 +18,7 @@ package fr.noony.handstats.utils;
 
 import fr.noony.handstats.Game;
 import fr.noony.handstats.core.Player;
-import fr.noony.handstats.team.Team;
+import fr.noony.handstats.core.Team;
 import fr.noony.handstats.team.hmi.InitPageController;
 import static fr.noony.handstats.team.hmi.InitPageController.TEAM_FILE_EXTENSION;
 import static fr.noony.handstats.team.hmi.InitPageController.TEAM_RELATIVE_DIRECTORY;

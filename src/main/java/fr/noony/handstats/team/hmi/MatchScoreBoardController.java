@@ -25,7 +25,7 @@ import fr.noony.handstats.court.HalfCourtDrawing;
 import fr.noony.handstats.court.InteractiveShootingArea;
 import fr.noony.handstats.court.LeftCourtDrawing;
 import fr.noony.handstats.court.RightCourtDrawing;
-import fr.noony.handstats.team.Team;
+import fr.noony.handstats.core.Team;
 import fr.noony.handstats.team.hmi.drawing.ButtonDrawing;
 import static fr.noony.handstats.team.hmi.drawing.ButtonDrawing.BUTTON_CLICKED;
 import fr.noony.handstats.team.hmi.drawing.ClockDrawing;

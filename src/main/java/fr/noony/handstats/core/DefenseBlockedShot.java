@@ -16,7 +16,6 @@
  */
 package fr.noony.handstats.core;
 
-import fr.noony.handstats.team.Team;
 import static fr.noony.handstats.utils.XMLSaver.GAMEACTION_DEFENSE_BLOCKEDSHOT;
 import static fr.noony.handstats.utils.XMLSaver.GAMEACTION_PLAYER_FIRSTNAME;
 import static fr.noony.handstats.utils.XMLSaver.GAMEACTION_PLAYER_LASTNAME;

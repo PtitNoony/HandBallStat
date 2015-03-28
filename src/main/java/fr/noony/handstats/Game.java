@@ -23,8 +23,8 @@ import fr.noony.handstats.core.GameAction;
 import fr.noony.handstats.core.GoodShot;
 import fr.noony.handstats.core.Player;
 import fr.noony.handstats.core.ShotStop;
+import fr.noony.handstats.core.Team;
 import fr.noony.handstats.court.InteractiveShootingArea;
-import fr.noony.handstats.team.Team;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
@@ -238,6 +238,19 @@ public class Game implements PropertyChangeListener {
             }
         }
         gameActions.add(action);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append(gameDate.toString());
+        sb.append("   ");
+        sb.append(homeGoodShots.size());
+        sb.append("-");
+        sb.append(awayGoodShots.size());
+        sb.append("  vs. ");
+        sb.append(awayTeam.getName());
+        return sb.toString();
     }
 
 }

@@ -16,7 +16,7 @@ package fr.noony.handstats.team.hmi;
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-import fr.noony.handstats.team.Team;
+import fr.noony.handstats.core.Team;
 import fr.noony.handstats.utils.TeamFileProcessor;
 import fr.noony.handstats.utils.XMLLoader;
 import java.io.BufferedReader;

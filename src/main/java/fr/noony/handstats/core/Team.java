@@ -14,12 +14,11 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package fr.noony.handstats.team;
+package fr.noony.handstats.core;
 
 import fr.noony.handstats.Championship;
 import fr.noony.handstats.Game;
 import static fr.noony.handstats.Game.MAX_PLAYERS_PER_MATCH;
-import fr.noony.handstats.core.Player;
 import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -100,6 +99,10 @@ public class Team {
         List<Player> result = new ArrayList<>();
         allPlayers.stream().filter(p -> (!activePlayers.contains(p))).forEach(p -> result.add(p));
         return result;
+    }
+
+    public List<Player> getAllPlayers() {
+        return allPlayers;
     }
 
     private void firePropertyChange(String propertyName, Object oldValue, Object newValue) {

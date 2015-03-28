@@ -34,7 +34,7 @@ public class Screen implements ControlledScreen, PropertyChangeListener {
     private final FXMLLoader loader;
     private final FXController controller;
     private final String fxmlName;
-    private ScreensController myScreensController;
+    private MainScreensController myScreensController;
 
     public Screen(String fxmlFileName) {
         fxmlName = fxmlFileName;
@@ -59,7 +59,7 @@ public class Screen implements ControlledScreen, PropertyChangeListener {
     }
 
     @Override
-    public void setScreenParent(ScreensController screensController) {
+    public void setScreenParent(MainScreensController screensController) {
         myScreensController = screensController;
     }
 

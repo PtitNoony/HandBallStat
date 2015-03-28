@@ -25,7 +25,7 @@ import fr.noony.handstats.core.FaultAction;
 import fr.noony.handstats.core.GoodShot;
 import fr.noony.handstats.core.Player;
 import fr.noony.handstats.core.ShotStop;
-import fr.noony.handstats.team.Team;
+import fr.noony.handstats.core.Team;
 import static fr.noony.handstats.utils.XMLSaver.GAMEACTION_DEFENSE_BLOCKEDSHOT;
 import static fr.noony.handstats.utils.XMLSaver.GAMEACTION_FAULT;
 import static fr.noony.handstats.utils.XMLSaver.GAMEACTION_FAULT_DESCRIPTION;

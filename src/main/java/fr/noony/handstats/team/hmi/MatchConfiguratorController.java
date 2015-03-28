@@ -19,7 +19,7 @@ package fr.noony.handstats.team.hmi;
 import fr.noony.handstats.Game;
 import fr.noony.handstats.Poste;
 import fr.noony.handstats.core.Player;
-import fr.noony.handstats.team.Team;
+import fr.noony.handstats.core.Team;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.net.URL;
@@ -47,7 +47,7 @@ import javafx.scene.paint.Color;
 /**
  * FXML Controller class
  *
- * @author Arnaud Hamon-Keromen
+ * @author Arnaud HAMON-KEROMEN
  */
 public class MatchConfiguratorController extends FXController implements PropertyChangeListener {
 

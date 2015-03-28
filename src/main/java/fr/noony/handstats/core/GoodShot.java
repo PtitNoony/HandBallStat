@@ -16,7 +16,6 @@
  */
 package fr.noony.handstats.core;
 
-import fr.noony.handstats.team.Team;
 import static fr.noony.handstats.utils.XMLSaver.GAMEACTION_GOALZONE;
 import static fr.noony.handstats.utils.XMLSaver.GAMEACTION_GOOD_SHOT;
 import static fr.noony.handstats.utils.XMLSaver.GAMEACTION_PLAYER_FIRSTNAME;

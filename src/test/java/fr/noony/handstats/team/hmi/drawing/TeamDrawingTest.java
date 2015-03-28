@@ -16,7 +16,7 @@
  */
 package fr.noony.handstats.team.hmi.drawing;
 
-import fr.noony.handstats.team.Team;
+import fr.noony.handstats.core.Team;
 import fr.noony.handstats.utils.XMLLoader;
 import javafx.embed.swing.JFXPanel;
 import javafx.scene.Node;

@@ -16,9 +16,6 @@
  */
 package fr.noony.handstats.team.hmi;
 
-import fr.noony.handstats.Game;
-import fr.noony.handstats.team.Team;
-import fr.noony.handstats.utils.XMLSaver;
 import java.beans.PropertyChangeEvent;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -38,9 +35,7 @@ import javafx.util.Duration;
  *
  * @author Arnaud Hamon-Keromen
  */
-public class ScreensController extends StackPane {
-
-    private Team currentTeam;
+public abstract class AbstractScreensController extends StackPane {
 
     private final Map<String, Screen> screens = new LinkedHashMap<>();
 
@@ -56,7 +51,7 @@ public class ScreensController extends StackPane {
                 Timeline fade = new Timeline(
                         new KeyFrame(Duration.ZERO, new KeyValue(opacity, 1.0)),
                         new KeyFrame(new Duration(300), (ActionEvent t) -> {
-                            Logger.getLogger(ScreensController.class.getName()).log(Level.OFF, "new key frame on event {0}", t);
+                            Logger.getLogger(AbstractScreensController.class.getName()).log(Level.OFF, "new key frame on event {0}", t);
                             //remove displayed screen
                             getChildren().remove(0);
                             //add new screen
@@ -78,63 +73,15 @@ public class ScreensController extends StackPane {
             }
             return true;
         } else {
-            Logger.getLogger(ScreensController.class.getName()).log(Level.WARNING, "screen hasn't been loaded!\n");
+            Logger.getLogger(AbstractScreensController.class.getName()).log(Level.WARNING, "screen hasn't been loaded!\n");
             return false;
         }
     }
 
     public void addScreen(Screen screen) {
         screens.put(screen.getName(), screen);
-        screen.setScreenParent(this);
     }
 
-    protected void processEvent(PropertyChangeEvent evt) {
-        switch (evt.getPropertyName()) {
-            case Events.ACTION_CREATE_TEAM:
-                setScreen(Main.TEAM_CREATION_PAGE);
-                break;
-            case Events.CANCEL_TEAM_CREATION_EVENT:
-                setScreen(Main.INIT_PAGE);
-                break;
-            case Events.CREATE_TEAM_EVENT:
-                currentTeam = (Team) evt.getNewValue();
-                setScreen(Main.TEAM_EDITION_PAGE, currentTeam);
-                break;
-            case Events.ACTION_CHANGE_TEAM:
-                setScreen(Main.TEAM_SELECTION_PAGE, evt.getNewValue());
-                break;
-            case Events.NEW_TEAM_SELECTED_EVENT:
-                currentTeam = (Team) evt.getNewValue();
-                setScreen(Main.TEAM_MAIN_PAGE, currentTeam);
-                break;
-            case Events.CANCEL_TEAM_SELECTED_EVENT:
-                setScreen(Main.INIT_PAGE);
-                break;
-            case Events.BACK_TEAM_SELECTION:
-                setScreen(Main.TEAM_SELECTION_PAGE);
-                break;
-            case Events.EDIT_CURRENT_TEAM:
-                currentTeam = (Team) evt.getNewValue();
-                setScreen(Main.TEAM_EDITION_PAGE, currentTeam);
-                break;
-            case Events.BACK_TO_TEAM_MAIN:
-                currentTeam = (Team) evt.getNewValue();
-                setScreen(Main.TEAM_MAIN_PAGE, currentTeam);
-                break;
-            case Events.CONFIGURE_MATCH:
-                setScreen(Main.MATCH_CONFIGURATOR_PAGE, currentTeam);
-                break;
-            case Events.START_GAME:
-                setScreen(Main.MATCH_SCOREBOARD_PAGE, (Game) evt.getNewValue());
-                break;
-        }
-    }
-
-    public void saveTeam() {
-        if (currentTeam != null) {
-            XMLSaver.saveTeam(currentTeam);
-        }
-
-    }
+    protected abstract void processEvent(PropertyChangeEvent evt);
 
 }

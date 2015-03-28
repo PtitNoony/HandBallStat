@@ -18,7 +18,7 @@ package fr.noony.handstats.team.hmi.drawing;
 
 import fr.noony.handstats.Poste;
 import fr.noony.handstats.core.Player;
-import fr.noony.handstats.team.Team;
+import fr.noony.handstats.core.Team;
 import java.awt.Dimension;
 import java.util.Collections;
 import java.util.LinkedList;

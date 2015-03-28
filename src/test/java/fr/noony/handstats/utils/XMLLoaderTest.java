@@ -16,7 +16,7 @@
  */
 package fr.noony.handstats.utils;
 
-import fr.noony.handstats.team.Team;
+import fr.noony.handstats.core.Team;
 import java.io.File;
 import java.net.URISyntaxException;
 import java.net.URL;

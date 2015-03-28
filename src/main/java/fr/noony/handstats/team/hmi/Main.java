@@ -48,7 +48,7 @@ public class Main extends Application {
     private Scene myScene;
     private Stage myStage;
 
-    private ScreensController screensController;
+    private MainScreensController screensController;
     private Screen welcomePage;
     private Screen teamCreationPage;
     private Screen teamMainPage;
@@ -77,7 +77,7 @@ public class Main extends Application {
             //System.exit(0);
         });
         Platform.runLater(() -> {
-            screensController = new ScreensController();
+            screensController = new MainScreensController();
             myScene = new Scene(screensController, DEFAULT_RESOLUTION.width, DEFAULT_RESOLUTION.height);
             myStage.setScene(myScene);
             initFrame(false);

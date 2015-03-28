@@ -16,7 +16,7 @@
  */
 package fr.noony.handstats.team.hmi;
 
-import fr.noony.handstats.team.Team;
+import fr.noony.handstats.core.Team;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.net.URL;

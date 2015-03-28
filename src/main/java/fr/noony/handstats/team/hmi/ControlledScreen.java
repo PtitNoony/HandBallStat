@@ -23,6 +23,6 @@ package fr.noony.handstats.team.hmi;
 public interface ControlledScreen {
 
     //This method will allow the injection of the Parent ScreenPane
-    void setScreenParent(ScreensController screensController);
+    void setScreenParent(MainScreensController screensController);
 
 }

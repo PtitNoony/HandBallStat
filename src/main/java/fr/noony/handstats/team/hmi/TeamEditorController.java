@@ -17,7 +17,7 @@
 package fr.noony.handstats.team.hmi;
 
 import fr.noony.handstats.core.Player;
-import fr.noony.handstats.team.Team;
+import fr.noony.handstats.core.Team;
 import static fr.noony.handstats.team.hmi.Events.CANCEL_EVENT;
 import static fr.noony.handstats.team.hmi.Events.OK_EVENT;
 import java.beans.PropertyChangeEvent;
