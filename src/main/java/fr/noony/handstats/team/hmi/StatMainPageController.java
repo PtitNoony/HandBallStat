@@ -73,7 +73,11 @@ public class StatMainPageController extends FXController implements PropertyChan
     }
     //
     private StatScreensManager statScreensManager;
-    private final Screen generalScreen = new Screen("StatGeneralPane");
+    private static final String STAT_OVERVIEW_PANE = "StatOverviewPane";
+    private static final String STAT_GENERAL_PANE = "StatGeneralPane";
+    private final Screen generalScreen = new Screen(STAT_GENERAL_PANE);
+    private final Screen overviewScreen = new Screen(STAT_OVERVIEW_PANE);
+
     //
     private StatPageState currentState;
     //
@@ -107,6 +111,7 @@ public class StatMainPageController extends FXController implements PropertyChan
         //
         statScreensManager = new StatScreensManager();
         statScreensManager.addScreen(generalScreen);
+        statScreensManager.addScreen(overviewScreen);
         mainPane.getChildren().add(statScreensManager);
         statScreensManager.setBackground(new Background(new BackgroundFill(Color.LIGHTBLUE, CornerRadii.EMPTY, Insets.EMPTY)));
         statScreensManager.setPrefSize(640, 500);
@@ -146,6 +151,8 @@ public class StatMainPageController extends FXController implements PropertyChan
         homePlayers.addAll(homeTeam.getAllPlayers());
         homePlayerChoiceBox.setItems(homePlayers);
         homePlayerChoiceBox.getSelectionModel().select(homeP);
+        //
+        overviewScreen.loadParameters(homeTeam);
         //
         games.setAll(homeTeam.getGames());
         gameListView.setItems(games);
@@ -197,6 +204,8 @@ public class StatMainPageController extends FXController implements PropertyChan
     private void displayAllMatchs() {
         gameTeamSelectorBox.setVisible(false);
         gameListView.getSelectionModel().clearSelection();
+        //TODO: optimize flow and send calculated parameters ?
+        statScreensManager.setScreen(STAT_OVERVIEW_PANE, homeTeam);
     }
 
     private void displayOneMatch() {
