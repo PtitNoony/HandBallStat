@@ -187,4 +187,12 @@ public class Team {
         return null;
     }
 
+//    @Override
+//    public boolean equals(Object obj) {
+//        if(obj instanceof Team){
+//            Team team = (Team)obj;
+//            return teamName.equals(team.getName());
+//        }
+//    }
+//    
 }

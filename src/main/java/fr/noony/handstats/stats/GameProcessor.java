@@ -89,4 +89,16 @@ public class GameProcessor {
         int percentage = (int) (100 * tmp / gameStats.size());
         return percentage / 100;
     }
+
+    public GameStat getGameStats(Game selectedGame) {
+        System.err.println("start seraching for game " + selectedGame.toString());
+        for (GameStat stat : gameStats) {
+            if (stat.reportsGame(selectedGame)) {
+                System.err.println(" c'est " + stat);
+                return stat;
+            }
+        }
+        System.err.println("fail !!");
+        return null;
+    }
 }

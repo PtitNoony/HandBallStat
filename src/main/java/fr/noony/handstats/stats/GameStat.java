@@ -12,6 +12,7 @@ import fr.noony.handstats.core.GameAction;
 import fr.noony.handstats.core.GoodShot;
 import fr.noony.handstats.core.ShotStop;
 import fr.noony.handstats.core.Team;
+import java.time.LocalDate;
 
 /**
  *
@@ -74,6 +75,22 @@ public class GameStat {
         return victor;
     }
 
+    public boolean isHomeVictor() {
+        return victor != null && victor.getName().equals(homeTeamName);
+    }
+
+    public boolean isDraw() {
+        return victor == null;
+    }
+
+    public Team getHomeTeam() {
+        return myGame.getHomeTeam();
+    }
+
+    public Team getAwayTeam() {
+        return myGame.getAwayTeam();
+    }
+
     public int getHomeScore() {
         //usefull ???
         return myGame.getHomeScore();
@@ -82,6 +99,10 @@ public class GameStat {
     public int getAwayScore() {
         //usefull ???
         return myGame.getAwayScore();
+    }
+
+    public LocalDate getGameDate() {
+        return myGame.getDate();
     }
 
     private void processShotStop(ShotStop shotStop) {
@@ -125,6 +146,10 @@ public class GameStat {
 
     public double getAwayShotBlockedPercentage() {
         return 100 * nbAwayBlockedShots / (nbHomeMadeShots + nbAwayBlockedShots);
+    }
+
+    public boolean reportsGame(Game selectedGame) {
+        return myGame.equals(selectedGame);
     }
 
 }

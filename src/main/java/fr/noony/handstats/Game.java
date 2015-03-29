@@ -32,6 +32,7 @@ import java.time.LocalDate;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Objects;
 import javafx.application.Platform;
 import org.openide.util.Lookup;
 import org.openide.util.lookup.AbstractLookup;
@@ -251,6 +252,39 @@ public class Game implements PropertyChangeListener {
         sb.append("  vs. ");
         sb.append(awayTeam.getName());
         return sb.toString();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        //humm ;)
+        if (obj instanceof Game) {
+            Game game = (Game) obj;
+            return homeTeam.getName().equals(game.getHomeTeam().getName())
+                    && awayTeam.getName().equals(game.getAwayTeam().getName())
+                    && gameDate.equals(game.getDate())
+                    && homeGoodShots.size() == game.getHomeScore()
+                    && awayGoodShots.size() == game.getAwayScore();
+        }
+        return false;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 11 * hash + Objects.hashCode(this.propertyChangeSupport);
+        hash = 11 * hash + Objects.hashCode(this.lookupContents);
+        hash = 11 * hash + Objects.hashCode(this.alookup);
+        hash = 11 * hash + Objects.hashCode(this.homeTeam);
+        hash = 11 * hash + Objects.hashCode(this.awayTeam);
+        hash = 11 * hash + Objects.hashCode(this.gameDate);
+        hash = 11 * hash + Objects.hashCode(this.homePlayers);
+        hash = 11 * hash + Objects.hashCode(this.awayPlayers);
+        hash = 11 * hash + Objects.hashCode(this.gameClock);
+        hash = 11 * hash + Objects.hashCode(this.gameActions);
+        hash = 11 * hash + Objects.hashCode(this.homeGoodShots);
+        hash = 11 * hash + Objects.hashCode(this.awayGoodShots);
+        hash = 11 * hash + Objects.hashCode(this.twoMinutesPlayers);
+        return hash;
     }
 
 }

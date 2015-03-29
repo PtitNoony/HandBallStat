@@ -20,6 +20,7 @@ import fr.noony.handstats.Game;
 import fr.noony.handstats.Poste;
 import fr.noony.handstats.core.Player;
 import fr.noony.handstats.core.Team;
+import fr.noony.handstats.stats.GameProcessor;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.net.URL;
@@ -77,9 +78,9 @@ public class StatMainPageController extends FXController implements PropertyChan
     private static final String STAT_GENERAL_PANE = "StatGeneralPane";
     private final Screen generalScreen = new Screen(STAT_GENERAL_PANE);
     private final Screen overviewScreen = new Screen(STAT_OVERVIEW_PANE);
-
     //
-    private StatPageState currentState;
+    private StatPageState currentState = StatPageState.ALL_GAMES;
+    private StatPageState previousState = StatPageState.ALL_GAMES;
     //
     private Team homeTeam;
     private final Player homeP = new Player("", "TOUS ", 0, Poste.UNDEFINED);
@@ -89,6 +90,9 @@ public class StatMainPageController extends FXController implements PropertyChan
     private ObservableList<Player> awayPlayers;
     //
     private Game selectedGame = null;
+    //
+    private GameProcessor gameProcessor;
+    //
 
     /**
      * Initializes the controller class.
@@ -113,7 +117,7 @@ public class StatMainPageController extends FXController implements PropertyChan
         statScreensManager.addScreen(generalScreen);
         statScreensManager.addScreen(overviewScreen);
         mainPane.getChildren().add(statScreensManager);
-        statScreensManager.setBackground(new Background(new BackgroundFill(Color.LIGHTBLUE, CornerRadii.EMPTY, Insets.EMPTY)));
+        statScreensManager.setBackground(new Background(new BackgroundFill(Color.LIGHTGREY, CornerRadii.EMPTY, Insets.EMPTY)));
         statScreensManager.setPrefSize(640, 500);
         statScreensManager.setLayoutX(270);
         statScreensManager.setLayoutY(140);
@@ -122,13 +126,14 @@ public class StatMainPageController extends FXController implements PropertyChan
     }
 
     private void setStatPageState(StatPageState state) {
+        previousState = currentState;
         currentState = state;
         switch (currentState) {
             case ALL_GAMES:
                 displayAllMatchs();
                 break;
             case ONE_MATCH:
-                displayOneMatch();
+                displayOneMatch(previousState.equals(StatPageState.ALL_GAMES));
                 break;
             case ONE_MATCH_HOME:
                 displayOneMatchHome();
@@ -152,7 +157,9 @@ public class StatMainPageController extends FXController implements PropertyChan
         homePlayerChoiceBox.setItems(homePlayers);
         homePlayerChoiceBox.getSelectionModel().select(homeP);
         //
-        overviewScreen.loadParameters(homeTeam);
+        gameProcessor = new GameProcessor(homeTeam);
+        //
+        overviewScreen.loadParameters(gameProcessor);
         //
         games.setAll(homeTeam.getGames());
         gameListView.setItems(games);
@@ -205,10 +212,15 @@ public class StatMainPageController extends FXController implements PropertyChan
         gameTeamSelectorBox.setVisible(false);
         gameListView.getSelectionModel().clearSelection();
         //TODO: optimize flow and send calculated parameters ?
-        statScreensManager.setScreen(STAT_OVERVIEW_PANE, homeTeam);
+        statScreensManager.setScreen(STAT_OVERVIEW_PANE, gameProcessor);
     }
 
-    private void displayOneMatch() {
+    private void displayOneMatch(boolean fromAllMatchs) {
+        if (fromAllMatchs && selectedGame != null) {
+            statScreensManager.setScreen(STAT_GENERAL_PANE, gameProcessor.getGameStats(selectedGame));
+        } else {
+            generalScreen.loadParameters(gameProcessor.getGameStats(selectedGame));
+        }
         gameTeamSelectorBox.setVisible(true);
         generalToggleB.setSelected(true);
         generalToggleB.setDisable(true);

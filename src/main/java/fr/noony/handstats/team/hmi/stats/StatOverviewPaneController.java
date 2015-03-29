@@ -5,7 +5,6 @@
  */
 package fr.noony.handstats.team.hmi.stats;
 
-import fr.noony.handstats.core.Team;
 import fr.noony.handstats.stats.GameProcessor;
 import fr.noony.handstats.team.hmi.FXController;
 import java.beans.PropertyChangeEvent;
@@ -34,7 +33,7 @@ public class StatOverviewPaneController extends FXController implements Property
     public Label percentShotBlockedLabel;
 
     //
-    private Team currentTeam = null;
+    private GameProcessor gameProcessor = null;
 
     /**
      * Initializes the controller class.
@@ -58,14 +57,13 @@ public class StatOverviewPaneController extends FXController implements Property
     @Override
     public void loadParameters(Object... params) {
         //TODO: checks
-        currentTeam = (Team) params[0];
-        if (currentTeam != null) {
+        gameProcessor = (GameProcessor) params[0];
+        if (gameProcessor != null) {
             updateInfos();
         }
     }
 
     private void updateInfos() {
-        GameProcessor gameProcessor = new GameProcessor(currentTeam);
         nbPlayedLabel.setText("" + gameProcessor.getNbGamesPlayed());
         nbWonLabel.setText("" + gameProcessor.getNbVictories());
         percentWonLabel.setText("" + gameProcessor.getPercentageVictories() + "%");
