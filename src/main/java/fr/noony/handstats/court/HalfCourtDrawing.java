@@ -19,6 +19,7 @@ package fr.noony.handstats.court;
 import static fr.noony.handstats.Court.TERRAIN_LENGHT;
 import static fr.noony.handstats.Court.TERRAIN_WIDTH;
 import static fr.noony.handstats.court.DrawingUtilities.COURT_RATIO;
+import fr.noony.handstats.team.hmi.stats.TerrainAreas;
 import java.util.LinkedList;
 import java.util.List;
 import javafx.scene.Group;
@@ -33,6 +34,9 @@ public abstract class HalfCourtDrawing {
 
     public static final double DEFAULT_HALF_COURT_WIDTH = COURT_RATIO * TERRAIN_LENGHT / 2.0;
     public static final double DEFAULT_HALF_COURT_HEIGHT = COURT_RATIO * TERRAIN_WIDTH;
+    //
+    public static final int NB_TERRAIN_AREAS = TerrainAreas.values().length;
+    //
 
     private final Group mainNode;
     private final Group scaleNode;

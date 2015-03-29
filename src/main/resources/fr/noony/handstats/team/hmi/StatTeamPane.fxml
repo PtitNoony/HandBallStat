@@ -7,8 +7,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.noony.handstats.team.hmi.stats.StatGeneralPaneController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.noony.handstats.team.hmi.stats.StatTeamPaneController">
    <children>
       <Accordion fx:id="accordion" prefHeight="500.0" prefWidth="640.0">
         <panes>
@@ -53,16 +52,6 @@
                                     <Font size="24.0" />
                                  </font>
                               </Label>
-                              <Label text="Mon équipe" GridPane.columnIndex="1" GridPane.rowIndex="7">
-                                 <font>
-                                    <Font size="24.0" />
-                                 </font>
-                              </Label>
-                              <Label text="Equipe adverse" GridPane.columnIndex="2" GridPane.rowIndex="7">
-                                 <font>
-                                    <Font size="24.0" />
-                                 </font>
-                              </Label>
                               <Label text="\% de tirs réussis" GridPane.rowIndex="8">
                                  <font>
                                     <Font size="24.0" />
@@ -73,22 +62,12 @@
                                     <Font size="24.0" />
                                  </font>
                               </Label>
-                              <Label fx:id="homeShotsLabel" text="NULL" GridPane.columnIndex="1" GridPane.rowIndex="8">
+                              <Label fx:id="madeShotsLabel" text="NULL" GridPane.columnIndex="1" GridPane.rowIndex="8">
                                  <font>
                                     <Font size="24.0" />
                                  </font>
                               </Label>
-                              <Label fx:id="homeStopsLabel" text="NULL" GridPane.columnIndex="1" GridPane.rowIndex="9">
-                                 <font>
-                                    <Font size="24.0" />
-                                 </font>
-                              </Label>
-                              <Label fx:id="awayShotsLabel" text="NULL" GridPane.columnIndex="2" GridPane.rowIndex="8">
-                                 <font>
-                                    <Font size="24.0" />
-                                 </font>
-                              </Label>
-                              <Label fx:id="awayStopsLabel" text="NULL" GridPane.columnIndex="2" GridPane.rowIndex="9">
+                              <Label fx:id="stoppedShotsLabel" text="NULL" GridPane.columnIndex="1" GridPane.rowIndex="9">
                                  <font>
                                     <Font size="24.0" />
                                  </font>
@@ -118,7 +97,32 @@
             </TitledPane>
             <TitledPane prefHeight="200.0" prefWidth="200.0" text="Zones de tirs : vue terrain">
                <content>
-                  <Pane prefHeight="200.0" prefWidth="200.0" />
+                  <Pane prefHeight="200.0" prefWidth="200.0">
+                     <children>
+                        <RadioButton fx:id="madeFromTerrainRB" layoutX="14.0" layoutY="41.0" mnemonicParsing="false" selected="true" text="Réussis">
+                           <font>
+                              <Font size="24.0" />
+                           </font>
+                        </RadioButton>
+                        <RadioButton fx:id="missedFromTerrainRB" layoutX="14.0" layoutY="76.0" mnemonicParsing="false" text="Ratés">
+                           <font>
+                              <Font size="24.0" />
+                           </font>
+                        </RadioButton>
+                        <Pane fx:id="terrainPane" layoutX="224.0" layoutY="12.0" prefHeight="400.0" prefWidth="400.0" />
+                        <Separator layoutX="13.0" layoutY="117.0" prefWidth="200.0" />
+                        <Label layoutX="64.0" layoutY="6.0" text="TIRS">
+                           <font>
+                              <Font size="24.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="14.0" layoutY="167.0" text="\% =">
+                           <font>
+                              <Font size="24.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </Pane>
                </content>
             </TitledPane>
           <TitledPane text="Zones de tirs : vue but">

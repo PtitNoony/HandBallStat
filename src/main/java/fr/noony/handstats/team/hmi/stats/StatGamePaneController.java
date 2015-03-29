@@ -12,21 +12,18 @@ import java.beans.PropertyChangeListener;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
-import javafx.scene.control.Accordion;
 import javafx.scene.control.Label;
-import javafx.scene.control.TitledPane;
+import javafx.scene.layout.Pane;
 
 /**
  * FXML Controller class
  *
  * @author Arnaud HAMON-KEROMEN
  */
-public class StatGeneralPaneController extends FXController implements PropertyChangeListener {
+public class StatGamePaneController extends FXController implements PropertyChangeListener {
 
     @FXML
-    public Accordion accordion;
-    @FXML
-    public TitledPane summaryPane;
+    public Pane terrainPane;
 
     @FXML
     public Label isVictoryLabel;
@@ -56,7 +53,6 @@ public class StatGeneralPaneController extends FXController implements PropertyC
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        accordion.setExpandedPane(summaryPane);
     }
 
     @Override
@@ -87,6 +83,7 @@ public class StatGeneralPaneController extends FXController implements PropertyC
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
+
     }
 
 }

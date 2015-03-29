@@ -21,6 +21,7 @@ import fr.noony.handstats.Poste;
 import fr.noony.handstats.core.Player;
 import fr.noony.handstats.core.Team;
 import fr.noony.handstats.stats.GameProcessor;
+import fr.noony.handstats.stats.GameStat;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.net.URL;
@@ -75,9 +76,11 @@ public class StatMainPageController extends FXController implements PropertyChan
     //
     private StatScreensManager statScreensManager;
     private static final String STAT_OVERVIEW_PANE = "StatOverviewPane";
-    private static final String STAT_GENERAL_PANE = "StatGeneralPane";
-    private final Screen generalScreen = new Screen(STAT_GENERAL_PANE);
+    private static final String STAT_GAME_PANE = "StatGamePane";
+    private static final String STAT_TEAM_PANE = "StatTeamPane";
+    private final Screen teamScreen = new Screen(STAT_TEAM_PANE);
     private final Screen overviewScreen = new Screen(STAT_OVERVIEW_PANE);
+    private final Screen gameScreen = new Screen(STAT_GAME_PANE);
     //
     private StatPageState currentState = StatPageState.ALL_GAMES;
     private StatPageState previousState = StatPageState.ALL_GAMES;
@@ -114,8 +117,9 @@ public class StatMainPageController extends FXController implements PropertyChan
         });
         //
         statScreensManager = new StatScreensManager();
-        statScreensManager.addScreen(generalScreen);
+        statScreensManager.addScreen(teamScreen);
         statScreensManager.addScreen(overviewScreen);
+        statScreensManager.addScreen(gameScreen);
         mainPane.getChildren().add(statScreensManager);
         statScreensManager.setBackground(new Background(new BackgroundFill(Color.LIGHTGREY, CornerRadii.EMPTY, Insets.EMPTY)));
         statScreensManager.setPrefSize(640, 500);
@@ -216,11 +220,11 @@ public class StatMainPageController extends FXController implements PropertyChan
     }
 
     private void displayOneMatch(boolean fromAllMatchs) {
-        if (fromAllMatchs && selectedGame != null) {
-            statScreensManager.setScreen(STAT_GENERAL_PANE, gameProcessor.getGameStats(selectedGame));
-        } else {
-            generalScreen.loadParameters(gameProcessor.getGameStats(selectedGame));
-        }
+//        if (fromAllMatchs && selectedGame != null) {
+        statScreensManager.setScreen(STAT_GAME_PANE, gameProcessor.getGameStats(selectedGame));
+//        } else {
+//            teamScreen.loadParameters(gameProcessor.getGameStats(selectedGame));
+//        }
         gameTeamSelectorBox.setVisible(true);
         generalToggleB.setSelected(true);
         generalToggleB.setDisable(true);
@@ -234,6 +238,7 @@ public class StatMainPageController extends FXController implements PropertyChan
     }
 
     private void displayOneMatchHome() {
+        statScreensManager.setScreen(STAT_TEAM_PANE, gameProcessor.getGameStats(selectedGame), homeTeam);
         gameTeamSelectorBox.setVisible(true);
         generalToggleB.setDisable(false);
         generalToggleB.setSelected(false);
@@ -247,6 +252,8 @@ public class StatMainPageController extends FXController implements PropertyChan
     }
 
     private void displayOneMatchAway() {
+        GameStat stat = gameProcessor.getGameStats(selectedGame);
+        statScreensManager.setScreen(STAT_TEAM_PANE, stat, stat.getAwayTeam());
         gameTeamSelectorBox.setVisible(true);
         generalToggleB.setDisable(false);
         generalToggleB.setSelected(false);

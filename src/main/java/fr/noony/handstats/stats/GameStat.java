@@ -1,7 +1,18 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Copyright (C) 2015 Arnaud
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package fr.noony.handstats.stats;
 
@@ -12,6 +23,8 @@ import fr.noony.handstats.core.GameAction;
 import fr.noony.handstats.core.GoodShot;
 import fr.noony.handstats.core.ShotStop;
 import fr.noony.handstats.core.Team;
+import fr.noony.handstats.court.HalfCourtDrawing;
+import fr.noony.handstats.team.hmi.stats.TerrainAreas;
 import java.time.LocalDate;
 
 /**
@@ -31,11 +44,34 @@ public class GameStat {
     private int nbAwayMadeShots = 0;
     private int nbHomeDefStopShots = 0;
     private int nbAwayDefStopShots = 0;
+    private final int[] homeMadeShotsTerrain;
+    private final int[] homeMissedShotsTerrain;
+    private final int[] awayMadeShotsTerrain;
+    private final int[] awayMissedShotsTerrain;
 
     public GameStat(Game game) {
         myGame = game;
         homeTeam = myGame.getHomeTeam();
         homeTeamName = homeTeam.getName();
+        //
+        homeMadeShotsTerrain = new int[HalfCourtDrawing.NB_TERRAIN_AREAS];
+        homeMissedShotsTerrain = new int[HalfCourtDrawing.NB_TERRAIN_AREAS];
+        for (int i = 0; i < HalfCourtDrawing.NB_TERRAIN_AREAS; i++) {
+            homeMadeShotsTerrain[i] = 0;
+        }
+        for (int i = 0; i < HalfCourtDrawing.NB_TERRAIN_AREAS; i++) {
+            homeMissedShotsTerrain[i] = 0;
+        }
+        //
+        awayMadeShotsTerrain = new int[HalfCourtDrawing.NB_TERRAIN_AREAS];
+        awayMissedShotsTerrain = new int[HalfCourtDrawing.NB_TERRAIN_AREAS];
+        for (int i = 0; i < HalfCourtDrawing.NB_TERRAIN_AREAS; i++) {
+            awayMadeShotsTerrain[i] = 0;
+        }
+        for (int i = 0; i < HalfCourtDrawing.NB_TERRAIN_AREAS; i++) {
+            awayMissedShotsTerrain[i] = 0;
+        }
+        //
         initStats();
     }
 
@@ -108,24 +144,54 @@ public class GameStat {
     private void processShotStop(ShotStop shotStop) {
         if (shotStop.getShooterTeam().getName().equals(homeTeamName)) {
             nbAwayBlockedShots++;
+            for (TerrainAreas area : TerrainAreas.values()) {
+                if (shotStop.getShootingZone().contains(area.getName())) {
+                    homeMissedShotsTerrain[area.getId()] += 1;
+                }
+            }
         } else {
             nbHomeBlockedShots++;
+            for (TerrainAreas area : TerrainAreas.values()) {
+                if (shotStop.getShootingZone().contains(area.getName())) {
+                    awayMissedShotsTerrain[area.getId()] += 1;
+                }
+            }
         }
     }
 
     private void processGoodShot(GoodShot goodShot) {
         if (goodShot.getShooterTeam().getName().equals(homeTeamName)) {
             nbHomeMadeShots++;
+            for (TerrainAreas area : TerrainAreas.values()) {
+                if (goodShot.getShootingZone().contains(area.getName())) {
+                    homeMadeShotsTerrain[area.getId()] = homeMadeShotsTerrain[area.getId()] + 1;
+                }
+            }
         } else {
             nbAwayMadeShots++;
+            for (TerrainAreas area : TerrainAreas.values()) {
+                if (goodShot.getShootingZone().contains(area.getName())) {
+                    awayMadeShotsTerrain[area.getId()] += 1;
+                }
+            }
         }
     }
 
     private void processDefenseBlockedShot(DefenseBlockedShot defenseBlockedShot) {
         if (defenseBlockedShot.getShooterTeam().getName().equals(homeTeamName)) {
             nbAwayDefStopShots++;
+            for (TerrainAreas area : TerrainAreas.values()) {
+                if (defenseBlockedShot.getShootingZone().contains(area.getName())) {
+                    homeMissedShotsTerrain[area.getId()] += 1;
+                }
+            }
         } else {
             nbHomeDefStopShots++;
+            for (TerrainAreas area : TerrainAreas.values()) {
+                if (defenseBlockedShot.getShootingZone().contains(area.getName())) {
+                    awayMissedShotsTerrain[area.getId()] += 1;
+                }
+            }
         }
     }
 
@@ -150,6 +216,43 @@ public class GameStat {
 
     public boolean reportsGame(Game selectedGame) {
         return myGame.equals(selectedGame);
+    }
+
+    public double[] getHomeShotMadeByTerrainArea() {
+        //TODO calculate it only once
+        double[] result = new double[HalfCourtDrawing.NB_TERRAIN_AREAS];
+        for (int i = 0; i < HalfCourtDrawing.NB_TERRAIN_AREAS; i++) {
+            double tmp = ((double) homeMadeShotsTerrain[i]) / (nbHomeMadeShots + nbAwayDefStopShots + nbAwayBlockedShots);
+            result[i] = tmp;
+        }
+        return result;
+    }
+
+    public double[] getHomeShotMissedByTerrainArea() {
+        //TODO calculate it only once
+        double[] result = new double[HalfCourtDrawing.NB_TERRAIN_AREAS];
+        for (int i = 0; i < HalfCourtDrawing.NB_TERRAIN_AREAS; i++) {
+            result[i] = ((double) homeMissedShotsTerrain[i]) / (nbHomeMadeShots + nbAwayDefStopShots + nbAwayBlockedShots);
+        }
+        return result;
+    }
+
+    public double[] getAwayShotMadeByTerrainArea() {
+        //TODO calculate it only once
+        double[] result = new double[HalfCourtDrawing.NB_TERRAIN_AREAS];
+        for (int i = 0; i < HalfCourtDrawing.NB_TERRAIN_AREAS; i++) {
+            result[i] = ((double) awayMadeShotsTerrain[i]) / (nbAwayMadeShots + nbHomeBlockedShots + nbHomeDefStopShots);
+        }
+        return result;
+    }
+
+    public double[] getAwayShotMissedByTerrainArea() {
+        //TODO calculate it only once
+        double[] result = new double[HalfCourtDrawing.NB_TERRAIN_AREAS];
+        for (int i = 0; i < HalfCourtDrawing.NB_TERRAIN_AREAS; i++) {
+            result[i] = ((double) awayMissedShotsTerrain[i]) / (nbAwayMadeShots + nbHomeBlockedShots + nbHomeDefStopShots);
+        }
+        return result;
     }
 
 }
