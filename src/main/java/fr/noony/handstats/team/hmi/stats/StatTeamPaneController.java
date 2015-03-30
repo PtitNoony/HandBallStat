@@ -133,13 +133,13 @@ public class StatTeamPaneController extends FXController implements PropertyChan
         if (isHomeTeam) {
             madeShotsLabel.setText("" + gameStat.getHomeAccuracy());
             stoppedShotsLabel.setText("" + gameStat.getHomeShotBlockedPercentage());
-            courtDrawing.setShotMadePercentages(gameStat.getHomeShotMadeByTerrainArea());
-            courtDrawing.setShotMissedPercentages(gameStat.getHomeShotMissedByTerrainArea());
+            courtDrawing.setShotMade(gameStat.getHomeShotMadeByTerrainArea());
+            courtDrawing.setShotMissed(gameStat.getHomeShotMissedByTerrainArea());
         } else {
             madeShotsLabel.setText("" + gameStat.getAwayAccuracy());
             stoppedShotsLabel.setText("" + gameStat.getAwayShotBlockedPercentage());
-            courtDrawing.setShotMadePercentages(gameStat.getAwayShotMadeByTerrainArea());
-            courtDrawing.setShotMissedPercentages(gameStat.getAwayShotMissedByTerrainArea());
+            courtDrawing.setShotMade(gameStat.getAwayShotMadeByTerrainAreaRatio());
+            courtDrawing.setShotMissed(gameStat.getAwayShotMissedByTerrainAreaRatio());
         }
         //TODO make it clean
         handleMadeTerrainShotRBAction(new ActionEvent(this, null));

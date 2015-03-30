@@ -221,11 +221,11 @@ public class StatCourtDrawing extends HalfCourtDrawing {
         addNode(far3.getNode());
     }
 
-    public void setShotMadePercentages(double[] shotMadeByTerrainArea) {
+    public void setShotMade(double[] shotMadeByTerrainArea) {
         madeShots = shotMadeByTerrainArea.clone();
     }
 
-    public void setShotMissedPercentages(double[] shotMissedByTerrainArea) {
+    public void setShotMissed(double[] shotMissedByTerrainArea) {
         missedShots = shotMissedByTerrainArea.clone();
     }
 
@@ -248,15 +248,23 @@ public class StatCourtDrawing extends HalfCourtDrawing {
     }
 
     private void fillZones(double[] values, Color color) {
-        zone.setFillColor(Color.hsb(color.getHue(), DEFAULT_SATURATION + DEFAULT_COMPLEMENTARY_SATURATION * values[0], DEFAULT_BRIGHTNESS + DEFAULT_COMPLEMENTARY_BRIGHTNESS * values[0]));
-        close1.setFillColor(Color.hsb(color.getHue(), DEFAULT_SATURATION + DEFAULT_COMPLEMENTARY_SATURATION * values[0], DEFAULT_BRIGHTNESS + DEFAULT_COMPLEMENTARY_BRIGHTNESS * values[1]));
-        close2.setFillColor(Color.hsb(color.getHue(), DEFAULT_SATURATION + DEFAULT_COMPLEMENTARY_SATURATION * values[0], DEFAULT_BRIGHTNESS + DEFAULT_COMPLEMENTARY_BRIGHTNESS * values[2]));
-        close3.setFillColor(Color.hsb(color.getHue(), DEFAULT_SATURATION + DEFAULT_COMPLEMENTARY_SATURATION * values[0], DEFAULT_BRIGHTNESS + DEFAULT_COMPLEMENTARY_BRIGHTNESS * values[3]));
-        close4.setFillColor(Color.hsb(color.getHue(), DEFAULT_SATURATION + DEFAULT_COMPLEMENTARY_SATURATION * values[0], DEFAULT_BRIGHTNESS + DEFAULT_COMPLEMENTARY_BRIGHTNESS * values[4]));;
-        close5.setFillColor(Color.hsb(color.getHue(), DEFAULT_SATURATION + DEFAULT_COMPLEMENTARY_SATURATION * values[0], DEFAULT_BRIGHTNESS + DEFAULT_COMPLEMENTARY_BRIGHTNESS * values[5]));
-        far1.setFillColor(Color.hsb(color.getHue(), DEFAULT_SATURATION + DEFAULT_COMPLEMENTARY_SATURATION * values[0], DEFAULT_BRIGHTNESS + DEFAULT_COMPLEMENTARY_BRIGHTNESS * values[6]));
-        far2.setFillColor(Color.hsb(color.getHue(), DEFAULT_SATURATION + DEFAULT_COMPLEMENTARY_SATURATION * values[0], DEFAULT_BRIGHTNESS + DEFAULT_COMPLEMENTARY_BRIGHTNESS * values[7]));
-        far3.setFillColor(Color.hsb(color.getHue(), DEFAULT_SATURATION + DEFAULT_COMPLEMENTARY_SATURATION * values[0], DEFAULT_BRIGHTNESS + DEFAULT_COMPLEMENTARY_BRIGHTNESS * values[8]));
+        zone.setFillColor(getColorForValue(color, values[0]));
+        close1.setFillColor(getColorForValue(color, values[1]));
+        close2.setFillColor(getColorForValue(color, values[2]));
+        close3.setFillColor(getColorForValue(color, values[3]));
+        close4.setFillColor(getColorForValue(color, values[4]));
+        close5.setFillColor(getColorForValue(color, values[5]));
+        far1.setFillColor(getColorForValue(color, values[6]));
+        far2.setFillColor(getColorForValue(color, values[7]));
+        far3.setFillColor(getColorForValue(color, values[8]));
+    }
+
+    private Color getColorForValue(Color baseColor, double value) {
+//        Color.hsb(color.getHue(), DEFAULT_SATURATION + DEFAULT_COMPLEMENTARY_SATURATION * values[0], DEFAULT_BRIGHTNESS + DEFAULT_COMPLEMENTARY_BRIGHTNESS * values[0])
+        double redLevel = baseColor.getRed() + (1 - baseColor.getRed()) * (1.0 - value);
+        double greenLevel = baseColor.getGreen() + (1 - baseColor.getGreen()) * (1.0 - value);
+        double blueLevel = baseColor.getBlue() + (1 - baseColor.getBlue()) * (1.0 - value);
+        return new Color(Math.min(1.0, redLevel), Math.min(1.0, greenLevel), Math.min(1.0, blueLevel), 1.0);
     }
 
 }

@@ -222,7 +222,8 @@ public class GameStat {
         //TODO calculate it only once
         double[] result = new double[HalfCourtDrawing.NB_TERRAIN_AREAS];
         for (int i = 0; i < HalfCourtDrawing.NB_TERRAIN_AREAS; i++) {
-            double tmp = ((double) homeMadeShotsTerrain[i]) / (nbHomeMadeShots + nbAwayDefStopShots + nbAwayBlockedShots);
+            double tmp = ((double) homeMadeShotsTerrain[i]) / (nbHomeMadeShots);
+            //+ nbAwayDefStopShots + nbAwayBlockedShots
             result[i] = tmp;
         }
         return result;
@@ -232,25 +233,28 @@ public class GameStat {
         //TODO calculate it only once
         double[] result = new double[HalfCourtDrawing.NB_TERRAIN_AREAS];
         for (int i = 0; i < HalfCourtDrawing.NB_TERRAIN_AREAS; i++) {
-            result[i] = ((double) homeMissedShotsTerrain[i]) / (nbHomeMadeShots + nbAwayDefStopShots + nbAwayBlockedShots);
+            result[i] = ((double) homeMissedShotsTerrain[i]) / (nbHomeMadeShots);
+            //+ nbAwayDefStopShots + nbAwayBlockedShots
         }
         return result;
     }
 
-    public double[] getAwayShotMadeByTerrainArea() {
+    public double[] getAwayShotMadeByTerrainAreaRatio() {
         //TODO calculate it only once
         double[] result = new double[HalfCourtDrawing.NB_TERRAIN_AREAS];
         for (int i = 0; i < HalfCourtDrawing.NB_TERRAIN_AREAS; i++) {
-            result[i] = ((double) awayMadeShotsTerrain[i]) / (nbAwayMadeShots + nbHomeBlockedShots + nbHomeDefStopShots);
+            result[i] = ((double) awayMadeShotsTerrain[i]) / (nbAwayMadeShots);
+            //+ nbHomeBlockedShots + nbHomeDefStopShots
         }
         return result;
     }
 
-    public double[] getAwayShotMissedByTerrainArea() {
+    public double[] getAwayShotMissedByTerrainAreaRatio() {
         //TODO calculate it only once
         double[] result = new double[HalfCourtDrawing.NB_TERRAIN_AREAS];
         for (int i = 0; i < HalfCourtDrawing.NB_TERRAIN_AREAS; i++) {
-            result[i] = ((double) awayMissedShotsTerrain[i]) / (nbAwayMadeShots + nbHomeBlockedShots + nbHomeDefStopShots);
+            result[i] = ((double) awayMissedShotsTerrain[i]) / (nbAwayMadeShots);
+            //+ nbHomeBlockedShots + nbHomeDefStopShots
         }
         return result;
     }
