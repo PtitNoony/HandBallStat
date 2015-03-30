@@ -218,7 +218,8 @@ public class GameStat {
         return myGame.equals(selectedGame);
     }
 
-    public double[] getHomeShotMadeByTerrainArea() {
+    //NB
+    public double[] getHomeNbShotMadeByTerrainAreaRatio() {
         //TODO calculate it only once
         double[] result = new double[HalfCourtDrawing.NB_TERRAIN_AREAS];
         for (int i = 0; i < HalfCourtDrawing.NB_TERRAIN_AREAS; i++) {
@@ -229,7 +230,7 @@ public class GameStat {
         return result;
     }
 
-    public double[] getHomeShotMissedByTerrainArea() {
+    public double[] getHomeNbShotMissedByTerrainAreaRatio() {
         //TODO calculate it only once
         double[] result = new double[HalfCourtDrawing.NB_TERRAIN_AREAS];
         for (int i = 0; i < HalfCourtDrawing.NB_TERRAIN_AREAS; i++) {
@@ -239,7 +240,7 @@ public class GameStat {
         return result;
     }
 
-    public double[] getAwayShotMadeByTerrainAreaRatio() {
+    public double[] getAwayNbShotMadeByTerrainAreaRatio() {
         //TODO calculate it only once
         double[] result = new double[HalfCourtDrawing.NB_TERRAIN_AREAS];
         for (int i = 0; i < HalfCourtDrawing.NB_TERRAIN_AREAS; i++) {
@@ -249,12 +250,66 @@ public class GameStat {
         return result;
     }
 
-    public double[] getAwayShotMissedByTerrainAreaRatio() {
+    public double[] getAwayNbShotMissedByTerrainAreaRatio() {
         //TODO calculate it only once
         double[] result = new double[HalfCourtDrawing.NB_TERRAIN_AREAS];
         for (int i = 0; i < HalfCourtDrawing.NB_TERRAIN_AREAS; i++) {
             result[i] = ((double) awayMissedShotsTerrain[i]) / (nbAwayMadeShots);
             //+ nbHomeBlockedShots + nbHomeDefStopShots
+        }
+        return result;
+    }
+
+    //%
+    public double[] getHomePercShotMadeByTerrainArea() {
+        //TODO calculate it only once
+        double[] result = new double[HalfCourtDrawing.NB_TERRAIN_AREAS];
+        for (int i = 0; i < HalfCourtDrawing.NB_TERRAIN_AREAS; i++) {
+            if (homeMadeShotsTerrain[i] + homeMissedShotsTerrain[i] == 0) {
+                result[i] = -1;
+            } else {
+                result[i] = ((double) homeMadeShotsTerrain[i]) / ((double) homeMadeShotsTerrain[i] + homeMissedShotsTerrain[i]);
+            }
+
+        }
+        return result;
+    }
+
+    public double[] getHomePercShotMissedByTerrainArea() {
+        //TODO calculate it only once
+        double[] result = new double[HalfCourtDrawing.NB_TERRAIN_AREAS];
+        for (int i = 0; i < HalfCourtDrawing.NB_TERRAIN_AREAS; i++) {
+            if (homeMadeShotsTerrain[i] + homeMissedShotsTerrain[i] == 0) {
+                result[i] = -1;
+            } else {
+                result[i] = ((double) homeMissedShotsTerrain[i]) / ((double) homeMadeShotsTerrain[i] + homeMissedShotsTerrain[i]);
+            }
+        }
+        return result;
+    }
+
+    public double[] getAwayPercShotMadeByTerrainArea() {
+        //TODO calculate it only once
+        double[] result = new double[HalfCourtDrawing.NB_TERRAIN_AREAS];
+        for (int i = 0; i < HalfCourtDrawing.NB_TERRAIN_AREAS; i++) {
+            if (awayMadeShotsTerrain[i] + awayMissedShotsTerrain[i] == 0) {
+                result[i] = -1;
+            } else {
+                result[i] = ((double) awayMadeShotsTerrain[i]) / ((double) awayMadeShotsTerrain[i] + awayMissedShotsTerrain[i]);
+            }
+        }
+        return result;
+    }
+
+    public double[] getAwayPercShotMissedByTerrainArea() {
+        //TODO calculate it only once
+        double[] result = new double[HalfCourtDrawing.NB_TERRAIN_AREAS];
+        for (int i = 0; i < HalfCourtDrawing.NB_TERRAIN_AREAS; i++) {
+            if (awayMadeShotsTerrain[i] + awayMissedShotsTerrain[i] == 0) {
+                result[i] = -1;
+            } else {
+                result[i] = ((double) awayMissedShotsTerrain[i]) / ((double) awayMadeShotsTerrain[i] + awayMissedShotsTerrain[i]);
+            }
         }
         return result;
     }

@@ -30,9 +30,11 @@ import static fr.noony.handstats.court.DrawingUtilities.LINE_RATIO;
 import static fr.noony.handstats.court.GoalCageDrawing.GOAL_WIDTH;
 import fr.noony.handstats.court.HalfCourtDrawing;
 import fr.noony.handstats.court.InteractiveShootingArea;
+import static fr.noony.handstats.team.hmi.stats.ColorFactory.getColorForValue;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Arc;
 import javafx.scene.shape.ArcType;
+import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
 
@@ -61,9 +63,12 @@ public class StatCourtDrawing extends HalfCourtDrawing {
     private InteractiveShootingArea far1;
     private InteractiveShootingArea far2;
     private InteractiveShootingArea far3;
+    private InteractiveShootingArea penalty;
     //
-    double[] madeShots = null;
-    double[] missedShots = null;
+    double[] madeNbShots = null;
+    double[] missedNbShots = null;
+    double[] madePercShots = null;
+    double[] missedPercShots = null;
 
     public StatCourtDrawing() {
         initDrawing();
@@ -74,6 +79,7 @@ public class StatCourtDrawing extends HalfCourtDrawing {
         create9MZone();
         createInteractiveZones();
         createZone();
+        createPenalty();
     }
 
     private void createBackground() {
@@ -89,6 +95,13 @@ public class StatCourtDrawing extends HalfCourtDrawing {
         zone = new InteractiveShootingArea(CourtArea.RIGHT_ZONE, zoneShape, Color.GOLD, false, TerrainAreas.ZONE_AREA.getName());
         addInteractiveArea(zone);
         addNode(zone.getNode());
+    }
+
+    private void createPenalty() {
+        Circle circle = new Circle((TERRAIN_LENGHT / 2.0 - 1.5 * GOAL_WIDTH) * COURT_RATIO, TERRAIN_WIDTH * COURT_RATIO / 2.0, COURT_RATIO * GOAL_WIDTH * 0.75);
+        penalty = new InteractiveShootingArea(CourtArea.RIGHT_ZONE, circle, Color.GOLD, false, TerrainAreas.PENALTY_AREA.getName());
+        addInteractiveArea(penalty);
+        addNode(penalty.getNode());
     }
 
     private void create9MZone() {
@@ -221,12 +234,20 @@ public class StatCourtDrawing extends HalfCourtDrawing {
         addNode(far3.getNode());
     }
 
-    public void setShotMade(double[] shotMadeByTerrainArea) {
-        madeShots = shotMadeByTerrainArea.clone();
+    public void setNbShotMade(double[] nbShotMadeByTerrainArea) {
+        madeNbShots = nbShotMadeByTerrainArea.clone();
     }
 
-    public void setShotMissed(double[] shotMissedByTerrainArea) {
-        missedShots = shotMissedByTerrainArea.clone();
+    public void setNbShotMissed(double[] nbShotMissedByTerrainArea) {
+        missedNbShots = nbShotMissedByTerrainArea.clone();
+    }
+
+    public void setPercShotMade(double[] percShotMadeByTerrainArea) {
+        madePercShots = percShotMadeByTerrainArea.clone();
+    }
+
+    public void setPercShotMissed(double[] percShotMissedByTerrainArea) {
+        missedPercShots = percShotMissedByTerrainArea.clone();
     }
 
     public void displayAsNeutal() {
@@ -235,15 +256,27 @@ public class StatCourtDrawing extends HalfCourtDrawing {
                 -> interactiveShootingArea.setFillColor(Color.LIGHTGREY));
     }
 
-    public void displayMadeShots() {
-        if (madeShots != null) {
-            fillZones(madeShots, SUCCESS_COLOR);
+    public void displayMadeNbShots() {
+        if (madeNbShots != null) {
+            fillZones(madeNbShots, SUCCESS_COLOR);
         }
     }
 
-    public void displayMissedShots() {
-        if (missedShots != null) {
-            fillZones(missedShots, FAIL_COLOR);
+    public void displayMissedNbShots() {
+        if (missedNbShots != null) {
+            fillZones(missedNbShots, FAIL_COLOR);
+        }
+    }
+
+    public void displayMadePercShots() {
+        if (madePercShots != null) {
+            fillZones(madePercShots, SUCCESS_COLOR);
+        }
+    }
+
+    public void displayMissedPercShots() {
+        if (missedPercShots != null) {
+            fillZones(missedPercShots, FAIL_COLOR);
         }
     }
 
@@ -257,14 +290,7 @@ public class StatCourtDrawing extends HalfCourtDrawing {
         far1.setFillColor(getColorForValue(color, values[6]));
         far2.setFillColor(getColorForValue(color, values[7]));
         far3.setFillColor(getColorForValue(color, values[8]));
-    }
-
-    private Color getColorForValue(Color baseColor, double value) {
-//        Color.hsb(color.getHue(), DEFAULT_SATURATION + DEFAULT_COMPLEMENTARY_SATURATION * values[0], DEFAULT_BRIGHTNESS + DEFAULT_COMPLEMENTARY_BRIGHTNESS * values[0])
-        double redLevel = baseColor.getRed() + (1 - baseColor.getRed()) * (1.0 - value);
-        double greenLevel = baseColor.getGreen() + (1 - baseColor.getGreen()) * (1.0 - value);
-        double blueLevel = baseColor.getBlue() + (1 - baseColor.getBlue()) * (1.0 - value);
-        return new Color(Math.min(1.0, redLevel), Math.min(1.0, greenLevel), Math.min(1.0, blueLevel), 1.0);
+        penalty.setFillColor(getColorForValue(color, values[9]));
     }
 
 }

@@ -99,24 +99,39 @@
                <content>
                   <Pane prefHeight="200.0" prefWidth="200.0">
                      <children>
-                        <RadioButton fx:id="madeFromTerrainRB" layoutX="14.0" layoutY="41.0" mnemonicParsing="false" selected="true" text="Réussis">
+                        <RadioButton fx:id="madeFromTerrainNbRB" layoutX="14.0" layoutY="62.0" mnemonicParsing="false" selected="true" text="Nb Réussis">
                            <font>
                               <Font size="24.0" />
                            </font>
                         </RadioButton>
-                        <RadioButton fx:id="missedFromTerrainRB" layoutX="14.0" layoutY="76.0" mnemonicParsing="false" text="Ratés">
+                        <RadioButton fx:id="missedFromTerrainNbRB" layoutX="15.0" layoutY="187.0" mnemonicParsing="false" text="Nb Ratés">
                            <font>
                               <Font size="24.0" />
                            </font>
                         </RadioButton>
                         <Pane fx:id="terrainPane" layoutX="224.0" layoutY="12.0" prefHeight="400.0" prefWidth="400.0" />
-                        <Separator layoutX="13.0" layoutY="117.0" prefWidth="200.0" />
-                        <Label layoutX="64.0" layoutY="6.0" text="TIRS">
+                        <Label disable="true" layoutX="22.0" layoutY="377.0" text="\%  =">
                            <font>
                               <Font size="24.0" />
                            </font>
                         </Label>
-                        <Label layoutX="14.0" layoutY="167.0" text="\% =">
+                        <Label disable="true" layoutX="17.0" layoutY="305.0" text="Zone sélectionnée">
+                           <font>
+                              <Font size="24.0" />
+                           </font>
+                        </Label>
+                        <Separator layoutX="7.0" layoutY="289.0" prefWidth="200.0" />
+                        <RadioButton fx:id="madeFromTerrainPercRB" layoutX="15.0" layoutY="97.0" mnemonicParsing="false" text="\% Réussis">
+                           <font>
+                              <Font size="24.0" />
+                           </font>
+                        </RadioButton>
+                        <RadioButton fx:id="missedFromTerrainPercRB" layoutX="14.0" layoutY="222.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="144.0" text="\% Ratés">
+                           <font>
+                              <Font size="24.0" />
+                           </font>
+                        </RadioButton>
+                        <Label disable="true" layoutX="19.0" layoutY="342.0" text="Nb =">
                            <font>
                               <Font size="24.0" />
                            </font>
