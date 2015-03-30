@@ -44,6 +44,7 @@ public class Main extends Application {
     public static final String TEAM_SELECTION_PAGE = "TeamSelectionPanel";
     public static final String MATCH_SCOREBOARD_PAGE = "MatchScoreBoard";
     public static final String MATCH_CONFIGURATOR_PAGE = "MatchConfigurator";
+    public static final String STATS_PAGE = "StatMainPage";
 
     private Scene myScene;
     private Stage myStage;
@@ -57,6 +58,7 @@ public class Main extends Application {
     private Screen teamSelectionPage;
     private Screen matchScoreboardPage;
     private Screen matchConfiguratorPage;
+    private Screen statsPage;
 
     private double sceneWidth = DEFAULT_RESOLUTION.width;
     private double sceneHeight = DEFAULT_RESOLUTION.height;
@@ -119,6 +121,7 @@ public class Main extends Application {
         teamSelectionPage = new Screen(TEAM_SELECTION_PAGE);
         matchScoreboardPage = new Screen(MATCH_SCOREBOARD_PAGE);
         matchConfiguratorPage = new Screen(MATCH_CONFIGURATOR_PAGE);
+        statsPage = new Screen(STATS_PAGE);
         //
         screensController.addScreen(welcomePage);
         screensController.addScreen(teamCreationPage);
@@ -128,6 +131,7 @@ public class Main extends Application {
         screensController.addScreen(teamSelectionPage);
         screensController.addScreen(matchScoreboardPage);
         screensController.addScreen(matchConfiguratorPage);
+        screensController.addScreen(statsPage);
     }
 
     private void updatePagesSize() {

@@ -77,6 +77,11 @@ public class MainScreensController extends AbstractScreensController {
             case Events.START_GAME:
                 setScreen(Main.MATCH_SCOREBOARD_PAGE, (Game) evt.getNewValue());
                 break;
+            case Events.DISPLAY_STATS_FROM_MAIN:
+                setScreen(Main.STATS_PAGE, currentTeam);
+                break;
+            default:
+                throw new UnsupportedOperationException("unhandled property change event :" + evt.getPropertyName());
         }
     }
 

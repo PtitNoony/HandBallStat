@@ -5,67 +5,73 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<TabPane prefHeight="700.0" prefWidth="900.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.noony.handstats.team.hmi.TeamEditorController">
-   <tabs>
-      <Tab text="Gestion de l'équipe">
-         <content>
-            <Pane prefHeight="600.0" prefWidth="800.0">
-               <children>
-                  <Label alignment="CENTER" contentDisplay="CENTER" layoutX="14.0" layoutY="14.0" prefHeight="93.0" prefWidth="210.0" text="Equipe :" textAlignment="CENTER" underline="true">
-                     <font>
-                        <Font size="48.0" />
-                     </font>
-                  </Label>
-                  <ListView fx:id="reposListe" layoutX="14.0" layoutY="268.0" prefHeight="257.0" prefWidth="400.0" />
-                  <Label layoutX="35.0" layoutY="198.0" text="Joueurs au repos">
-                     <font>
-                        <Font size="48.0" />
-                     </font>
-                  </Label>
-                  <Button fx:id="toActiveButton" layoutX="425.0" layoutY="336.0" mnemonicParsing="false" onAction="#toActiveAction" prefHeight="50.0" prefWidth="50.0" text="-&gt;" />
-                  <Button fx:id="toRestingButton" layoutX="425.0" layoutY="420.0" mnemonicParsing="false" onAction="#toRestingAction" prefHeight="50.0" prefWidth="50.0" text="&lt;-" />
-                  <ListView fx:id="activeList" layoutX="482.0" layoutY="268.0" prefHeight="257.0" prefWidth="400.0" />
-                  <Label layoutX="540.0" layoutY="198.0" text="Joueurs actifs">
-                     <font>
-                        <Font size="48.0" />
-                     </font>
-                  </Label>
-                  <Button fx:id="newPlayerB" layoutX="296.0" layoutY="117.0" mnemonicParsing="false" onAction="#newPlayerAction" prefHeight="50.0" text="Nouveau Joueur">
-                     <font>
-                        <Font size="36.0" />
-                     </font>
-                  </Button>
-                  <Button fx:id="editPlayerB" layoutX="344.0" layoutY="551.0" mnemonicParsing="false" prefHeight="77.0" prefWidth="212.0" text="Editer">
-                     <font>
-                        <Font size="36.0" />
-                     </font>
-                  </Button>
-                  <Label fx:id="teamLabel" layoutX="214.0" layoutY="26.0" prefHeight="70.0" prefWidth="520.0">
-                     <font>
-                        <Font name="System Bold" size="36.0" />
-                     </font>
-                  </Label>
-                  <Button layoutX="739.0" layoutY="22.0" mnemonicParsing="false" onAction="#backAction" prefHeight="77.0" prefWidth="157.0" text="Retour">
-                     <font>
-                        <Font size="36.0" />
-                     </font>
-                  </Button>
-               </children>
-            </Pane>
-         </content>
-      </Tab>
-      <Tab text="Caractéristiques de l'équipe">
-         <content>
-            <Pane prefHeight="200.0" prefWidth="200.0">
-               <children>
-                  <Label layoutX="21.0" layoutY="51.0" text="Couleur du maillot :">
-                     <font>
-                        <Font size="24.0" />
-                     </font>
-                  </Label>
-                  <ColorPicker fx:id="colorPicker" layoutX="268.0" layoutY="51.0" prefHeight="35.0" prefWidth="174.0" />
-               </children>
-            </Pane>
-         </content></Tab>
-   </tabs>
-</TabPane>
+
+<Pane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.noony.handstats.team.hmi.TeamEditorController">
+   <children>
+      <TabPane layoutY="96.0" prefHeight="604.0" prefWidth="900.0" tabClosingPolicy="UNAVAILABLE">
+         <tabs>
+            <Tab text="Gestion de l'équipe">
+               <content>
+                  <Pane prefHeight="600.0" prefWidth="800.0">
+                     <children>
+                        <ListView fx:id="reposListe" layoutX="14.0" layoutY="188.0" prefHeight="257.0" prefWidth="400.0" />
+                        <Label layoutX="35.0" layoutY="110.0" text="Joueurs au repos">
+                           <font>
+                              <Font size="48.0" />
+                           </font>
+                        </Label>
+                        <Button fx:id="toActiveButton" layoutX="425.0" layoutY="229.0" mnemonicParsing="false" onAction="#toActiveAction" prefHeight="50.0" prefWidth="50.0" text="-&gt;" />
+                        <Button fx:id="toRestingButton" layoutX="425.0" layoutY="355.0" mnemonicParsing="false" onAction="#toRestingAction" prefHeight="50.0" prefWidth="50.0" text="&lt;-" />
+                        <ListView fx:id="activeList" layoutX="482.0" layoutY="188.0" prefHeight="257.0" prefWidth="400.0" />
+                        <Label layoutX="540.0" layoutY="110.0" text="Joueurs actifs">
+                           <font>
+                              <Font size="48.0" />
+                           </font>
+                        </Label>
+                        <Button fx:id="newPlayerB" layoutX="296.0" layoutY="20.0" mnemonicParsing="false" onAction="#newPlayerAction" prefHeight="50.0" text="Nouveau Joueur">
+                           <font>
+                              <Font size="36.0" />
+                           </font>
+                        </Button>
+                        <Button fx:id="editPlayerB" layoutX="344.0" layoutY="469.0" mnemonicParsing="false" prefHeight="77.0" prefWidth="212.0" text="Editer">
+                           <font>
+                              <Font size="36.0" />
+                           </font>
+                        </Button>
+                     </children>
+                  </Pane>
+               </content>
+            </Tab>
+            <Tab text="Caractéristiques de l'équipe">
+               <content>
+                  <Pane prefHeight="200.0" prefWidth="200.0">
+                     <children>
+                        <Label layoutX="21.0" layoutY="51.0" text="Couleur du maillot :">
+                           <font>
+                              <Font size="24.0" />
+                           </font>
+                        </Label>
+                        <ColorPicker fx:id="colorPicker" layoutX="268.0" layoutY="34.0" prefHeight="70.0" prefWidth="174.0" />
+                     </children>
+                  </Pane>
+               </content>
+            </Tab>
+         </tabs>
+      </TabPane>
+      <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="93.0" prefWidth="210.0" text="Equipe :" textAlignment="CENTER" underline="true">
+         <font>
+            <Font size="48.0" />
+         </font>
+      </Label>
+      <Label fx:id="teamLabel" layoutX="199.0" layoutY="20.0" prefHeight="70.0" prefWidth="520.0">
+         <font>
+            <Font name="System Bold" size="36.0" />
+         </font>
+      </Label>
+      <Button layoutX="729.0" layoutY="16.0" mnemonicParsing="false" onAction="#backAction" prefHeight="77.0" prefWidth="157.0" text="Retour">
+         <font>
+            <Font size="36.0" />
+         </font>
+      </Button>
+   </children>
+</Pane>

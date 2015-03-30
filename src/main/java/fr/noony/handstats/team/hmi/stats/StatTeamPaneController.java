@@ -62,9 +62,13 @@ public class StatTeamPaneController extends FXController implements PropertyChan
     @FXML
     public Pane terrainPane;
     @FXML
-    public RadioButton madeFromTerrainRB;
+    public RadioButton madeFromTerrainNbRB;
     @FXML
-    public RadioButton missedFromTerrainRB;
+    public RadioButton missedFromTerrainNbRB;
+    @FXML
+    public RadioButton madeFromTerrainPercRB;
+    @FXML
+    public RadioButton missedFromTerrainPercRB;
 
     //
     private GameStat gameStat;
@@ -89,10 +93,13 @@ public class StatTeamPaneController extends FXController implements PropertyChan
         courtDrawing.getInteractiveAreas().stream().forEach(area
                 -> area.getLookup().lookup(PropertyChangeSupport.class).addPropertyChangeListener(event -> handleTerrainZoneClicked(event)));
         terrainPane.getChildren().add(courtDrawing.getNode());
-        madeFromTerrainRB.setSelected(true);
-        madeFromTerrainRB.setDisable(true);
-        madeFromTerrainRB.setOnAction(event -> handleMadeTerrainShotRBAction(event));
-        missedFromTerrainRB.setOnAction(event -> handleMissedTerrainShotRBAction(event));
+        //
+        madeFromTerrainNbRB.setSelected(true);
+        madeFromTerrainNbRB.setDisable(true);
+        madeFromTerrainNbRB.setOnAction(event -> handleMadeNbTerrainShotRBAction(event));
+        missedFromTerrainNbRB.setOnAction(event -> handleMissedNbTerrainShotRBAction(event));
+        madeFromTerrainPercRB.setOnAction(event -> handleMadePercTerrainShotRBAction(event));
+        missedFromTerrainPercRB.setOnAction(event -> handleMissedPercTerrainShotRBAction(event));
         //
         courtDrawing.displayAsNeutal();
     }
@@ -133,16 +140,19 @@ public class StatTeamPaneController extends FXController implements PropertyChan
         if (isHomeTeam) {
             madeShotsLabel.setText("" + gameStat.getHomeAccuracy());
             stoppedShotsLabel.setText("" + gameStat.getHomeShotBlockedPercentage());
-            courtDrawing.setShotMade(gameStat.getHomeShotMadeByTerrainArea());
-            courtDrawing.setShotMissed(gameStat.getHomeShotMissedByTerrainArea());
+            courtDrawing.setNbShotMade(gameStat.getHomeNbShotMadeByTerrainAreaRatio());
+            courtDrawing.setNbShotMissed(gameStat.getHomeNbShotMissedByTerrainAreaRatio());
+            courtDrawing.setPercShotMade(gameStat.getHomePercShotMadeByTerrainArea());
+            courtDrawing.setPercShotMissed(gameStat.getHomePercShotMissedByTerrainArea());
         } else {
             madeShotsLabel.setText("" + gameStat.getAwayAccuracy());
             stoppedShotsLabel.setText("" + gameStat.getAwayShotBlockedPercentage());
-            courtDrawing.setShotMade(gameStat.getAwayShotMadeByTerrainAreaRatio());
-            courtDrawing.setShotMissed(gameStat.getAwayShotMissedByTerrainAreaRatio());
+            courtDrawing.setNbShotMade(gameStat.getAwayNbShotMadeByTerrainAreaRatio());
+            courtDrawing.setNbShotMissed(gameStat.getAwayNbShotMissedByTerrainAreaRatio());
+            courtDrawing.setPercShotMade(gameStat.getAwayPercShotMadeByTerrainArea());
+            courtDrawing.setPercShotMissed(gameStat.getAwayPercShotMissedByTerrainArea());
         }
-        //TODO make it clean
-        handleMadeTerrainShotRBAction(new ActionEvent(this, null));
+        handleMadeNbTerrainShotRBAction(new ActionEvent(this, null));
     }
 
     @Override
@@ -170,22 +180,56 @@ public class StatTeamPaneController extends FXController implements PropertyChan
         updateTerrainStats();
     }
 
-    private void handleMadeTerrainShotRBAction(ActionEvent event) {
+    private void handleMadeNbTerrainShotRBAction(ActionEvent event) {
         //TODO: log event
-        madeFromTerrainRB.setSelected(true);
-        madeFromTerrainRB.setDisable(true);
-        missedFromTerrainRB.setSelected(false);
-        missedFromTerrainRB.setDisable(false);
-        courtDrawing.displayMadeShots();
+        madeFromTerrainNbRB.setSelected(true);
+        madeFromTerrainNbRB.setDisable(true);
+        missedFromTerrainNbRB.setSelected(false);
+        missedFromTerrainNbRB.setDisable(false);
+        madeFromTerrainPercRB.setSelected(false);
+        madeFromTerrainPercRB.setDisable(false);
+        missedFromTerrainPercRB.setSelected(false);
+        missedFromTerrainPercRB.setDisable(false);
+        courtDrawing.displayMadeNbShots();
     }
 
-    private void handleMissedTerrainShotRBAction(ActionEvent event) {
+    private void handleMadePercTerrainShotRBAction(ActionEvent event) {
         //TODO: log event
-        madeFromTerrainRB.setSelected(false);
-        madeFromTerrainRB.setDisable(false);
-        missedFromTerrainRB.setSelected(true);
-        missedFromTerrainRB.setDisable(true);
-        courtDrawing.displayMissedShots();
+        madeFromTerrainNbRB.setSelected(false);
+        madeFromTerrainNbRB.setDisable(false);
+        missedFromTerrainNbRB.setSelected(false);
+        missedFromTerrainNbRB.setDisable(false);
+        madeFromTerrainPercRB.setSelected(true);
+        madeFromTerrainPercRB.setDisable(true);
+        missedFromTerrainPercRB.setSelected(false);
+        missedFromTerrainPercRB.setDisable(false);
+        courtDrawing.displayMadePercShots();
+    }
+
+    private void handleMissedNbTerrainShotRBAction(ActionEvent event) {
+        //TODO: log event
+        madeFromTerrainNbRB.setSelected(false);
+        madeFromTerrainNbRB.setDisable(false);
+        missedFromTerrainNbRB.setSelected(true);
+        missedFromTerrainNbRB.setDisable(true);
+        madeFromTerrainPercRB.setSelected(false);
+        madeFromTerrainPercRB.setDisable(false);
+        missedFromTerrainPercRB.setSelected(false);
+        missedFromTerrainPercRB.setDisable(false);
+        courtDrawing.displayMissedNbShots();
+    }
+
+    private void handleMissedPercTerrainShotRBAction(ActionEvent event) {
+        //TODO: log event
+        madeFromTerrainNbRB.setSelected(false);
+        madeFromTerrainNbRB.setDisable(false);
+        missedFromTerrainNbRB.setSelected(false);
+        missedFromTerrainNbRB.setDisable(false);
+        madeFromTerrainPercRB.setSelected(false);
+        madeFromTerrainPercRB.setDisable(false);
+        missedFromTerrainPercRB.setSelected(true);
+        missedFromTerrainPercRB.setDisable(true);
+        courtDrawing.displayMissedPercShots();
     }
 
 }

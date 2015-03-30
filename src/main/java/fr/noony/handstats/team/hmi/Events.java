@@ -42,6 +42,7 @@ public final class Events {
     public static final String EDIT_CURRENT_TEAM = "editCurrentTeam";
 //    public static final String PLAY_MATCH_WITH_CURRENT_TEAM = "playMachtWithTeam";
     public static final String CONFIGURE_MATCH = "configureMatch";
+    public static final String DISPLAY_STATS_FROM_MAIN = "displayStatsFromMain";
 
     //team selection panel events
     public static final String NEW_TEAM_SELECTED_EVENT = "newTeamSelected";

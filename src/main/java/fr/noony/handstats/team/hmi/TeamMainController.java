@@ -90,6 +90,12 @@ public class TeamMainController extends FXController implements PropertyChangeLi
         firePropertyChange(Events.CONFIGURE_MATCH, null, currentTeam);
     }
 
+    @FXML
+    public void seeStatsAction(ActionEvent event) {
+        Logger.getLogger(TeamMainController.class.getName()).log(Level.INFO, "seeStatsAction {0}", new Object[]{event});
+        firePropertyChange(Events.DISPLAY_STATS_FROM_MAIN, null, currentTeam);
+    }
+
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         //??

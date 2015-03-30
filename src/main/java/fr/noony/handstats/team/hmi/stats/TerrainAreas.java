@@ -31,7 +31,8 @@ public enum TerrainAreas {
     CLOSE_AREA_5("_CLOSE_5", 5),
     FAR_AREA_1("_COURT_1", 6),
     FAR_AREA_2("_COURT_2", 7),
-    FAR_AREA_3("_COURT_3", 8);
+    FAR_AREA_3("_COURT_3", 8),
+    PENALTY_AREA("_PENALTY", 9);
 
     private final String name;
     private final int id;
