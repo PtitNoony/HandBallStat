@@ -1,4 +1,4 @@
-package fr.noony.handstats.team.hmi;
+package fr.noony.handstats.team.hmi.stats;
 
 /*
  * Copyright (C) 2014 Arnaud
@@ -18,6 +18,9 @@ package fr.noony.handstats.team.hmi;
  */
 import fr.noony.handstats.core.Team;
 import fr.noony.handstats.stats.GameStat;
+import fr.noony.handstats.team.hmi.Events;
+import fr.noony.handstats.team.hmi.FXController;
+import fr.noony.handstats.team.hmi.Screen;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.net.URL;

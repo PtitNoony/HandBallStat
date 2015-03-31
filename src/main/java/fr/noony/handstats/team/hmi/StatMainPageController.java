@@ -16,6 +16,7 @@ package fr.noony.handstats.team.hmi;
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+import fr.noony.handstats.team.hmi.stats.StatScreensManager;
 import fr.noony.handstats.Game;
 import fr.noony.handstats.Poste;
 import fr.noony.handstats.core.Player;

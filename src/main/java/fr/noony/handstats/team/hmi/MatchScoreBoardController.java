@@ -34,6 +34,7 @@ import fr.noony.handstats.team.hmi.drawing.GoalKeeperDrawing;
 import fr.noony.handstats.team.hmi.drawing.PlayerDrawing;
 import fr.noony.handstats.team.hmi.drawing.ScoreDisplayer;
 import fr.noony.handstats.team.hmi.drawing.TeamDrawing;
+import fr.noony.handstats.team.hmi.stats.StatPopup;
 import java.awt.Dimension;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
@@ -56,7 +57,6 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
-import javafx.stage.Popup;
 import javafx.stage.Window;
 
 /**
@@ -128,8 +128,7 @@ public class MatchScoreBoardController extends FXController implements PropertyC
     private ButtonDrawing statButton;
     private ImageView rightCourtImage;
     private ImageView leftCourtImage;
-    private Popup teamStatsPopUp;
-    private Screen popupScreen;
+    private StatPopup teamStatsPopUp;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -156,13 +155,8 @@ public class MatchScoreBoardController extends FXController implements PropertyC
         //
         createSeparators();
         //
-        teamStatsPopUp = new Popup();
-        popupScreen = new Screen("StatPopupPage");
-        popupScreen.getController().getLookup().lookup(PropertyChangeSupport.class).addPropertyChangeListener(this);
-        Rectangle popupBackground = new Rectangle(670, 630);
-        popupBackground.setFill(Color.GREY);
-        teamStatsPopUp.getContent().add(popupBackground);
-        teamStatsPopUp.getContent().add(popupScreen.getNode());
+        teamStatsPopUp = new StatPopup();
+        teamStatsPopUp.getPopupScreen().getController().getLookup().lookup(PropertyChangeSupport.class).addPropertyChangeListener(this);
         //
         setState(ScoringState.IN_PLAY);
     }
@@ -664,12 +658,12 @@ public class MatchScoreBoardController extends FXController implements PropertyC
                 break;
             case Events.TEAM_STATS:
                 System.err.println(" trigger pop up");
-                teamStatsPopUp.setOpacity(1.0);
-                teamStatsPopUp.setWidth(670);
-                teamStatsPopUp.setHeight(630);
-                teamStatsPopUp.show(getWindow(), DEFAULT_INNER_MARGIN, DEFAULT_INNER_MARGIN);
+//                teamStatsPopUp.setOpacity(1.0);
+//                teamStatsPopUp.setWidth(670);
+//                teamStatsPopUp.setHeight(630);
+                teamStatsPopUp.show(getWindow(), 0.0, 0.0);
                 final GameStat gameStat = new GameStat(game);
-                popupScreen.loadParameters(gameStat);
+                teamStatsPopUp.loadParameters(gameStat);
                 break;
             case Events.BACK_TO_GAME:
                 teamStatsPopUp.hide();

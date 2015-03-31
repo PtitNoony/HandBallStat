@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package fr.noony.handstats.team.hmi;
+package fr.noony.handstats.team.hmi.stats;
 
+import fr.noony.handstats.team.hmi.AbstractScreensController;
 import java.beans.PropertyChangeEvent;
 
 /**
