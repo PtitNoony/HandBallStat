@@ -199,18 +199,30 @@ public class GameStat {
     }
 
     public double getHomeAccuracy() {
+        if ((nbHomeMadeShots + nbAwayDefStopShots + nbAwayBlockedShots) == 0) {
+            return 0;
+        }
         return 100 * nbHomeMadeShots / (nbHomeMadeShots + nbAwayDefStopShots + nbAwayBlockedShots);
     }
 
     public double getAwayAccuracy() {
+        if ((nbAwayMadeShots + nbHomeBlockedShots + nbHomeDefStopShots) == 0) {
+            return 0;
+        }
         return 100 * nbAwayMadeShots / (nbAwayMadeShots + nbHomeBlockedShots + nbHomeDefStopShots);
     }
 
     public double getHomeShotBlockedPercentage() {
+        if ((nbAwayMadeShots + nbHomeBlockedShots) == 0) {
+            return 0;
+        }
         return 100 * nbHomeBlockedShots / (nbAwayMadeShots + nbHomeBlockedShots);
     }
 
     public double getAwayShotBlockedPercentage() {
+        if ((nbHomeMadeShots + nbAwayBlockedShots) == 0) {
+            return 0;
+        }
         return 100 * nbAwayBlockedShots / (nbHomeMadeShots + nbAwayBlockedShots);
     }
 

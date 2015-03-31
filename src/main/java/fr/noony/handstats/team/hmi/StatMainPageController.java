@@ -198,6 +198,12 @@ public class StatMainPageController extends FXController implements PropertyChan
         setStatPageState(StatPageState.ONE_MATCH_AWAY);
     }
 
+    @FXML
+    public void backAction(ActionEvent event) {
+        //TODO log event
+        firePropertyChange(Events.BACK_TO_TEAM_MAIN, null, homeTeam);
+    }
+
     private void updateMatchSelection() {
         selectedGame = gameListView.getSelectionModel().getSelectedItem();
         if (selectedGame != null) {

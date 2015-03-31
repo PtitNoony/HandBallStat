@@ -40,5 +40,10 @@
          </font>
       </Button>
       <Pane fx:id="statPane" layoutX="270.0" layoutY="140.0" prefHeight="503.0" prefWidth="644.0" />
+      <Button layoutX="771.0" layoutY="16.0" mnemonicParsing="false" onAction="#backAction" prefHeight="77.0" prefWidth="157.0" text="Retour">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Button>
    </children>
 </Pane>

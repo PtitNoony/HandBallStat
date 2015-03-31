@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="501.0" prefWidth="741.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.noony.handstats.team.hmi.InitPageController">
+   <children>
+      <Button fx:id="manageTeamButton" layoutX="269.0" layoutY="386.0" mnemonicParsing="false" prefHeight="92.0" prefWidth="203.0" text="Gestion de l'équipe" textAlignment="CENTER" wrapText="true">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Button>
+      <Button fx:id="changeTeamButton" layoutX="406.0" layoutY="253.0" mnemonicParsing="false" onAction="#changeTeamAction" prefHeight="92.0" prefWidth="203.0" text="Changer d'équipe" textAlignment="CENTER" wrapText="true">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Button>
+      <Button fx:id="createTeamButton" layoutX="149.0" layoutY="253.0" mnemonicParsing="false" onAction="#newTeamAction" prefHeight="92.0" prefWidth="203.0" text="Créer une nouvelle équipe" textAlignment="CENTER" wrapText="true">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Button>
+      <Label fx:id="selectedTeamLabel" layoutX="441.0" layoutY="158.0" text="selectedTeam">
+         <font>
+            <Font size="36.0" />
+         </font>
+      </Label>
+      <Label layoutX="53.0" layoutY="158.0" text="Equipe sélectionnée :">
+         <font>
+            <Font size="36.0" />
+         </font>
+      </Label>
+      <Label layoutX="208.0" layoutY="40.0" text="HAND STAT V0.1">
+         <font>
+            <Font size="48.0" />
+         </font>
+      </Label>
+   </children>
+</Pane>

@@ -61,5 +61,9 @@ public final class Events {
     public static final String TWO_MINUTES = "twoMinutes";
     public static final String SEVEN_METERS_GOAL = "7m";
     public static final String GOAL_COUNTERED = "goalCountered";
+    public static final String TEAM_STATS = "teamStats";
+
+    //stat pop up
+    public static final String BACK_TO_GAME = "backToGame";
 
 }

@@ -22,6 +22,7 @@ import java.beans.PropertyChangeSupport;
 import java.io.IOException;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.stage.Window;
 import org.openide.util.Exceptions;
 
 /**
@@ -30,13 +31,18 @@ import org.openide.util.Exceptions;
  */
 public class Screen implements ControlledScreen, PropertyChangeListener {
 
+//    private final PropertyChangeSupport propertyChangeSupport;
+//    private final InstanceContent lookupContents = new InstanceContent();
+//    private final AbstractLookup alookup = new AbstractLookup(lookupContents);
     private final Node mainNode;
     private final FXMLLoader loader;
     private final FXController controller;
     private final String fxmlName;
-    private MainScreensController myScreensController;
+    private AbstractScreensController myScreensController;
 
     public Screen(String fxmlFileName) {
+//        propertyChangeSupport = new PropertyChangeSupport(Screen.this);
+//        lookupContents.add(propertyChangeSupport);
         fxmlName = fxmlFileName;
         loader = new FXMLLoader(getClass().getResource(fxmlName + ".fxml"));
         try {
@@ -47,9 +53,11 @@ public class Screen implements ControlledScreen, PropertyChangeListener {
         mainNode = loader.getRoot();
         controller = (FXController) loader.getController();
         controller.getLookup().lookup(PropertyChangeSupport.class).addPropertyChangeListener(Screen.this);
-
     }
 
+//    public Lookup getLookup() {
+//        return alookup;
+//    }
     public Node getNode() {
         return mainNode;
     }
@@ -58,14 +66,25 @@ public class Screen implements ControlledScreen, PropertyChangeListener {
         return fxmlName;
     }
 
+    public FXController getController() {
+        return controller;
+    }
+
     @Override
-    public void setScreenParent(MainScreensController screensController) {
+    public void setScreenParent(AbstractScreensController screensController) {
         myScreensController = screensController;
     }
 
     @Override
+    public void setWindow(Window window) {
+        controller.setWindow(window);
+    }
+
+    @Override
     public void propertyChange(PropertyChangeEvent evt) {
-        myScreensController.processEvent(evt);
+        if (myScreensController != null) {
+            myScreensController.processEvent(evt);
+        }
     }
 
     public void updateSize(double width, double height) {

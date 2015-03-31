@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="630.0" prefWidth="670.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.noony.handstats.team.hmi.StatPopupPageController">
+   <children>
+      <Button layoutX="447.0" layoutY="14.0" mnemonicParsing="false" onAction="#backGameAction" text="Retour au match">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Button>
+      <Pane fx:id="statsPane" layoutX="15.0" layoutY="115.0" prefHeight="500.0" prefWidth="640.0" />
+      <ToggleButton fx:id="homeTeamToggleB" layoutX="15.0" layoutY="14.0" mnemonicParsing="false" onAction="#homeTeamToggleAction" prefHeight="51.0" prefWidth="208.0" selected="true" text="Mon équipe">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </ToggleButton>
+      <ToggleButton fx:id="awayTeamToggleB" layoutX="231.0" layoutY="14.0" mnemonicParsing="false" onAction="#awayTeamToggleAction" prefHeight="51.0" prefWidth="208.0" text="Equipe adverse">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </ToggleButton>
+   </children>
+</Pane>

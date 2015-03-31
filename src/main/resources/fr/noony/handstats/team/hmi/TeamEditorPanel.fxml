@@ -5,10 +5,24 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-
-<Pane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.noony.handstats.team.hmi.TeamEditorController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="704.0" prefWidth="898.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.noony.handstats.team.hmi.TeamEditorController">
    <children>
-      <TabPane layoutY="96.0" prefHeight="604.0" prefWidth="900.0" tabClosingPolicy="UNAVAILABLE">
+      <Button layoutX="729.0" layoutY="18.0" mnemonicParsing="false" onAction="#backAction" prefHeight="77.0" prefWidth="157.0" text="Retour">
+         <font>
+            <Font size="36.0" />
+         </font>
+      </Button>
+      <Label fx:id="teamLabel" layoutX="209.0" layoutY="30.0" prefHeight="70.0" prefWidth="520.0">
+         <font>
+            <Font name="System Bold" size="32.0" />
+         </font>
+      </Label>
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="93.0" prefWidth="210.0" text="Equipe :" textAlignment="CENTER" underline="true">
+         <font>
+            <Font size="48.0" />
+         </font>
+      </Label>
+      <TabPane layoutX="-1.0" layoutY="103.0" prefHeight="604.0" prefWidth="900.0" tabClosingPolicy="UNAVAILABLE">
          <tabs>
             <Tab text="Gestion de l'équipe">
                <content>
@@ -58,20 +72,5 @@
             </Tab>
          </tabs>
       </TabPane>
-      <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="93.0" prefWidth="210.0" text="Equipe :" textAlignment="CENTER" underline="true">
-         <font>
-            <Font size="48.0" />
-         </font>
-      </Label>
-      <Label fx:id="teamLabel" layoutX="199.0" layoutY="20.0" prefHeight="70.0" prefWidth="520.0">
-         <font>
-            <Font name="System Bold" size="36.0" />
-         </font>
-      </Label>
-      <Button layoutX="729.0" layoutY="16.0" mnemonicParsing="false" onAction="#backAction" prefHeight="77.0" prefWidth="157.0" text="Retour">
-         <font>
-            <Font size="36.0" />
-         </font>
-      </Button>
    </children>
 </Pane>

@@ -20,12 +20,13 @@ import fr.noony.handstats.Game;
 import fr.noony.handstats.Poste;
 import fr.noony.handstats.core.Fault;
 import fr.noony.handstats.core.Player;
+import fr.noony.handstats.core.Team;
 import fr.noony.handstats.court.GoalCageDrawing;
 import fr.noony.handstats.court.HalfCourtDrawing;
 import fr.noony.handstats.court.InteractiveShootingArea;
 import fr.noony.handstats.court.LeftCourtDrawing;
 import fr.noony.handstats.court.RightCourtDrawing;
-import fr.noony.handstats.core.Team;
+import fr.noony.handstats.stats.GameStat;
 import fr.noony.handstats.team.hmi.drawing.ButtonDrawing;
 import static fr.noony.handstats.team.hmi.drawing.ButtonDrawing.BUTTON_CLICKED;
 import fr.noony.handstats.team.hmi.drawing.ClockDrawing;
@@ -55,6 +56,8 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
+import javafx.stage.Popup;
+import javafx.stage.Window;
 
 /**
  * FXML Controller class
@@ -122,8 +125,11 @@ public class MatchScoreBoardController extends FXController implements PropertyC
     private ButtonDrawing right7MetersButton;
     private ButtonDrawing cancelButton;
     private ButtonDrawing matchMenu;
+    private ButtonDrawing statButton;
     private ImageView rightCourtImage;
     private ImageView leftCourtImage;
+    private Popup teamStatsPopUp;
+    private Screen popupScreen;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -150,7 +156,20 @@ public class MatchScoreBoardController extends FXController implements PropertyC
         //
         createSeparators();
         //
+        teamStatsPopUp = new Popup();
+        popupScreen = new Screen("StatPopupPage");
+        popupScreen.getController().getLookup().lookup(PropertyChangeSupport.class).addPropertyChangeListener(this);
+        Rectangle popupBackground = new Rectangle(670, 630);
+        popupBackground.setFill(Color.GREY);
+        teamStatsPopUp.getContent().add(popupBackground);
+        teamStatsPopUp.getContent().add(popupScreen.getNode());
+        //
         setState(ScoringState.IN_PLAY);
+    }
+
+    @Override
+    public void setWindow(Window window) {
+        super.setWindow(window);
     }
 
     private void createButtons() {
@@ -163,16 +182,22 @@ public class MatchScoreBoardController extends FXController implements PropertyC
         leftValidateButton.getLookup().lookup(PropertyChangeSupport.class).addPropertyChangeListener(this);
         rightValidateButton.getLookup().lookup(PropertyChangeSupport.class).addPropertyChangeListener(this);
         //
-        cancelButton = new ButtonDrawing("ANNULER", Events.CANCEL_EVENT);
-        scoreBoardPane.getChildren().add(cancelButton.getNode());
-        cancelButton.setPosition(DEFAULT_SCOREBOARD_CONTROLLER.getWidth() - DEFAULT_INNER_MARGIN - ButtonDrawing.DEFAULT_BUTTON_SIZE.getWidth() * 2.0, 0.0);
-        cancelButton.getLookup().lookup(PropertyChangeSupport.class).addPropertyChangeListener(this);
-        //
         matchMenu = new ButtonDrawing("MENU MATCH", Events.BACK_MACTH_MENU);
         scoreBoardPane.getChildren().add(matchMenu.getNode());
-        matchMenu.setPosition(DEFAULT_SCOREBOARD_CONTROLLER.getWidth() - ButtonDrawing.DEFAULT_BUTTON_SIZE.getWidth(), 0.0);
+        matchMenu.setPosition(DEFAULT_SCOREBOARD_CONTROLLER.getWidth() - ButtonDrawing.DEFAULT_BUTTON_SIZE.getWidth(), DEFAULT_INNER_MARGIN);
         matchMenu.getLookup().lookup(PropertyChangeSupport.class).addPropertyChangeListener(this);
-        matchMenu.setInnerState(ButtonDrawing.ButtonInnerState.DISABLED);
+        matchMenu.setInnerState(ButtonDrawing.ButtonInnerState.ENABLED);
+        //
+        cancelButton = new ButtonDrawing("ANNULER", Events.CANCEL_EVENT);
+        scoreBoardPane.getChildren().add(cancelButton.getNode());
+        cancelButton.setPosition(DEFAULT_SCOREBOARD_CONTROLLER.getWidth() - DEFAULT_INNER_MARGIN - ButtonDrawing.DEFAULT_BUTTON_SIZE.getWidth() * 2.0, DEFAULT_INNER_MARGIN);
+        cancelButton.getLookup().lookup(PropertyChangeSupport.class).addPropertyChangeListener(this);
+        //
+        statButton = new ButtonDrawing("STATS", Events.TEAM_STATS);
+        scoreBoardPane.getChildren().add(statButton.getNode());
+        statButton.setPosition(DEFAULT_SCOREBOARD_CONTROLLER.getWidth() - 2.0 * DEFAULT_INNER_MARGIN - ButtonDrawing.DEFAULT_BUTTON_SIZE.getWidth() * 3.0, DEFAULT_INNER_MARGIN);
+        statButton.getLookup().lookup(PropertyChangeSupport.class).addPropertyChangeListener(this);
+        statButton.setInnerState(ButtonDrawing.ButtonInnerState.ENABLED);
         //
         leftYellowCardButton = new ButtonDrawing("Carton Jaune", Events.YELLOW_CARD);
         scoreBoardPane.getChildren().add(leftYellowCardButton.getNode());
@@ -636,6 +661,18 @@ public class MatchScoreBoardController extends FXController implements PropertyC
                 break;
             case Events.GOAL_COUNTERED:
                 processGoalCountered();
+                break;
+            case Events.TEAM_STATS:
+                System.err.println(" trigger pop up");
+                teamStatsPopUp.setOpacity(1.0);
+                teamStatsPopUp.setWidth(670);
+                teamStatsPopUp.setHeight(630);
+                teamStatsPopUp.show(getWindow(), DEFAULT_INNER_MARGIN, DEFAULT_INNER_MARGIN);
+                final GameStat gameStat = new GameStat(game);
+                popupScreen.loadParameters(gameStat);
+                break;
+            case Events.BACK_TO_GAME:
+                teamStatsPopUp.hide();
                 break;
             default:
                 throw new UnsupportedOperationException("ppty change event " + evt.getPropertyName());

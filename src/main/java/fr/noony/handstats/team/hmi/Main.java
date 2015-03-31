@@ -82,8 +82,10 @@ public class Main extends Application {
             screensController = new MainScreensController();
             myScene = new Scene(screensController, DEFAULT_RESOLUTION.width, DEFAULT_RESOLUTION.height);
             myStage.setScene(myScene);
-            initFrame(false);
             myStage.show();
+            System.err.println(" MY WINDOW IS ::" + myScene.getWindow());
+            initFrame(false);
+            screensController.setWindow(myScene.getWindow());
             myStage.setFullScreen(true);
             myStage.setFullScreenExitHint("");
             myStage.setOnCloseRequest((WindowEvent event) -> {
@@ -132,6 +134,7 @@ public class Main extends Application {
         screensController.addScreen(matchScoreboardPage);
         screensController.addScreen(matchConfiguratorPage);
         screensController.addScreen(statsPage);
+
     }
 
     private void updatePagesSize() {

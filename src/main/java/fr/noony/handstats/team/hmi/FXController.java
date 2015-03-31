@@ -18,6 +18,7 @@ package fr.noony.handstats.team.hmi;
 
 import java.beans.PropertyChangeSupport;
 import javafx.fxml.Initializable;
+import javafx.stage.Window;
 import org.openide.util.Lookup;
 import org.openide.util.lookup.AbstractLookup;
 import org.openide.util.lookup.InstanceContent;
@@ -31,6 +32,8 @@ public abstract class FXController implements Initializable {
     private final PropertyChangeSupport propertyChangeSupport = new PropertyChangeSupport(FXController.this);
     private final InstanceContent lookupContents = new InstanceContent();
     private final AbstractLookup alookup = new AbstractLookup(lookupContents);
+    //
+    private Window mainWindow = null;
 
     public FXController() {
         lookupContents.add(propertyChangeSupport);
@@ -44,8 +47,17 @@ public abstract class FXController implements Initializable {
         getLookup().lookup(PropertyChangeSupport.class).firePropertyChange(propertyName, oldValue, newValue);
     }
 
+//    public abstract void setWindow(Window mainWindow);
     public abstract void updateSize(double width, double height);
 
     public abstract void loadParameters(Object... params);
+
+    public void setWindow(Window window) {
+        mainWindow = window;
+    }
+
+    public final Window getWindow() {
+        return mainWindow;
+    }
 
 }

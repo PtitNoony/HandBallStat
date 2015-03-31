@@ -27,6 +27,8 @@ import javafx.animation.Timeline;
 import javafx.beans.property.DoubleProperty;
 import javafx.event.ActionEvent;
 import javafx.scene.layout.StackPane;
+import javafx.scene.shape.Rectangle;
+import javafx.stage.Window;
 import javafx.util.Duration;
 
 /**
@@ -36,6 +38,25 @@ import javafx.util.Duration;
  * @author Arnaud Hamon-Keromen
  */
 public abstract class AbstractScreensController extends StackPane {
+
+    public AbstractScreensController() {
+        //TODO : bind to window size
+        Rectangle background = new Rectangle(-2000, -2000, 4000, 4000);
+        getChildren().add(background);
+    }
+
+    private Window mainWindow = null;
+
+    public final Window getWindow() {
+        return mainWindow;
+    }
+
+    public final void setWindow(Window window) {
+        mainWindow = window;
+        for (Map.Entry<String, Screen> entrySet : screens.entrySet()) {
+            entrySet.getValue().setWindow(window);
+        }
+    }
 
     private final Map<String, Screen> screens = new LinkedHashMap<>();
 

@@ -16,6 +16,8 @@
  */
 package fr.noony.handstats.team.hmi;
 
+import javafx.stage.Window;
+
 /**
  *
  * @author Arnaud Hamon-Keromen
@@ -23,6 +25,8 @@ package fr.noony.handstats.team.hmi;
 public interface ControlledScreen {
 
     //This method will allow the injection of the Parent ScreenPane
-    void setScreenParent(MainScreensController screensController);
+    void setScreenParent(AbstractScreensController screensController);
+
+    void setWindow(Window window);
 
 }
