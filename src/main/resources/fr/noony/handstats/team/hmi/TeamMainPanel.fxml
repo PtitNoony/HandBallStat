@@ -19,7 +19,7 @@
       </Label>
       <Separator layoutX="8.0" layoutY="103.0" prefHeight="16.0" prefWidth="836.0" />
       <Separator layoutX="266.0" layoutY="126.0" orientation="VERTICAL" prefHeight="461.0" prefWidth="0.0" />
-      <Separator layoutX="546.0" layoutY="126.0" orientation="VERTICAL" prefHeight="461.0" prefWidth="6.0" />
+      <Separator layoutX="561.0" layoutY="126.0" orientation="VERTICAL" prefHeight="461.0" prefWidth="6.0" />
       <Label layoutX="20.0" layoutY="126.0" text="Gestion de l'équpe">
          <font>
             <Font size="24.0" />
@@ -55,9 +55,9 @@
             <Font size="36.0" />
          </font>
       </Button>
-      <Button layoutX="699.0" layoutY="14.0" mnemonicParsing="false" onAction="#retourAction" text="Retour">
+      <Button layoutX="699.0" layoutY="6.0" mnemonicParsing="false" onAction="#retourAction" prefHeight="93.0" prefWidth="153.0" text="Changer d'équipe" textAlignment="CENTER" wrapText="true">
          <font>
-            <Font size="36.0" />
+            <Font size="24.0" />
          </font>
       </Button>
    </children>

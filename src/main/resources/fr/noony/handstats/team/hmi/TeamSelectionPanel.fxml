@@ -12,18 +12,18 @@
             <Font size="64.0" />
          </font>
       </Label>
-      <Button fx:id="choiceTeamButton" layoutX="596.0" layoutY="535.0" mnemonicParsing="false" onAction="#teamSelectionAction" text="Choisir l'équipe">
+      <Button fx:id="choiceTeamButton" layoutX="628.0" layoutY="497.0" mnemonicParsing="false" onAction="#teamSelectionAction" prefHeight="137.0" prefWidth="256.0" text="Choisir l'équipe" textAlignment="CENTER" wrapText="true">
          <font>
             <Font size="36.0" />
          </font>
       </Button>
-      <Button layoutX="28.0" layoutY="495.0" mnemonicParsing="false" onAction="#cancelTeamSelectionAction" prefHeight="137.0" prefWidth="293.0" text="Retour menu principal" textAlignment="CENTER" wrapText="true">
+      <Button layoutX="27.0" layoutY="497.0" mnemonicParsing="false" onAction="#cancelTeamSelectionAction" prefHeight="137.0" prefWidth="256.0" text="Retour menu principal" textAlignment="CENTER" wrapText="true">
          <font>
             <Font size="36.0" />
          </font>
       </Button>
-      <ListView fx:id="possibleTeamsList" layoutX="231.0" layoutY="119.0" prefHeight="366.0" prefWidth="397.0" />
-      <Button fx:id="deleteTeamButton" layoutX="351.0" layoutY="535.0" mnemonicParsing="false" onAction="#deleteTeamAction" prefHeight="77.0" prefWidth="214.0" text="Supprimer">
+      <ListView fx:id="possibleTeamsList" layoutX="253.0" layoutY="119.0" prefHeight="366.0" prefWidth="397.0" />
+      <Button fx:id="deleteTeamButton" layoutX="330.0" layoutY="497.0" mnemonicParsing="false" onAction="#deleteTeamAction" prefHeight="137.0" prefWidth="256.0" text="Supprimer">
          <font>
             <Font size="36.0" />
          </font>

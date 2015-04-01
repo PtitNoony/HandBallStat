@@ -124,7 +124,7 @@ public class XMLSaver {
         //empty constructor
     }
 
-    public static void saveTeam(Team team, EnvLoader envLoader) {
+    public static void saveTeam(Team team) {
         System.err.println("SAVING TEAM " + team);
         //il faut connaitre le chemin
 
@@ -145,7 +145,7 @@ public class XMLSaver {
             tr.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "4");
 
             // send DOM to file
-            String destFilePath = envLoader.getCurrentPath() + TEAM_RELATIVE_DIRECTORY + "\\" + team.getName() + TEAM_FILE_EXTENSION;
+            String destFilePath = EnvLoader.getCurrentPath() + TEAM_RELATIVE_DIRECTORY + "\\" + team.getName() + TEAM_FILE_EXTENSION;
 
             File yourFile = new File(destFilePath);
             if (!yourFile.exists()) {

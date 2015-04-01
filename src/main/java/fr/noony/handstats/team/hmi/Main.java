@@ -67,8 +67,6 @@ public class Main extends Application {
     private double sceneWidth = DEFAULT_RESOLUTION.width;
     private double sceneHeight = DEFAULT_RESOLUTION.height;
 
-    private final EnvLoader envLoader = new EnvLoader();
-
     private Timer exitTimer;
 
     /**
@@ -84,10 +82,9 @@ public class Main extends Application {
             //mandatory since using swing timer ???
             //System.exit(0);
         });
-        envLoader.loadEnvironment();
+        EnvLoader.loadEnvironment();
         Platform.runLater(() -> {
             screensController = new MainScreensController();
-            screensController.setEnvLoader(envLoader);
             myScene = new Scene(screensController, DEFAULT_RESOLUTION.width, DEFAULT_RESOLUTION.height);
             myStage.setScene(myScene);
             myStage.show();
@@ -105,10 +102,10 @@ public class Main extends Application {
     }
 
     private void initFrame(boolean fullScreen) {
-        myStage.setFullScreenExitHint(WELCOME_MESSAGE + envLoader.getVersion());
+        myStage.setFullScreenExitHint(WELCOME_MESSAGE + EnvLoader.getVersion());
         myStage.setFullScreen(fullScreen);
         createPages();
-        screensController.setScreen(welcomePage.getName(), envLoader.getTeams(), envLoader.getPreferedTeam());
+        screensController.setScreen(welcomePage.getName(), EnvLoader.getTeams(), EnvLoader.getPreferedTeam());
         myScene.widthProperty().addListener((ObservableValue<? extends Number> observableValue, Number oldSceneWidth, Number newSceneWidth) -> {
             Logger.getLogger(Main.class.getName()).log(Level.INFO, "new width : {0} old {1} new {2}", new Object[]{observableValue, oldSceneWidth, newSceneWidth});
             sceneWidth = newSceneWidth.doubleValue();

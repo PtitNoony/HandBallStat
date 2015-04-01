@@ -16,7 +16,6 @@
  */
 package fr.noony.handstats.team.hmi;
 
-import fr.noony.handstats.utils.EnvLoader;
 import java.beans.PropertyChangeEvent;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -41,7 +40,6 @@ import javafx.util.Duration;
 public abstract class AbstractScreensController extends StackPane {
 
     private Window mainWindow = null;
-    private EnvLoader envLoader;
 
     public AbstractScreensController() {
         //TODO : bind to window size
@@ -57,24 +55,6 @@ public abstract class AbstractScreensController extends StackPane {
         mainWindow = window;
         screens.entrySet().stream().forEach(entrySet
                 -> entrySet.getValue().setWindow(window));
-    }
-
-    /**
-     * use a lookup instead
-     *
-     * @param loader
-     */
-    public final void setEnvLoader(EnvLoader loader) {
-        envLoader = loader;
-    }
-
-    /**
-     * use a lookup instead
-     *
-     * @return
-     */
-    public final EnvLoader getEnvLoader() {
-        return envLoader;
     }
 
     private final Map<String, Screen> screens = new LinkedHashMap<>();

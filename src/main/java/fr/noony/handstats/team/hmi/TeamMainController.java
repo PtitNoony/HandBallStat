@@ -18,6 +18,7 @@ package fr.noony.handstats.team.hmi;
 
 import fr.noony.handstats.core.Player;
 import fr.noony.handstats.core.Team;
+import fr.noony.handstats.utils.XMLSaver;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.net.URL;
@@ -75,6 +76,7 @@ public class TeamMainController extends FXController implements PropertyChangeLi
     @FXML
     public void retourAction(ActionEvent event) {
         Logger.getLogger(TeamMainController.class.getName()).log(Level.INFO, "retourAction {0}", new Object[]{event});
+        XMLSaver.saveTeam(currentTeam);
         firePropertyChange(Events.BACK_TEAM_SELECTION, null, null);
     }
 

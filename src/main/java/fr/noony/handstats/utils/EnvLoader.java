@@ -18,6 +18,7 @@ package fr.noony.handstats.utils;
 
 import fr.noony.handstats.core.Team;
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -32,7 +33,7 @@ import org.openide.util.Exceptions;
  *
  * @author Arnaud HAMON-KEROMEN
  */
-public class EnvLoader {
+public final class EnvLoader {
 
     public static final String TEAM_RELATIVE_DIRECTORY = "\\Teams";
     //
@@ -43,21 +44,21 @@ public class EnvLoader {
     //
     private static final String DEBUG_FOLDER = "C:\\Handstat";
     //
-    private String currentPath;
+    private static String currentPath;
     //
-    private String version;
-    private Team preferedTeam;
-    private final List<Team> teams;
-    private final Map<String, String> properties;
+    private static String version;
+    private static Team preferedTeam;
+    private static final List<Team> TEAMS = new LinkedList<>();
+    private static final Map<String, String> PROPERTIES = new HashMap<>();
 
-    public EnvLoader() {
+    private EnvLoader() {
         version = "unknown";
         preferedTeam = null;
-        teams = new LinkedList<>();
-        properties = new HashMap<>();
+//        teams = new LinkedList<>();
+//        properties = new HashMap<>();
     }
 
-    public final void loadEnvironment() {
+    public static final void loadEnvironment() {
         currentPath = System.getProperty("user.dir");
 //        System.err.println(" CURRENT PATH :: " + currentPath);
         loadInitFile();
@@ -65,7 +66,7 @@ public class EnvLoader {
         analyzeProperties();
     }
 
-    private void loadInitFile() {
+    private static void loadInitFile() {
         //test if folder exists
         Path debugFolder = Paths.get(currentPath);
 //        System.err.println("Folder exists ::" + Files.exists(debugFolder));
@@ -92,35 +93,34 @@ public class EnvLoader {
                 System.err.println(" -> " + line);
                 splitLine = line.split(SEPARATOR);
                 assert splitLine.length == 2;
-                properties.put(splitLine[0], splitLine[1]);
+                PROPERTIES.put(splitLine[0], splitLine[1]);
             }
             configFileReader.close();
         } catch (IOException ex) {
             Exceptions.printStackTrace(ex);
         }
-
     }
 
-    private void parseTeamFolder() {
+    private static void parseTeamFolder() {
         TeamFileProcessor fileProcessor = new TeamFileProcessor();
         try {
             Files.walkFileTree(Paths.get(currentPath + TEAM_RELATIVE_DIRECTORY), fileProcessor);
         } catch (IOException ex) {
             Exceptions.printStackTrace(ex);
         }
-        fileProcessor.getTeams().values().stream().forEach(team -> teams.add(team));
+        fileProcessor.getTeams().values().stream().forEach(team -> TEAMS.add(team));
     }
 
-    private void analyzeProperties() {
+    private static void analyzeProperties() {
         //set version
-        if (properties.get(VERSION_PPTY) != null) {
-            version = properties.get(VERSION_PPTY);
+        if (PROPERTIES.get(VERSION_PPTY) != null) {
+            version = PROPERTIES.get(VERSION_PPTY);
         }
         //set prefered team
-        String prefTeamName = properties.get(PREFERED_TEAM_PPTY);
+        String prefTeamName = PROPERTIES.get(PREFERED_TEAM_PPTY);
         if (prefTeamName != null) {
             //TODO : do it nicely
-            for (Team t : teams) {
+            for (Team t : TEAMS) {
                 if (t.getName().equals(prefTeamName)) {
                     preferedTeam = t;
                     break;
@@ -129,20 +129,48 @@ public class EnvLoader {
         }
     }
 
-    public String getCurrentPath() {
+    public static String getCurrentPath() {
         return currentPath;
     }
 
-    public List<Team> getTeams() {
-        return teams;
+    public static List<Team> getTeams() {
+        return TEAMS;
     }
 
-    public Team getPreferedTeam() {
+    public static Team getPreferedTeam() {
         return preferedTeam;
     }
 
-    public String getVersion() {
+    public static void setPreferedTeam(Team newPreferedTeam) {
+        preferedTeam = newPreferedTeam;
+        PROPERTIES.replace(PREFERED_TEAM_PPTY, preferedTeam.getName());
+        updateConfigFile();
+    }
+
+    public static String getVersion() {
         return version;
+    }
+
+    private static void updateConfigFile() {
+        //TODO
+        String configFilePath = currentPath + "\\" + INIT_FILE_FULLNAME;
+        Path configFile = Paths.get(configFilePath);
+        if (!Files.exists(configFile)) {
+            //TODO: remove after dev
+            currentPath = DEBUG_FOLDER;
+            configFilePath = currentPath + "\\" + INIT_FILE_FULLNAME;
+            configFile = Paths.get(configFilePath);
+        }
+        // write config file content
+        try (BufferedWriter configFileWriter = Files.newBufferedWriter(configFile)) {
+            for (Map.Entry<String, String> entry : PROPERTIES.entrySet()) {
+                configFileWriter.write("" + entry.getKey() + SEPARATOR + entry.getValue());
+                configFileWriter.newLine();
+            }
+            configFileWriter.close();
+        } catch (IOException ex) {
+            Exceptions.printStackTrace(ex);
+        }
     }
 
 }

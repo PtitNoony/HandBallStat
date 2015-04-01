@@ -17,10 +17,10 @@
 package fr.noony.handstats.team.hmi;
 
 import fr.noony.handstats.core.Team;
+import fr.noony.handstats.utils.EnvLoader;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.net.URL;
-import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -69,7 +69,9 @@ public class TeamSelectionController extends FXController implements PropertyCha
     @FXML
     public void teamSelectionAction(ActionEvent event) {
         Logger.getLogger(TeamSelectionController.class.getName()).log(Level.INFO, "teamSelectionAction {0}", new Object[]{event});
-        firePropertyChange(Events.NEW_TEAM_SELECTED_EVENT, null, possibleTeamsList.getSelectionModel().getSelectedItem());
+        Team selectedTeam = possibleTeamsList.getSelectionModel().getSelectedItem();
+        EnvLoader.setPreferedTeam(selectedTeam);
+        firePropertyChange(Events.NEW_TEAM_SELECTED_EVENT, null, selectedTeam);
     }
 
     @FXML
@@ -96,13 +98,17 @@ public class TeamSelectionController extends FXController implements PropertyCha
 
     @Override
     public void loadParameters(Object... params) {
-        if (params.length > 0) {
-            //un peu moche !!
-            List<Team> teams = (List<Team>) params[0];
-            ObservableList<Team> teamsItems = FXCollections.observableList(teams);
-            possibleTeamsList.getItems().clear();
-            possibleTeamsList.getItems().setAll(teamsItems);
-        }
+//        if (params.length > 0) {
+//            //un peu moche !!
+//            List<Team> teams = (List<Team>) params[0];
+//            ObservableList<Team> teamsItems = FXCollections.observableList(teams);
+//            possibleTeamsList.getItems().clear();
+//            possibleTeamsList.getItems().setAll(teamsItems);
+//        }
+        ObservableList<Team> teamsItems = FXCollections.observableList(EnvLoader.getTeams());
+        possibleTeamsList.getItems().clear();
+        possibleTeamsList.getItems().setAll(teamsItems);
+
     }
 
 }
