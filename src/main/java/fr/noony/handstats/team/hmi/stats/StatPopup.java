@@ -35,6 +35,9 @@ public class StatPopup extends Popup {
     private final Rectangle popupTranslucidBackground;
     private final Rectangle popupBackground;
 
+    /**
+     * Creates a pop up containg the team stat page
+     */
     public StatPopup() {
         super();
         popupTranslucidBackground = new Rectangle(800, 600);
@@ -53,8 +56,6 @@ public class StatPopup extends Popup {
         super.show(ownerWindow, anchorX, anchorY);
         double width = getOwnerWindow().getWidth();
         double height = getOwnerWindow().getHeight();
-        System.err.println(" width :: " + width);
-        System.err.println(" height :: " + height);
         popupTranslucidBackground.setWidth(width);
         popupTranslucidBackground.setHeight(height);
         double innerX = (width - DEFAULT_POP_UP_DIMENSION.getWidth()) / 2.0;

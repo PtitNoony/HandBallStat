@@ -18,8 +18,7 @@ package fr.noony.handstats.team.hmi.stats;
 
 /**
  *
- * @see move in the right package
- * @author Arnaud
+ * @author Arnaud HAMON-KEROMEN
  */
 public enum TerrainAreas {
 
