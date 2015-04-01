@@ -16,6 +16,7 @@
  */
 package fr.noony.handstats.team.hmi;
 
+import fr.noony.handstats.utils.EnvLoader;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.util.logging.Level;
@@ -35,6 +36,7 @@ import javax.swing.Timer;
 public class Main extends Application {
 
     public static final Dimension DEFAULT_RESOLUTION = new Dimension(800, 600);
+    public static final Logger LOG = Logger.getLogger(Main.class.getName());
 
     public static final String INIT_PAGE = "InitPage";
     public static final String TEAM_CREATION_PAGE = "TeamCreatorPanel";
@@ -45,6 +47,8 @@ public class Main extends Application {
     public static final String MATCH_SCOREBOARD_PAGE = "MatchScoreBoard";
     public static final String MATCH_CONFIGURATOR_PAGE = "MatchConfigurator";
     public static final String STATS_PAGE = "StatMainPage";
+
+    private static final String WELCOME_MESSAGE = "WELCOME TO HANDSTAT v";
 
     private Scene myScene;
     private Stage myStage;
@@ -63,6 +67,8 @@ public class Main extends Application {
     private double sceneWidth = DEFAULT_RESOLUTION.width;
     private double sceneHeight = DEFAULT_RESOLUTION.height;
 
+    private final EnvLoader envLoader = new EnvLoader();
+
     private Timer exitTimer;
 
     /**
@@ -78,12 +84,13 @@ public class Main extends Application {
             //mandatory since using swing timer ???
             //System.exit(0);
         });
+        envLoader.loadEnvironment();
         Platform.runLater(() -> {
             screensController = new MainScreensController();
+            screensController.setEnvLoader(envLoader);
             myScene = new Scene(screensController, DEFAULT_RESOLUTION.width, DEFAULT_RESOLUTION.height);
             myStage.setScene(myScene);
             myStage.show();
-            System.err.println(" MY WINDOW IS ::" + myScene.getWindow());
             initFrame(false);
             screensController.setWindow(myScene.getWindow());
             myStage.setFullScreen(true);
@@ -98,10 +105,10 @@ public class Main extends Application {
     }
 
     private void initFrame(boolean fullScreen) {
-        myStage.setFullScreenExitHint("WELCOME TO HANDSTAT V0.1 Alpha");
+        myStage.setFullScreenExitHint(WELCOME_MESSAGE + envLoader.getVersion());
         myStage.setFullScreen(fullScreen);
         createPages();
-        screensController.setScreen(welcomePage.getName());
+        screensController.setScreen(welcomePage.getName(), envLoader.getTeams(), envLoader.getPreferedTeam());
         myScene.widthProperty().addListener((ObservableValue<? extends Number> observableValue, Number oldSceneWidth, Number newSceneWidth) -> {
             Logger.getLogger(Main.class.getName()).log(Level.INFO, "new width : {0} old {1} new {2}", new Object[]{observableValue, oldSceneWidth, newSceneWidth});
             sceneWidth = newSceneWidth.doubleValue();
@@ -153,6 +160,7 @@ public class Main extends Application {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
+        LOG.setLevel(Level.SEVERE);
         launch(args);
     }
 

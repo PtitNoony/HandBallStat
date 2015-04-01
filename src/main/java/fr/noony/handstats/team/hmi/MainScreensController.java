@@ -87,7 +87,7 @@ public class MainScreensController extends AbstractScreensController {
 
     public void saveTeam() {
         if (currentTeam != null) {
-            XMLSaver.saveTeam(currentTeam);
+            XMLSaver.saveTeam(currentTeam, getEnvLoader());
         }
 
     }

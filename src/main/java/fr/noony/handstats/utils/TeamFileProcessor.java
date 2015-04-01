@@ -16,7 +16,6 @@
 package fr.noony.handstats.utils;
 
 import fr.noony.handstats.core.Team;
-import static fr.noony.handstats.team.hmi.InitPageController.TEAM_FILE_EXTENSION;
 import java.io.IOException;
 import java.nio.file.FileVisitResult;
 import java.nio.file.Path;
@@ -34,8 +33,14 @@ import java.util.Map;
  */
 public class TeamFileProcessor extends SimpleFileVisitor<Path> {
 
+    public static final String TEAM_FILE_EXTENSION = ".xml";
+
     private final Map<String, Team> teams = new HashMap<>();
     private int nbTeamFiles = 0;
+
+    public final void processTeamFolder() {
+
+    }
 
     @Override
     public FileVisitResult visitFile(Path aFile, BasicFileAttributes aAttrs) throws IOException {

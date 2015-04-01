@@ -19,9 +19,8 @@ package fr.noony.handstats.utils;
 import fr.noony.handstats.Game;
 import fr.noony.handstats.core.Player;
 import fr.noony.handstats.core.Team;
-import fr.noony.handstats.team.hmi.InitPageController;
-import static fr.noony.handstats.team.hmi.InitPageController.TEAM_FILE_EXTENSION;
-import static fr.noony.handstats.team.hmi.InitPageController.TEAM_RELATIVE_DIRECTORY;
+import static fr.noony.handstats.utils.EnvLoader.TEAM_RELATIVE_DIRECTORY;
+import static fr.noony.handstats.utils.TeamFileProcessor.TEAM_FILE_EXTENSION;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -125,7 +124,7 @@ public class XMLSaver {
         //empty constructor
     }
 
-    public static void saveTeam(Team team) {
+    public static void saveTeam(Team team, EnvLoader envLoader) {
         System.err.println("SAVING TEAM " + team);
         //il faut connaitre le chemin
 
@@ -146,7 +145,7 @@ public class XMLSaver {
             tr.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "4");
 
             // send DOM to file
-            String destFilePath = InitPageController.DEBUG_FOLDER + TEAM_RELATIVE_DIRECTORY + "\\" + team.getName() + TEAM_FILE_EXTENSION;
+            String destFilePath = envLoader.getCurrentPath() + TEAM_RELATIVE_DIRECTORY + "\\" + team.getName() + TEAM_FILE_EXTENSION;
 
             File yourFile = new File(destFilePath);
             if (!yourFile.exists()) {

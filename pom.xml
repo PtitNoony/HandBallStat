@@ -256,7 +256,7 @@
     	      </descriptorRefs>
     	      <archive>
     	        <manifest>
-    	          <mainClass>fr.noony.tetris.Tetris</mainClass>
+    	          <mainClass>fr.noony.handstats.team.hmi.Main</mainClass>
     	        </manifest>
     	      </archive>
     	    </configuration>
