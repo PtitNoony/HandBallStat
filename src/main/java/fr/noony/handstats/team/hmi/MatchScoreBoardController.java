@@ -34,7 +34,6 @@ import fr.noony.handstats.team.hmi.drawing.GoalKeeperDrawing;
 import fr.noony.handstats.team.hmi.drawing.PlayerDrawing;
 import fr.noony.handstats.team.hmi.drawing.ScoreDisplayer;
 import fr.noony.handstats.team.hmi.drawing.TeamDrawing;
-import fr.noony.handstats.team.hmi.stats.StatPopup;
 import java.awt.Dimension;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
@@ -128,7 +127,7 @@ public class MatchScoreBoardController extends FXController implements PropertyC
     private ButtonDrawing statButton;
     private ImageView rightCourtImage;
     private ImageView leftCourtImage;
-    private StatPopup teamStatsPopUp;
+    private CustomPopup teamStatsPopUp;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -155,7 +154,8 @@ public class MatchScoreBoardController extends FXController implements PropertyC
         //
         createSeparators();
         //
-        teamStatsPopUp = new StatPopup();
+        //TODO string -> var
+        teamStatsPopUp = new CustomPopup("StatPopupPage");
         teamStatsPopUp.getPopupScreen().getController().getLookup().lookup(PropertyChangeSupport.class).addPropertyChangeListener(this);
         //
         setState(ScoringState.IN_PLAY);

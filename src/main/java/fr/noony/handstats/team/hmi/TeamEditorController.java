@@ -23,7 +23,6 @@ import static fr.noony.handstats.team.hmi.Events.OK_EVENT;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
-import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -34,17 +33,12 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.SelectionMode;
 import javafx.scene.paint.Color;
-import javafx.stage.Stage;
-import javafx.stage.WindowEvent;
 
 /**
  *
@@ -69,7 +63,8 @@ public class TeamEditorController extends FXController implements PropertyChange
     @FXML
     private ColorPicker colorPicker;
 
-    private Stage playerEditor;
+//    private Stage playerEditor;
+    private CustomPopup playerEditor;
     private PlayerEditorController playerEditorController;
     private ObservableList<Player> restingPlayers;
     private ObservableList<Player> activePlayers;
@@ -81,7 +76,9 @@ public class TeamEditorController extends FXController implements PropertyChange
     public void initialize(URL location, ResourceBundle resources) {
         Logger.getLogger(TeamEditorController.class.getName()).log(Level.INFO, "Init Team editor panel");
         editPlayerB.setDisable(true);
-        playerEditor = createNewPlayerEditor();
+//        playerEditor = createNewPlayerEditor();
+        playerEditor = new CustomPopup("PlayerEditorPanel");
+        createNewPlayerEditor();
         restingPlayers = FXCollections.observableArrayList();
         reposListe.setItems(restingPlayers);
         activePlayers = FXCollections.observableArrayList();
@@ -116,7 +113,8 @@ public class TeamEditorController extends FXController implements PropertyChange
         Logger.getLogger(TeamEditorController.class.getName()).log(Level.INFO, "Editing new player {0}", new Object[]{event});
         newPlayerB.setDisable(true);
         playerEditorController.resetFields();
-        playerEditor.show();
+        playerEditor.show(getWindow());
+        playerEditor.setSize(700, 500);
     }
 
     @FXML
@@ -143,29 +141,53 @@ public class TeamEditorController extends FXController implements PropertyChange
         firePropertyChange(Events.BACK_TO_TEAM_MAIN, null, currentTeam);
     }
 
-    private Stage createNewPlayerEditor() {
-        Stage stage = new Stage();
-        Platform.runLater(() -> {
-            try {
-                FXMLLoader fXMLLoader = new FXMLLoader(getClass().getResource("PlayerEditorPanel.fxml"));
-                fXMLLoader.load();
-                Parent root = fXMLLoader.getRoot();
-                Scene scene = new Scene(root);
-                stage.setScene(scene);
-                playerEditorController = (PlayerEditorController) fXMLLoader.getController();
-                playerEditorController.getLookup().lookup(PropertyChangeSupport.class).addPropertyChangeListener(TeamEditorController.this);
-                stage.hide();
-                stage.setAlwaysOnTop(true);
-                stage.setResizable(false);
-                stage.setOnCloseRequest((WindowEvent event) -> {
-                    Logger.getLogger(TeamEditorController.class.getName()).log(Level.SEVERE, "tried to close the player editor window on event {0}", event);
-                    playerEditorController.annulerAction(new ActionEvent(stage, null));
-                });
-            } catch (IOException ex) {
-                Logger.getLogger(TeamEditorController.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        });
-        return stage;
+//    private Stage createNewPlayerEditor() {
+//        Stage stage = new Stage();
+//        Platform.runLater(() -> {
+//            try {
+//                FXMLLoader fXMLLoader = new FXMLLoader(getClass().getResource("PlayerEditorPanel.fxml"));
+//                fXMLLoader.load();
+//                Parent root = fXMLLoader.getRoot();
+//                Scene scene = new Scene(root);
+//                stage.setScene(scene);
+//                playerEditorController = (PlayerEditorController) fXMLLoader.getController();
+//                playerEditorController.getLookup().lookup(PropertyChangeSupport.class).addPropertyChangeListener(TeamEditorController.this);
+//                stage.hide();
+//                stage.setAlwaysOnTop(true);
+//                stage.setResizable(false);
+//                stage.setOnCloseRequest((WindowEvent event) -> {
+//                    Logger.getLogger(TeamEditorController.class.getName()).log(Level.SEVERE, "tried to close the player editor window on event {0}", event);
+//                    playerEditorController.annulerAction(new ActionEvent(stage, null));
+//                });
+//            } catch (IOException ex) {
+//                Logger.getLogger(TeamEditorController.class.getName()).log(Level.SEVERE, null, ex);
+//            }
+//        });
+//        return stage;
+//    }
+    private void createNewPlayerEditor() {
+//        Stage stage = new Stage();
+//        Platform.runLater(() -> {
+//            try {
+//                FXMLLoader fXMLLoader = new FXMLLoader(getClass().getResource("PlayerEditorPanel.fxml"));
+//                fXMLLoader.load();
+//                Parent root = fXMLLoader.getRoot();
+//                Scene scene = new Scene(root);
+//                stage.setScene(scene);
+        playerEditorController = (PlayerEditorController) playerEditor.getController();
+        playerEditorController.getLookup().lookup(PropertyChangeSupport.class).addPropertyChangeListener(TeamEditorController.this);
+        playerEditor.hide();
+//                stage.setAlwaysOnTop(true);
+//                stage.setResizable(false);
+//                stage.setOnCloseRequest((WindowEvent event) -> {
+//                    Logger.getLogger(TeamEditorController.class.getName()).log(Level.SEVERE, "tried to close the player editor window on event {0}", event);
+//                    playerEditorController.annulerAction(new ActionEvent(stage, null));
+//                });
+//            } catch (IOException ex) {
+//                Logger.getLogger(TeamEditorController.class.getName()).log(Level.SEVERE, null, ex);
+//            }
+//        });
+//        return stage;
     }
 
     @Override
@@ -190,6 +212,12 @@ public class TeamEditorController extends FXController implements PropertyChange
     @Override
     public void updateSize(double width, double height) {
         //TODO
+    }
+
+    @FXML
+    public void editPlayerAction(ActionEvent event) {
+        playerEditor.show(getWindow());
+//        playerEditorController.loadParameters(params);
     }
 
     @Override
@@ -231,6 +259,11 @@ public class TeamEditorController extends FXController implements PropertyChange
                 toRestingButton.setDisable(true);
                 toActiveButton.setDisable(false);
                 activeList.getSelectionModel().clearSelection();
+                editPlayerB.setDisable(false);
+            } else {
+//                toRestingButton.setDisable(true);
+//                toActiveButton.setDisable(true);
+//                editPlayerB.setDisable(true);
             }
         });
     }

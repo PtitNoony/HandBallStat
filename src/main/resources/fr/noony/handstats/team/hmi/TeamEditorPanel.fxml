@@ -47,7 +47,7 @@
                               <Font size="36.0" />
                            </font>
                         </Button>
-                        <Button fx:id="editPlayerB" layoutX="344.0" layoutY="469.0" mnemonicParsing="false" prefHeight="77.0" prefWidth="212.0" text="Editer">
+                        <Button fx:id="editPlayerB" layoutX="344.0" layoutY="469.0" mnemonicParsing="false" onAction="#editPlayerAction" prefHeight="77.0" prefWidth="212.0" text="Editer">
                            <font>
                               <Font size="36.0" />
                            </font>
