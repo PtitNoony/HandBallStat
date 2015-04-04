@@ -145,7 +145,7 @@ public class PlayerDrawing implements PropertyChangeListener {
         playerImageView.setFitWidth(IMAGE_SIZE_HORIZONTAL);
         playerImageView.setFitHeight(IMAGE_SIZE_HORIZONTAL);
         //
-        numberLabel = new Label("" + myPlayer.getNumero());
+        numberLabel = new Label("" + myPlayer.getNumber());
         numberLabel.setFont(new Font(32));
         numberLabel.setAlignment(Pos.CENTER);
         //

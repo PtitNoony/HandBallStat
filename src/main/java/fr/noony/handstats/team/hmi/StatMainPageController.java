@@ -16,13 +16,13 @@ package fr.noony.handstats.team.hmi;
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-import fr.noony.handstats.team.hmi.stats.StatScreensManager;
 import fr.noony.handstats.Game;
 import fr.noony.handstats.Poste;
 import fr.noony.handstats.core.Player;
 import fr.noony.handstats.core.Team;
 import fr.noony.handstats.stats.GameProcessor;
 import fr.noony.handstats.stats.GameStat;
+import fr.noony.handstats.team.hmi.stats.StatScreensManager;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.net.URL;
@@ -124,7 +124,7 @@ public class StatMainPageController extends FXController implements PropertyChan
         mainPane.getChildren().add(statScreensManager);
         statScreensManager.setBackground(new Background(new BackgroundFill(Color.LIGHTGREY, CornerRadii.EMPTY, Insets.EMPTY)));
         statScreensManager.setPrefSize(640, 500);
-        statScreensManager.setLayoutX(270);
+        statScreensManager.setLayoutX(284);
         statScreensManager.setLayoutY(140);
         //
         setStatPageState(StatPageState.ALL_GAMES);

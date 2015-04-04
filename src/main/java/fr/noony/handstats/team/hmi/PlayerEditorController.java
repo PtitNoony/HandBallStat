@@ -18,8 +18,9 @@ package fr.noony.handstats.team.hmi;
  */
 import fr.noony.handstats.Poste;
 import fr.noony.handstats.core.Player;
+import fr.noony.handstats.core.PopUpMode;
 import static fr.noony.handstats.team.hmi.Events.CANCEL_EVENT;
-import static fr.noony.handstats.team.hmi.Events.OK_EVENT;
+import static fr.noony.handstats.team.hmi.Events.PLAYER_CREATION_OK_EVENT;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.net.URL;
@@ -67,6 +68,8 @@ public class PlayerEditorController extends FXController implements PropertyChan
     private String name;
     private String lastName;
     private Poste poste = null;
+    private Player playerEdited;
+    private PopUpMode myPopUpMode = PopUpMode.CREATION;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -155,7 +158,17 @@ public class PlayerEditorController extends FXController implements PropertyChan
 
     @FXML
     public void okAction(ActionEvent event) {
-        firePropertyChange(OK_EVENT, null, new Player(name, lastName, number, poste));
+        switch (myPopUpMode) {
+            case CREATION:
+                firePropertyChange(PLAYER_CREATION_OK_EVENT, null, new Player(name, lastName, number, poste));
+                break;
+            case EDITION:
+                updatePlayerEdited();
+                firePropertyChange(Events.PLAYER_EDITION_OK_EVENT, null, playerEdited);
+                break;
+            default:
+                throw new IllegalArgumentException();
+        }
     }
 
     @Override
@@ -170,19 +183,61 @@ public class PlayerEditorController extends FXController implements PropertyChan
 
     @Override
     public void loadParameters(Object... params) {
-        //TODO
+        if (params.length == 0) {
+            setMode(PopUpMode.CREATION);
+        } else if (params.length == 1) {
+            playerEdited = (Player) params[0];
+            setMode(PopUpMode.EDITION);
+        }
     }
 
-    public void resetFields() {
+    private void resetFields() {
         okB.setDisable(true);
         prenomL.setDisable(true);
+        prenomField.setDisable(false);
         nomL.setDisable(true);
+        nomField.setDisable(false);
         numeroL.setDisable(true);
         posteL.setDisable(true);
         prenomField.setText("");
         nomField.setText("");
         numeroField.setText("");
         posteSelecteur.getSelectionModel().clearSelection();
+    }
+
+    private void setFields() {
+        okB.setDisable(false);
+        prenomL.setDisable(true);
+        prenomField.setDisable(true);
+        nomL.setDisable(true);
+        nomField.setDisable(true);
+        numeroL.setDisable(false);
+        posteL.setDisable(false);
+        prenomField.setText(playerEdited.getFirstName());
+        nomField.setText(playerEdited.getLastName());
+        numeroField.setText("" + playerEdited.getNumber());
+        posteSelecteur.getSelectionModel().select(playerEdited.getPositionPreferee());
+    }
+
+    private void updatePlayerEdited() {
+        System.err.println("setting number = " + number);
+        playerEdited.setNumero(number);
+        playerEdited.setPositionActuelle(poste);
+        playerEdited.setPositionPreferee(poste);
+    }
+
+    private void setMode(PopUpMode mode) {
+        myPopUpMode = mode;
+        switch (myPopUpMode) {
+            case CREATION:
+                resetFields();
+                break;
+            case EDITION:
+                setFields();
+                break;
+            default:
+                throw new IllegalArgumentException();
+        }
     }
 
 }

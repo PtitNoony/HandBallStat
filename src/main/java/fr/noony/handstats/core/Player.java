@@ -72,7 +72,7 @@ public class Player {
         return nom;
     }
 
-    public int getNumero() {
+    public int getNumber() {
         return numero;
     }
 

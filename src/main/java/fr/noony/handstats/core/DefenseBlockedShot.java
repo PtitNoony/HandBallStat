@@ -69,7 +69,7 @@ public class DefenseBlockedShot implements GameAction {
         gameActionElement.setAttribute(GAMEACTION_TEAM, playerTeam.getName());
         gameActionElement.setAttribute(GAMEACTION_PLAYER_LASTNAME, player.getLastName());
         gameActionElement.setAttribute(GAMEACTION_PLAYER_FIRSTNAME, player.getFirstName());
-        gameActionElement.setAttribute(GAMEACTION_PLAYER_NUMBER, "" + player.getNumero());
+        gameActionElement.setAttribute(GAMEACTION_PLAYER_NUMBER, "" + player.getNumber());
         gameActionElement.setAttribute(GAMEACTION_TIME, shotTime);
         gameActionElement.setAttribute(GAMEACTION_SHOTZONE, shootingZone);
         return gameActionElement;

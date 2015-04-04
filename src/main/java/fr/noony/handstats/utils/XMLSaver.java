@@ -210,7 +210,7 @@ public class XMLSaver {
         Element playerElement = doc.createElement(PLAYER_TAG);
         playerElement.setAttribute(PLAYER_FIRST_NAME_TAG, player.getFirstName());
         playerElement.setAttribute(PLAYER_LAST_NAME_TAG, player.getLastName());
-        playerElement.setAttribute(PLAYER_NUMBER_TAG, "" + player.getNumero());
+        playerElement.setAttribute(PLAYER_NUMBER_TAG, "" + player.getNumber());
         playerElement.setAttribute(PLAYER_CURRENT_POSITION_TAG, player.getPositionActuelle().name());
         playerElement.setAttribute(PLAYER_PREFERRED_POSITION_TAG, player.getPositionPreferee().name());
         return playerElement;

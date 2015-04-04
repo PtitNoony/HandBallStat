@@ -19,7 +19,8 @@ package fr.noony.handstats.team.hmi;
 import fr.noony.handstats.core.Player;
 import fr.noony.handstats.core.Team;
 import static fr.noony.handstats.team.hmi.Events.CANCEL_EVENT;
-import static fr.noony.handstats.team.hmi.Events.OK_EVENT;
+import static fr.noony.handstats.team.hmi.Events.PLAYER_CREATION_OK_EVENT;
+import static fr.noony.handstats.team.hmi.Events.PLAYER_EDITION_OK_EVENT;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
@@ -62,12 +63,12 @@ public class TeamEditorController extends FXController implements PropertyChange
     private Label teamLabel;
     @FXML
     private ColorPicker colorPicker;
-
-//    private Stage playerEditor;
+    //
     private CustomPopup playerEditor;
     private PlayerEditorController playerEditorController;
     private ObservableList<Player> restingPlayers;
     private ObservableList<Player> activePlayers;
+    private Player selectedPlayer = null;
 
     private Team currentTeam;
     private Color homeColor;
@@ -76,7 +77,6 @@ public class TeamEditorController extends FXController implements PropertyChange
     public void initialize(URL location, ResourceBundle resources) {
         Logger.getLogger(TeamEditorController.class.getName()).log(Level.INFO, "Init Team editor panel");
         editPlayerB.setDisable(true);
-//        playerEditor = createNewPlayerEditor();
         playerEditor = new CustomPopup("PlayerEditorPanel");
         createNewPlayerEditor();
         restingPlayers = FXCollections.observableArrayList();
@@ -112,8 +112,9 @@ public class TeamEditorController extends FXController implements PropertyChange
     public void newPlayerAction(ActionEvent event) {
         Logger.getLogger(TeamEditorController.class.getName()).log(Level.INFO, "Editing new player {0}", new Object[]{event});
         newPlayerB.setDisable(true);
-        playerEditorController.resetFields();
+        playerEditorController.loadParameters();
         playerEditor.show(getWindow());
+        //TODO use constant
         playerEditor.setSize(700, 500);
     }
 
@@ -141,66 +142,50 @@ public class TeamEditorController extends FXController implements PropertyChange
         firePropertyChange(Events.BACK_TO_TEAM_MAIN, null, currentTeam);
     }
 
-//    private Stage createNewPlayerEditor() {
-//        Stage stage = new Stage();
-//        Platform.runLater(() -> {
-//            try {
-//                FXMLLoader fXMLLoader = new FXMLLoader(getClass().getResource("PlayerEditorPanel.fxml"));
-//                fXMLLoader.load();
-//                Parent root = fXMLLoader.getRoot();
-//                Scene scene = new Scene(root);
-//                stage.setScene(scene);
-//                playerEditorController = (PlayerEditorController) fXMLLoader.getController();
-//                playerEditorController.getLookup().lookup(PropertyChangeSupport.class).addPropertyChangeListener(TeamEditorController.this);
-//                stage.hide();
-//                stage.setAlwaysOnTop(true);
-//                stage.setResizable(false);
-//                stage.setOnCloseRequest((WindowEvent event) -> {
-//                    Logger.getLogger(TeamEditorController.class.getName()).log(Level.SEVERE, "tried to close the player editor window on event {0}", event);
-//                    playerEditorController.annulerAction(new ActionEvent(stage, null));
-//                });
-//            } catch (IOException ex) {
-//                Logger.getLogger(TeamEditorController.class.getName()).log(Level.SEVERE, null, ex);
-//            }
-//        });
-//        return stage;
-//    }
     private void createNewPlayerEditor() {
-//        Stage stage = new Stage();
-//        Platform.runLater(() -> {
-//            try {
-//                FXMLLoader fXMLLoader = new FXMLLoader(getClass().getResource("PlayerEditorPanel.fxml"));
-//                fXMLLoader.load();
-//                Parent root = fXMLLoader.getRoot();
-//                Scene scene = new Scene(root);
-//                stage.setScene(scene);
         playerEditorController = (PlayerEditorController) playerEditor.getController();
         playerEditorController.getLookup().lookup(PropertyChangeSupport.class).addPropertyChangeListener(TeamEditorController.this);
         playerEditor.hide();
-//                stage.setAlwaysOnTop(true);
-//                stage.setResizable(false);
-//                stage.setOnCloseRequest((WindowEvent event) -> {
-//                    Logger.getLogger(TeamEditorController.class.getName()).log(Level.SEVERE, "tried to close the player editor window on event {0}", event);
-//                    playerEditorController.annulerAction(new ActionEvent(stage, null));
-//                });
-//            } catch (IOException ex) {
-//                Logger.getLogger(TeamEditorController.class.getName()).log(Level.SEVERE, null, ex);
-//            }
-//        });
-//        return stage;
     }
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         switch (evt.getPropertyName()) {
-            case OK_EVENT:
+            case PLAYER_CREATION_OK_EVENT:
                 //pas comme ca qu'il faut faire
-                Player nouveauJoueur = (Player) evt.getNewValue();
-                restingPlayers.add(nouveauJoueur);
+                Player newPlayer = (Player) evt.getNewValue();
+                restingPlayers.add(newPlayer);
                 reposListe.setItems(restingPlayers);
                 playerEditor.hide();
                 newPlayerB.setDisable(false);
-                currentTeam.addPlayer(nouveauJoueur, false);
+                currentTeam.addPlayer(newPlayer, false);
+                break;
+            case PLAYER_EDITION_OK_EVENT:
+                //TODO : enhance
+
+                Player editedPlayer = (Player) evt.getNewValue();
+                if (activeList.getSelectionModel().getSelectedItem() != null) {
+                    activeList.getSelectionModel().getSelectedItem().setNumero(editedPlayer.getNumber());
+                    activeList.getSelectionModel().getSelectedItem().setPositionActuelle(editedPlayer.getPositionActuelle());
+                    activeList.getSelectionModel().getSelectedItem().setPositionPreferee(editedPlayer.getPositionPreferee());
+                } else {
+                    reposListe.getSelectionModel().getSelectedItem().setNumero(editedPlayer.getNumber());
+                    reposListe.getSelectionModel().getSelectedItem().setPositionActuelle(editedPlayer.getPositionActuelle());
+                    reposListe.getSelectionModel().getSelectedItem().setPositionPreferee(editedPlayer.getPositionPreferee());
+                }
+                restingPlayers = FXCollections.observableArrayList();
+                activePlayers = FXCollections.observableArrayList();
+                reposListe.getItems().clear();
+                activeList.getItems().clear();
+                //
+                Platform.runLater(() -> {
+                    restingPlayers.setAll(currentTeam.getRestingPlayers());
+                    reposListe.setItems(restingPlayers);
+                    activePlayers.setAll(currentTeam.getActivePlayers());
+                    activeList.setItems(activePlayers);
+                });
+                //
+                playerEditor.hide();
                 break;
             case CANCEL_EVENT:
                 playerEditor.hide();
@@ -216,8 +201,10 @@ public class TeamEditorController extends FXController implements PropertyChange
 
     @FXML
     public void editPlayerAction(ActionEvent event) {
+        playerEditorController.loadParameters(selectedPlayer);
+        //TODO fix set size after show : window null
         playerEditor.show(getWindow());
-//        playerEditorController.loadParameters(params);
+        playerEditor.setSize(700, 500);
     }
 
     @Override
@@ -249,6 +236,7 @@ public class TeamEditorController extends FXController implements PropertyChange
                 toRestingButton.setDisable(false);
                 toActiveButton.setDisable(true);
                 reposListe.getSelectionModel().clearSelection();
+                selectedPlayer = activeList.getSelectionModel().getSelectedItem();
             }
         });
     }
@@ -260,6 +248,7 @@ public class TeamEditorController extends FXController implements PropertyChange
                 toActiveButton.setDisable(false);
                 activeList.getSelectionModel().clearSelection();
                 editPlayerB.setDisable(false);
+                selectedPlayer = reposListe.getSelectionModel().getSelectedItem();
             } else {
 //                toRestingButton.setDisable(true);
 //                toActiveButton.setDisable(true);

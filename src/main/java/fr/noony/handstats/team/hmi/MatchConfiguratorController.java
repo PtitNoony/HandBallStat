@@ -306,7 +306,7 @@ public class MatchConfiguratorController extends FXController implements Propert
         awayPlayers.clear();
         //on ne doit pas pouvoir suppr une joueur ???
         for (Player p : awayTeam.getActivePlayers()) {
-            String pDisplay = "" + p.getNumero();
+            String pDisplay = "" + p.getNumber();
             if (p.getPositionPreferee().equals(Poste.GARDIEN)) {
                 pDisplay += " G";
             }

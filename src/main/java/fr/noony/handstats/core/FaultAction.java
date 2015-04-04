@@ -69,7 +69,7 @@ public class FaultAction implements GameAction {
         gameActionElement.setAttribute(GAMEACTION_TEAM, playerTeam.getName());
         gameActionElement.setAttribute(GAMEACTION_PLAYER_LASTNAME, player.getLastName());
         gameActionElement.setAttribute(GAMEACTION_PLAYER_FIRSTNAME, player.getFirstName());
-        gameActionElement.setAttribute(GAMEACTION_PLAYER_NUMBER, "" + player.getNumero());
+        gameActionElement.setAttribute(GAMEACTION_PLAYER_NUMBER, "" + player.getNumber());
         gameActionElement.setAttribute(GAMEACTION_TIME, faultTime);
         gameActionElement.setAttribute(GAMEACTION_FAULT_DESCRIPTION, myFault.name());
         return gameActionElement;

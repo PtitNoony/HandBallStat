@@ -114,8 +114,8 @@ public class TeamDrawing {
     }
 
     private void reOrderPlayers() {
-        Collections.sort(fieldPlayerDrawings, (FieldPlayerDrawing p1, FieldPlayerDrawing p2) -> Integer.compare(p1.getPlayer().getNumero(), p2.getPlayer().getNumero()));
-        Collections.sort(goalKeeperDrawings, (GoalKeeperDrawing p1, GoalKeeperDrawing p2) -> Integer.compare(p1.getPlayer().getNumero(), p2.getPlayer().getNumero()));
+        Collections.sort(fieldPlayerDrawings, (FieldPlayerDrawing p1, FieldPlayerDrawing p2) -> Integer.compare(p1.getPlayer().getNumber(), p2.getPlayer().getNumber()));
+        Collections.sort(goalKeeperDrawings, (GoalKeeperDrawing p1, GoalKeeperDrawing p2) -> Integer.compare(p1.getPlayer().getNumber(), p2.getPlayer().getNumber()));
     }
 
     private void updateDrawing() {

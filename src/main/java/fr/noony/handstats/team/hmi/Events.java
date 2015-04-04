@@ -27,7 +27,9 @@ public final class Events {
     }
 
     //
-    public static final String OK_EVENT = "okEvent";
+    public static final String PLAYER_CREATION_OK_EVENT = "creationOKEvent";
+    public static final String PLAYER_EDITION_OK_EVENT = "editionOKEvent";
+
     public static final String CANCEL_EVENT = "cancelEvent";
     //
     public static final String CANCEL_TEAM_CREATION_EVENT = "cancelTeamCreationAction";

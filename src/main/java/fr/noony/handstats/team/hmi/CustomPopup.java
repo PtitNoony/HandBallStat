@@ -56,6 +56,18 @@ public class CustomPopup extends Popup {
     }
 
     @Override
+    protected void show() {
+        super.show();
+        update();
+    }
+
+    @Override
+    public void show(Window owner) {
+        super.show(owner);
+        update();
+    }
+
+    @Override
     public void show(Window ownerWindow, double anchorX, double anchorY) {
         super.show(ownerWindow, anchorX, anchorY);
         update();
@@ -64,9 +76,6 @@ public class CustomPopup extends Popup {
     private void update() {
         double frameWidth = getOwnerWindow().getWidth();
         double frameHeight = getOwnerWindow().getHeight();
-        System.err.println(" my window is " + getOwnerWindow());
-        System.err.println(" WINDOW SIZE :: " + frameWidth + "x" + frameHeight);
-        System.err.println("position ::" + getOwnerWindow().getX() + "x" + getOwnerWindow().getY());
         popupTranslucidBackground.setWidth(frameWidth);
         popupTranslucidBackground.setHeight(frameHeight);
         popupTranslucidBackground.setX(0);

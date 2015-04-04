@@ -64,8 +64,8 @@ public class Team {
 
     public void addPlayer(Player j, boolean active) {
         for (Player joueur : allPlayers) {
-            if (joueur.getNumero() == j.getNumero()) {
-                throw new IllegalArgumentException("Le numéro " + j.getNumero() + " est deja pris par " + joueur.getFirstName());
+            if (joueur.getNumber() == j.getNumber()) {
+                throw new IllegalArgumentException("Le numéro " + j.getNumber() + " est deja pris par " + joueur.getFirstName());
             }
         }
         if (active) {
@@ -84,7 +84,7 @@ public class Team {
 
     public Player getActivePlayerByNumber(int number) {
         for (Player j : activePlayers) {
-            if (j.getNumero() == number) {
+            if (j.getNumber() == number) {
                 return j;
             }
         }
@@ -174,12 +174,12 @@ public class Team {
 
     public Player getPlayer(String playerLastName, String playerFirstName, int playerNumber) {
         for (Player p : getActivePlayers()) {
-            if (playerLastName.equals(p.getLastName()) && playerFirstName.equals(p.getFirstName()) && playerNumber == p.getNumero()) {
+            if (playerLastName.equals(p.getLastName()) && playerFirstName.equals(p.getFirstName()) && playerNumber == p.getNumber()) {
                 return p;
             }
         }
         for (Player p : getRestingPlayers()) {
-            if (playerLastName.equals(p.getLastName()) && playerFirstName.equals(p.getFirstName()) && playerNumber == p.getNumero()) {
+            if (playerLastName.equals(p.getLastName()) && playerFirstName.equals(p.getFirstName()) && playerNumber == p.getNumber()) {
                 return p;
             }
         }
