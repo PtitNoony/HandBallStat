@@ -28,7 +28,7 @@ import javafx.stage.Window;
  */
 public class CustomPopup extends Popup {
 
-    private static final Dimension2D DEFAULT_POP_UP_DIMENSION = new Dimension2D(670, 630);
+    private static final Dimension2D DEFAULT_POP_UP_DIMENSION = new Dimension2D(670, 680);
 
     private final Screen popupScreen;
     private final Rectangle popupTranslucidBackground;

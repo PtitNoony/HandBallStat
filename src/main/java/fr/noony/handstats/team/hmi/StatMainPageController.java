@@ -123,9 +123,9 @@ public class StatMainPageController extends FXController implements PropertyChan
         statScreensManager.addScreen(gameScreen);
         mainPane.getChildren().add(statScreensManager);
         statScreensManager.setBackground(new Background(new BackgroundFill(Color.LIGHTGREY, CornerRadii.EMPTY, Insets.EMPTY)));
-        statScreensManager.setPrefSize(640, 500);
+        statScreensManager.setPrefSize(644, 551);
         statScreensManager.setLayoutX(284);
-        statScreensManager.setLayoutY(140);
+        statScreensManager.setLayoutY(92);
         //
         setStatPageState(StatPageState.ALL_GAMES);
     }

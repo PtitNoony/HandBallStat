@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2015 Arnaud
+ * Copyright (C) 2015 HAMON-KEROMEN A.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -16,29 +16,17 @@
  */
 package fr.noony.handstats.core;
 
-import fr.noony.handstats.utils.TimeCalculator;
+import java.util.Comparator;
 
 /**
  *
- * @author Arnaud Hamon-Keromen
+ * @author Arnaud HAMON-KEROMEN
  */
-public abstract class GameAction implements Saveable {
+public class GameActionComparator implements Comparator<GameAction> {
 
-    private final String actionTime;
-
-    public GameAction(String time) {
-        actionTime = time;
+    @Override
+    public int compare(GameAction o1, GameAction o2) {
+        return o1.getActionTime().compareTo(o2.getActionTime());
     }
 
-    public final String getActionTime() {
-        return actionTime;
-    }
-
-    public int getMinutes() {
-        return TimeCalculator.timeStringToMinutes(actionTime);
-    }
-
-    public int getSeconds() {
-        return TimeCalculator.timeStringToSeconds(actionTime);
-    }
 }

@@ -32,18 +32,17 @@ import org.w3c.dom.Element;
  *
  * @author Arnaud Hamon-Keromen
  */
-public class FaultAction implements GameAction {
+public class FaultAction extends GameAction {
 
     private final Fault myFault;
     private final Team playerTeam;
     private final Player player;
-    private final String faultTime;
 
     public FaultAction(Player p, Team shooterTeam, Fault fault, String time) {
+        super(time);
         myFault = fault;
         player = p;
         playerTeam = shooterTeam;
-        faultTime = time;
     }
 
     public Player getPlayer() {
@@ -58,10 +57,6 @@ public class FaultAction implements GameAction {
         return myFault;
     }
 
-    public String getFaultTime() {
-        return faultTime;
-    }
-
     @Override
     public Element visit(Document doc) {
         Element gameActionElement = doc.createElement(GAMEACTION_TAG);
@@ -70,7 +65,7 @@ public class FaultAction implements GameAction {
         gameActionElement.setAttribute(GAMEACTION_PLAYER_LASTNAME, player.getLastName());
         gameActionElement.setAttribute(GAMEACTION_PLAYER_FIRSTNAME, player.getFirstName());
         gameActionElement.setAttribute(GAMEACTION_PLAYER_NUMBER, "" + player.getNumber());
-        gameActionElement.setAttribute(GAMEACTION_TIME, faultTime);
+        gameActionElement.setAttribute(GAMEACTION_TIME, getActionTime());
         gameActionElement.setAttribute(GAMEACTION_FAULT_DESCRIPTION, myFault.name());
         return gameActionElement;
     }

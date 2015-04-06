@@ -36,22 +36,21 @@ import org.w3c.dom.Element;
  *
  * @author Arnaud Hamon-Keromen
  */
-public class ShotStop implements GameAction {
+public class ShotStop extends GameAction {
 
     private final Player goalK;
     private final Player player;
     private final Team playerTeam;
     private final String shootingZone;
     private final String goalZone;
-    private final String shotTime;
 
     public ShotStop(Player goalKeeper, Player shooter, Team shooterTeam, String sZone, String gZone, String time) {
+        super(time);
         goalK = goalKeeper;
         player = shooter;
         playerTeam = shooterTeam;
         shootingZone = sZone;
         goalZone = gZone;
-        shotTime = time;
     }
 
     public Player getGoalKeeper() {
@@ -74,10 +73,6 @@ public class ShotStop implements GameAction {
         return goalZone;
     }
 
-    public String getShotTime() {
-        return shotTime;
-    }
-
     @Override
     public Element visit(Document doc) {
         Element gameActionElement = doc.createElement(GAMEACTION_TAG);
@@ -89,7 +84,7 @@ public class ShotStop implements GameAction {
         gameActionElement.setAttribute(GAMEACTION_GOALKEEPER_NAME, goalK.getLastName());
         gameActionElement.setAttribute(GAMEACTION_GOALKEEPER_FIRSTNAME, goalK.getFirstName());
         gameActionElement.setAttribute(GAMEACTION_GOALKEEPER_NUMBER, "" + goalK.getNumber());
-        gameActionElement.setAttribute(GAMEACTION_TIME, shotTime);
+        gameActionElement.setAttribute(GAMEACTION_TIME, getActionTime());
         gameActionElement.setAttribute(GAMEACTION_SHOTZONE, shootingZone);
         gameActionElement.setAttribute(GAMEACTION_GOALZONE, goalZone);
         return gameActionElement;

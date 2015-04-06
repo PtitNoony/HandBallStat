@@ -33,20 +33,19 @@ import org.w3c.dom.Element;
  *
  * @author Arnaud Hamon-Keromen
  */
-public class GoodShot implements GameAction {
+public class GoodShot extends GameAction {
 
     private final Player player;
     private final Team playerTeam;
     private final String shootingZone;
     private final String goalZone;
-    private final String shotTime;
 
     public GoodShot(Player shooter, Team shooterTeam, String sZone, String gZone, String time) {
+        super(time);
         player = shooter;
         playerTeam = shooterTeam;
         shootingZone = sZone;
         goalZone = gZone;
-        shotTime = time;
     }
 
     public Player getShooter() {
@@ -65,10 +64,6 @@ public class GoodShot implements GameAction {
         return goalZone;
     }
 
-    public String getShotTime() {
-        return shotTime;
-    }
-
     @Override
     public Element visit(Document doc) {
         Element gameActionElement = doc.createElement(GAMEACTION_TAG);
@@ -77,7 +72,7 @@ public class GoodShot implements GameAction {
         gameActionElement.setAttribute(GAMEACTION_PLAYER_LASTNAME, player.getLastName());
         gameActionElement.setAttribute(GAMEACTION_PLAYER_FIRSTNAME, player.getFirstName());
         gameActionElement.setAttribute(GAMEACTION_PLAYER_NUMBER, "" + player.getNumber());
-        gameActionElement.setAttribute(GAMEACTION_TIME, shotTime);
+        gameActionElement.setAttribute(GAMEACTION_TIME, getActionTime());
         gameActionElement.setAttribute(GAMEACTION_SHOTZONE, shootingZone);
         gameActionElement.setAttribute(GAMEACTION_GOALZONE, goalZone);
         return gameActionElement;

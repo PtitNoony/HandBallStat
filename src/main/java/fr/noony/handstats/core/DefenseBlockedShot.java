@@ -32,18 +32,17 @@ import org.w3c.dom.Element;
  *
  * @author Arnaud Hamon-Keromen
  */
-public class DefenseBlockedShot implements GameAction {
+public class DefenseBlockedShot extends GameAction {
 
     private final Player player;
     private final Team playerTeam;
     private final String shootingZone;
-    private final String shotTime;
 
     public DefenseBlockedShot(Player shooter, Team shooterTeam, String sZone, String time) {
+        super(time);
         player = shooter;
         playerTeam = shooterTeam;
         shootingZone = sZone;
-        shotTime = time;
     }
 
     public Player getShooter() {
@@ -58,10 +57,6 @@ public class DefenseBlockedShot implements GameAction {
         return shootingZone;
     }
 
-    public String getShotTime() {
-        return shotTime;
-    }
-
     @Override
     public Element visit(Document doc) {
         Element gameActionElement = doc.createElement(GAMEACTION_TAG);
@@ -70,7 +65,7 @@ public class DefenseBlockedShot implements GameAction {
         gameActionElement.setAttribute(GAMEACTION_PLAYER_LASTNAME, player.getLastName());
         gameActionElement.setAttribute(GAMEACTION_PLAYER_FIRSTNAME, player.getFirstName());
         gameActionElement.setAttribute(GAMEACTION_PLAYER_NUMBER, "" + player.getNumber());
-        gameActionElement.setAttribute(GAMEACTION_TIME, shotTime);
+        gameActionElement.setAttribute(GAMEACTION_TIME, getActionTime());
         gameActionElement.setAttribute(GAMEACTION_SHOTZONE, shootingZone);
         return gameActionElement;
     }

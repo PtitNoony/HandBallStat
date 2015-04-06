@@ -24,6 +24,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Objects;
 import javafx.scene.paint.Color;
 import org.openide.util.Lookup;
 import org.openide.util.lookup.AbstractLookup;
@@ -187,12 +188,20 @@ public class Team {
         return null;
     }
 
-//    @Override
-//    public boolean equals(Object obj) {
-//        if(obj instanceof Team){
-//            Team team = (Team)obj;
-//            return teamName.equals(team.getName());
-//        }
-//    }
-//    
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof Team) {
+            Team team = (Team) obj;
+            return teamName.equals(team.getName());
+        }
+        return false;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 13 * hash + Objects.hashCode(this.teamName);
+        return hash;
+    }
+
 }

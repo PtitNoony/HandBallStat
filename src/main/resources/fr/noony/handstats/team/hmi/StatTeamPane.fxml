@@ -7,9 +7,9 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.noony.handstats.team.hmi.stats.StatTeamPaneController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="551.0" prefWidth="644.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.noony.handstats.team.hmi.stats.StatTeamPaneController">
    <children>
-      <Accordion fx:id="accordion" prefHeight="500.0" prefWidth="640.0">
+      <Accordion fx:id="accordion" prefHeight="551.0" prefWidth="644.0">
         <panes>
           <TitledPane fx:id="summaryPane" text="Résumé">
                <content>
@@ -143,6 +143,11 @@
           <TitledPane text="Zones de tirs : vue but">
                <content>
                   <Pane prefHeight="200.0" prefWidth="200.0" />
+               </content>
+            </TitledPane>
+            <TitledPane animated="false" text="TimeLine">
+               <content>
+                  <Pane fx:id="timeLinePane" prefHeight="200.0" />
                </content>
             </TitledPane>
         </panes>

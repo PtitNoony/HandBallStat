@@ -16,10 +16,12 @@
  */
 package fr.noony.handstats.team.hmi.stats;
 
+import fr.noony.handstats.core.GameHalf;
 import fr.noony.handstats.core.Team;
 import fr.noony.handstats.court.InteractiveShootingArea;
 import fr.noony.handstats.stats.GameStat;
 import fr.noony.handstats.team.hmi.FXController;
+import fr.noony.handstats.team.hmi.drawing.HalfTimeLine;
 import fr.noony.handstats.team.hmi.drawing.PlayerDrawing;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
@@ -69,6 +71,9 @@ public class StatTeamPaneController extends FXController implements PropertyChan
     public RadioButton madeFromTerrainPercRB;
     @FXML
     public RadioButton missedFromTerrainPercRB;
+    //time line
+    @FXML
+    public Pane timeLinePane;
 
     //
     private GameStat gameStat;
@@ -78,6 +83,9 @@ public class StatTeamPaneController extends FXController implements PropertyChan
     private InteractiveShootingArea selectedTerrainArea = null;
     private InteractiveShootingArea selectedGoalArea = null;
     private InteractiveShootingArea tmpSelected = null;
+    //
+    private HalfTimeLine firstHalfTimeline;
+    private HalfTimeLine secondHalfTimeline;
 
     /**
      * Initializes the controller class.
@@ -102,6 +110,14 @@ public class StatTeamPaneController extends FXController implements PropertyChan
         missedFromTerrainPercRB.setOnAction(event -> handleMissedPercTerrainShotRBAction(event));
         //
         courtDrawing.displayAsNeutal();
+        //
+        firstHalfTimeline = new HalfTimeLine(GameHalf.FIRST_HALF);
+        secondHalfTimeline = new HalfTimeLine(GameHalf.SECOND_HALF);
+        timeLinePane.getChildren().add(firstHalfTimeline.getNode());
+        timeLinePane.getChildren().add(secondHalfTimeline.getNode());
+        firstHalfTimeline.setPosition(0, 25);
+        secondHalfTimeline.setPosition(0, 250);
+        //
     }
 
     @Override
@@ -153,6 +169,8 @@ public class StatTeamPaneController extends FXController implements PropertyChan
             courtDrawing.setPercShotMissed(gameStat.getAwayPercShotMissedByTerrainArea());
         }
         handleMadeNbTerrainShotRBAction(new ActionEvent(this, null));
+        firstHalfTimeline.initStat(gameStat);
+//        secondHalfTimeline.initStat(gameStat);
     }
 
     @Override

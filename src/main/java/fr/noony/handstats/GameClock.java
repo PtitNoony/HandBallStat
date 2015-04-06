@@ -16,6 +16,7 @@
  */
 package fr.noony.handstats;
 
+import fr.noony.handstats.utils.TimeCalculator;
 import java.beans.PropertyChangeSupport;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -55,7 +56,7 @@ public class GameClock {
     private final Timeline timeline;
     private int nbMinutes;
     private int nbSeconds;
-    private StringBuilder sTime;
+    private String sTime;
 
     public GameClock() {
         propertyChangeSupport = new PropertyChangeSupport(GameClock.this);
@@ -75,7 +76,7 @@ public class GameClock {
 
     public String getTime() {
         updateStringBuilder();
-        return sTime.toString();
+        return sTime;
     }
 
     private void nextSecond(ActionEvent e) {
@@ -87,21 +88,12 @@ public class GameClock {
             nbSeconds++;
         }
         updateStringBuilder();
-        firePropertyChange(CLOCK_VALUE_CHANGED, null, sTime.toString());
+        firePropertyChange(CLOCK_VALUE_CHANGED, null, sTime);
         checkTime();
     }
 
     private void updateStringBuilder() {
-        sTime = new StringBuilder();
-        if (nbMinutes < 10) {
-            sTime.append("0");
-        }
-        sTime.append(nbMinutes);
-        sTime.append(":");
-        if (nbSeconds < 10) {
-            sTime.append("0");
-        }
-        sTime.append(nbSeconds);
+        sTime = TimeCalculator.timeToString(nbMinutes, nbSeconds);
     }
 
     private void checkTime() {

@@ -20,12 +20,16 @@ import fr.noony.handstats.Game;
 import fr.noony.handstats.core.DefenseBlockedShot;
 import fr.noony.handstats.core.FaultAction;
 import fr.noony.handstats.core.GameAction;
+import fr.noony.handstats.core.GameActionComparator;
 import fr.noony.handstats.core.GoodShot;
 import fr.noony.handstats.core.ShotStop;
 import fr.noony.handstats.core.Team;
 import fr.noony.handstats.court.HalfCourtDrawing;
 import fr.noony.handstats.team.hmi.stats.TerrainAreas;
 import java.time.LocalDate;
+import java.util.Collections;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  *
@@ -324,6 +328,40 @@ public class GameStat {
             }
         }
         return result;
+    }
+
+    public List<GameAction> getGoalChronology() {
+        //TODO calculate it only once
+        List<GameAction> result = new LinkedList<>();
+        myGame.getActions().stream().filter(action -> action instanceof GoodShot).forEach(action
+                -> result.add(action));
+        Collections.sort(result, new GameActionComparator());
+        return result;
+    }
+
+    public int getMaxDelta() {
+        //TODO calculate it only once
+        //TODO optimize
+        List<GoodShot> goodShots = new LinkedList<>();
+        int currentDelta = 0;
+        int maxDelta = 0;
+        for (GameAction action : myGame.getActions()) {
+            if (action instanceof GoodShot) {
+                goodShots.add((GoodShot) action);
+            }
+        }
+        Collections.sort(goodShots, new GameActionComparator());
+        GoodShot currentAction;
+        for (int i = 0; i < goodShots.size(); i++) {
+            currentAction = goodShots.get(i);
+            if (currentAction.getShooterTeam().equals(homeTeam)) {
+                currentDelta++;
+            } else {
+                currentDelta--;
+            }
+            maxDelta = Math.max(maxDelta, Math.abs(currentDelta));
+        }
+        return maxDelta;
     }
 
 }
