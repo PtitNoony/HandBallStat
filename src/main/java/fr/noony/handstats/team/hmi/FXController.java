@@ -53,12 +53,10 @@ public abstract class FXController implements Initializable {
     public abstract void loadParameters(Object... params);
 
     public void setWindow(Window window) {
-        System.err.println("settinf main window " + window + " in class :" + this.toString());
         mainWindow = window;
     }
 
     public final Window getWindow() {
-        System.err.println(" returning window :: " + mainWindow);
         return mainWindow;
     }
 
