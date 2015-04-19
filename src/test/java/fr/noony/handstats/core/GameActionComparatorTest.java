@@ -16,9 +16,9 @@
  */
 package fr.noony.handstats.core;
 
-import static junit.framework.Assert.assertEquals;
 import org.junit.After;
 import org.junit.AfterClass;
+import static org.junit.Assert.assertEquals;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -60,7 +60,7 @@ public class GameActionComparatorTest {
         GameAction o4Bis = new ShotStop(null, null, null, null, null, "10:00");
         GameAction o5 = new ShotStop(null, null, null, null, null, "10:01");
         GameActionComparator instance = new GameActionComparator();
-        int expResult = 0;
+        int expResult;
         int result;
         expResult = -1;
         result = instance.compare(o1, o2);

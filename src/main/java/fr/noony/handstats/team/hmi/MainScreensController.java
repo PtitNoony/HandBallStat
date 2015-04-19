@@ -41,44 +41,44 @@ public class MainScreensController extends AbstractScreensController {
     protected void processEvent(PropertyChangeEvent evt) {
         switch (evt.getPropertyName()) {
             case Events.ACTION_CREATE_TEAM:
-                setScreen(Main.TEAM_CREATION_PAGE);
+                setScreen(Screens.TEAM_CREATION_PAGE);
                 break;
             case Events.CANCEL_TEAM_CREATION_EVENT:
-                setScreen(Main.INIT_PAGE);
+                setScreen(Screens.INIT_PAGE);
                 break;
             case Events.CREATE_TEAM_EVENT:
                 currentTeam = (Team) evt.getNewValue();
-                setScreen(Main.TEAM_EDITION_PAGE, currentTeam);
+                setScreen(Screens.TEAM_EDITION_PAGE, currentTeam);
                 break;
             case Events.ACTION_CHANGE_TEAM:
-                setScreen(Main.TEAM_SELECTION_PAGE, evt.getNewValue());
+                setScreen(Screens.TEAM_SELECTION_PAGE, evt.getNewValue());
                 break;
             case Events.NEW_TEAM_SELECTED_EVENT:
                 currentTeam = (Team) evt.getNewValue();
-                setScreen(Main.TEAM_MAIN_PAGE, currentTeam);
+                setScreen(Screens.TEAM_MAIN_PAGE, currentTeam);
                 break;
             case Events.CANCEL_TEAM_SELECTED_EVENT:
-                setScreen(Main.INIT_PAGE);
+                setScreen(Screens.INIT_PAGE);
                 break;
             case Events.BACK_TEAM_SELECTION:
-                setScreen(Main.TEAM_SELECTION_PAGE);
+                setScreen(Screens.TEAM_SELECTION_PAGE);
                 break;
             case Events.EDIT_CURRENT_TEAM:
                 currentTeam = (Team) evt.getNewValue();
-                setScreen(Main.TEAM_EDITION_PAGE, currentTeam);
+                setScreen(Screens.TEAM_EDITION_PAGE, currentTeam);
                 break;
             case Events.BACK_TO_TEAM_MAIN:
                 currentTeam = (Team) evt.getNewValue();
-                setScreen(Main.TEAM_MAIN_PAGE, currentTeam);
+                setScreen(Screens.TEAM_MAIN_PAGE, currentTeam);
                 break;
             case Events.CONFIGURE_MATCH:
-                setScreen(Main.MATCH_CONFIGURATOR_PAGE, currentTeam);
+                setScreen(Screens.MATCH_CONFIGURATOR_PAGE, currentTeam);
                 break;
             case Events.START_GAME:
-                setScreen(Main.MATCH_SCOREBOARD_PAGE, (Game) evt.getNewValue());
+                setScreen(Screens.MATCH_SCOREBOARD_PAGE, (Game) evt.getNewValue());
                 break;
             case Events.DISPLAY_STATS_FROM_MAIN:
-                setScreen(Main.STATS_PAGE, currentTeam);
+                setScreen(Screens.STATS_PAGE, currentTeam);
                 break;
             default:
                 throw new UnsupportedOperationException("unhandled property change event :" + evt.getPropertyName());

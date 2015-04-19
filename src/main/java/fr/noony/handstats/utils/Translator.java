@@ -30,6 +30,7 @@ public final class Translator {
         myLanguage = Language.FRANCAIS;
     }
 
+    //INIT PAGE
     public static String getSelectedTeam() {
         switch (myLanguage) {
             case ENGLISH:
@@ -52,4 +53,37 @@ public final class Translator {
         }
     }
 
+    public static String getManageTeam() {
+        switch (myLanguage) {
+            case ENGLISH:
+                return "Manage team";
+            case FRANCAIS:
+                return "Gestion de l'équipe";
+            default:
+                return ERROR_STRING;
+        }
+    }
+
+    public static String getChangeTeam() {
+        switch (myLanguage) {
+            case ENGLISH:
+                return "Change team";
+            case FRANCAIS:
+                return "Changer d'équipe";
+            default:
+                return ERROR_STRING;
+        }
+    }
+
+    // Creation page
+    public static String getTeamCreation() {
+        switch (myLanguage) {
+            case ENGLISH:
+                return "Team Creation";
+            case FRANCAIS:
+                return "Création d'une équipe";
+            default:
+                return ERROR_STRING;
+        }
+    }
 }

@@ -256,7 +256,7 @@
     	      </descriptorRefs>
     	      <archive>
     	        <manifest>
-    	          <mainClass>fr.noony.handstats.team.hmi.Main</mainClass>
+    	          <mainClass>fr.noony.handstats.team.hmi.MainDetailled</mainClass>
     	        </manifest>
     	      </archive>
     	    </configuration>
