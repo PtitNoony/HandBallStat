@@ -307,4 +307,8 @@ public class Game implements PropertyChangeListener {
         gameClock.setTime(time);
     }
 
+    public void close() {
+        isOver = true;
+    }
+
 }

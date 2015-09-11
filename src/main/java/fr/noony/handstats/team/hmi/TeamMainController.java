@@ -53,6 +53,8 @@ public class TeamMainController extends FXController implements PropertyChangeLi
     private Button resumeGameButton;
     @FXML
     private Button configureGameButton;
+    @FXML
+    private Button terminateGameButton;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -121,12 +123,13 @@ public class TeamMainController extends FXController implements PropertyChangeLi
             Platform.runLater(() -> teamLabel.setText(currentTeam.getName()));
             if (currentTeam.getGameInProgress() != null) {
                 resumeGameButton.setDisable(false);
+                terminateGameButton.setDisable(false);
                 configureGameButton.setDisable(true);
             } else {
                 Platform.runLater(() -> {
                     resumeGameButton.setDisable(true);
+                    terminateGameButton.setDisable(true);
                     configureGameButton.setDisable(false);
-                    System.err.println(" ONE GAME IS NOT FINISHED");
                 });
             }
         } catch (Exception e) {
@@ -137,6 +140,14 @@ public class TeamMainController extends FXController implements PropertyChangeLi
     @FXML
     private void resumeGameAction(ActionEvent event) {
         firePropertyChange(LOAD_GAME_TO_RESUME, null, currentTeam.getGameInProgress());
+    }
+
+    @FXML
+    private void closeGameInProgress(ActionEvent event) {
+        currentTeam.getGameInProgress().close();
+        resumeGameButton.setDisable(true);
+        terminateGameButton.setDisable(true);
+        configureGameButton.setDisable(false);
     }
 
 }
