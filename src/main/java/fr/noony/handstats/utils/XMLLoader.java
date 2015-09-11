@@ -46,6 +46,7 @@ import static fr.noony.handstats.utils.XMLSaver.GAMEACTION_TYPE;
 import static fr.noony.handstats.utils.XMLSaver.GAME_AWAY_TEAM_SCORE_TAG;
 import static fr.noony.handstats.utils.XMLSaver.GAME_AWAY_TEAM_TAG;
 import static fr.noony.handstats.utils.XMLSaver.GAME_DATE_TAG;
+import static fr.noony.handstats.utils.XMLSaver.GAME_FINISHED;
 import static fr.noony.handstats.utils.XMLSaver.GAME_HOME_TEAM_SCORE_TAG;
 import static fr.noony.handstats.utils.XMLSaver.GAME_HOME_TEAM_TAG;
 import static fr.noony.handstats.utils.XMLSaver.PLAYER_CURRENT_POSITION_TAG;
@@ -186,13 +187,22 @@ public final class XMLLoader {
         int awayScore = Integer.parseInt(gameElement.getAttribute(GAME_AWAY_TEAM_SCORE_TAG));
         String homeTeamName = gameElement.getAttribute(GAME_HOME_TEAM_TAG);
         String awayTeamName = gameElement.getAttribute(GAME_AWAY_TEAM_TAG);
+        boolean isOver = Boolean.valueOf(gameElement.getAttribute(GAME_FINISHED));
         // create Game;
         Game game = new Game();
         Team awayTeam = team.getOpponentTeam(awayTeamName);
+        game.setStatus(isOver);
         game.setUpGame(team, awayTeam, gameDate);
         NodeList gameActions = gameElement.getElementsByTagName(GAMEACTION_TAG);
         for (int i = 0; i < gameActions.getLength(); i++) {
             processGameActionElement((Element) gameActions.item(i), game);
+        }
+        gameElement.getElementsByTagName(XMLSaver.GAME_SUSPENED_TAG);
+        //TODO: improve ugly code
+        NodeList gameSuspendedTimes = gameElement.getElementsByTagName(XMLSaver.GAME_SUSPENED_TAG);
+        for (int i = 0; i < gameSuspendedTimes.getLength(); i++) {
+            String time = ((Element) gameSuspendedTimes.item(i)).getAttribute("time");
+            game.setCurrentTime(time);
         }
         assert game.getHomeScore() == homeScore;
         assert game.getAwayScore() == awayScore;

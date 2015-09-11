@@ -88,6 +88,8 @@ public class XMLSaver {
 
     public static final String GAMEACTION_TAG = "gameAction";
 
+    public static final String GAME_SUSPENED_TAG = "gameSuspended";
+
     public static final String GAMEACTION_TYPE = "gameActionType";
 
     public static final String GAMEACTION_SHOT_STOP = "gameActionShotStop";
@@ -120,11 +122,13 @@ public class XMLSaver {
 
     public static final String GAMEACTION_GOALZONE = "gameActionGoalZone";
 
+    public static final String GAME_FINISHED = "finished";
+
     private XMLSaver() {
         //empty constructor
     }
 
-    public static void saveTeam(Team team) {
+    public static boolean saveTeam(Team team) {
         System.err.println("SAVING TEAM " + team);
         //il faut connaitre le chemin
 
@@ -157,7 +161,8 @@ public class XMLSaver {
         } catch (TransformerException | IOException te) {
             Exceptions.printStackTrace(te);
         }
-
+        System.err.println(" DONE SAVING ");
+        return true;
     }
 
     private static Element getMainTeamXMLElement(Document doc, Team team) {

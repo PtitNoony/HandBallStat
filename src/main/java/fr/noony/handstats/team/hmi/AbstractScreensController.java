@@ -39,6 +39,8 @@ import javafx.util.Duration;
  */
 public abstract class AbstractScreensController extends StackPane {
 
+    private String currentScreen = "notSet";
+
     private Window mainWindow = null;
 
     public AbstractScreensController() {
@@ -60,6 +62,7 @@ public abstract class AbstractScreensController extends StackPane {
     private final Map<String, Screen> screens = new LinkedHashMap<>();
 
     public boolean setScreen(final String name, Object... parameters) {
+        currentScreen = name;
         Screen nextScreen = screens.get(name);
         if (nextScreen != null) {
             //screen loaded
@@ -100,6 +103,10 @@ public abstract class AbstractScreensController extends StackPane {
 
     public void addScreen(Screen screen) {
         screens.put(screen.getName(), screen);
+    }
+
+    public String getCurrentScreen() {
+        return currentScreen;
     }
 
     protected abstract void processEvent(PropertyChangeEvent evt);

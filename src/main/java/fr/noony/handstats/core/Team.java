@@ -204,4 +204,13 @@ public class Team {
         return hash;
     }
 
+    public Game getGameInProgress() {
+        for (Game game : games) {
+            if (!game.isFinished()) {
+                return game;
+            }
+        }
+        return null;
+    }
+
 }

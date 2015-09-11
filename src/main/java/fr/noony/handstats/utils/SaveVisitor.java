@@ -21,6 +21,7 @@ import fr.noony.handstats.core.GameAction;
 import static fr.noony.handstats.utils.XMLSaver.GAME_AWAY_TEAM_SCORE_TAG;
 import static fr.noony.handstats.utils.XMLSaver.GAME_AWAY_TEAM_TAG;
 import static fr.noony.handstats.utils.XMLSaver.GAME_DATE_TAG;
+import static fr.noony.handstats.utils.XMLSaver.GAME_FINISHED;
 import static fr.noony.handstats.utils.XMLSaver.GAME_HOME_TEAM_SCORE_TAG;
 import static fr.noony.handstats.utils.XMLSaver.GAME_HOME_TEAM_TAG;
 import static fr.noony.handstats.utils.XMLSaver.GAME_TAG;
@@ -44,8 +45,14 @@ public class SaveVisitor {
         gameElement.setAttribute(GAME_AWAY_TEAM_TAG, game.getAwayTeam().getName());
         gameElement.setAttribute(GAME_HOME_TEAM_SCORE_TAG, "" + game.getHomeScore());
         gameElement.setAttribute(GAME_AWAY_TEAM_SCORE_TAG, "" + game.getAwayScore());
+        gameElement.setAttribute(GAME_FINISHED, "" + game.isFinished());
         for (GameAction gameAction : game.getActions()) {
             gameElement.appendChild(visitGameAction(doc, gameAction));
+        }
+        if (!game.isFinished()) {
+            Element gamesuspendedTimeElement = doc.createElement(XMLSaver.GAME_SUSPENED_TAG);
+            gamesuspendedTimeElement.setAttribute("time", "" + game.getGameClock().getTime());
+            gameElement.appendChild(gamesuspendedTimeElement);
         }
         return gameElement;
     }

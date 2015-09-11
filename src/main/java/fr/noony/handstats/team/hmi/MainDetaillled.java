@@ -20,6 +20,7 @@ import static fr.noony.handstats.team.hmi.Screens.LOADING_PAGE;
 import fr.noony.handstats.utils.EnvLoader;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
+import java.beans.PropertyChangeEvent;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -54,6 +55,8 @@ public class MainDetaillled extends Application {
     private double sceneHeight = DEFAULT_RESOLUTION.height;
     private final List<Screen> applicationScreens = new ArrayList<>();
 
+    private ExitPopUp exitPopUp;
+
     private Timer loadingTimer;
 
     /**
@@ -76,11 +79,16 @@ public class MainDetaillled extends Application {
             loadingPage = new Screen(LOADING_PAGE);
             screensController.addScreen(loadingPage);
             screensController.setScreen(LOADING_PAGE, 0.0);
+            //
+            exitPopUp = new ExitPopUp(stage, screensController);
+            //
             myStage.setFullScreen(true);
             myStage.setOnCloseRequest((WindowEvent event) -> {
                 Logger.getLogger(MainDetaillled.class.getName()).log(Level.SEVERE, "Closing application window on event :: {0}", new Object[]{event});
                 //TODO:: make a pop up to confirm and ask for save
-                screensController.saveTeam();
+//                screensController.saveTeam();
+                event.consume();
+                exitPopUp.show(stage);
             });
             Platform.runLater(() -> loadingTimer.start());
         });
@@ -88,7 +96,8 @@ public class MainDetaillled extends Application {
 
     private void displayInitPage() {
         myStage.setFullScreenExitHint(WELCOME_MESSAGE + EnvLoader.getVersion());
-        screensController.setScreen(Screens.INIT_PAGE, EnvLoader.getTeams(), EnvLoader.getPreferedTeam());
+//        screensController.setScreen(Screens.INIT_PAGE, EnvLoader.getTeams(), EnvLoader.getPreferedTeam());
+        screensController.processEvent(new PropertyChangeEvent(this, Screens.INIT_PAGE, EnvLoader.getTeams(), EnvLoader.getPreferedTeam()));
         myScene.widthProperty().addListener((ObservableValue<? extends Number> observableValue, Number oldSceneWidth, Number newSceneWidth) -> {
             Logger.getLogger(MainDetaillled.class.getName()).log(Level.INFO, "new width : {0} old {1} new {2}", new Object[]{observableValue, oldSceneWidth, newSceneWidth});
             sceneWidth = newSceneWidth.doubleValue();
@@ -99,6 +108,7 @@ public class MainDetaillled extends Application {
             sceneHeight = newSceneHeight.doubleValue();
             updatePagesSize();
         });
+
     }
 
     private void createPages() {
@@ -111,6 +121,7 @@ public class MainDetaillled extends Application {
             index = index + 1.0;
             loadingPage.loadParameters(index / nbPages);
         }
+        screensController.setWindow(myStage);
         displayInitPage();
     }
 

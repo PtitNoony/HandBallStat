@@ -40,6 +40,10 @@ public class MainScreensController extends AbstractScreensController {
     @Override
     protected void processEvent(PropertyChangeEvent evt) {
         switch (evt.getPropertyName()) {
+            case Screens.INIT_PAGE:
+                currentTeam = (Team) evt.getNewValue();
+                setScreen(Screens.INIT_PAGE, evt.getOldValue(), evt.getNewValue());
+                break;
             case Events.ACTION_CREATE_TEAM:
                 setScreen(Screens.TEAM_CREATION_PAGE);
                 break;
@@ -77,19 +81,34 @@ public class MainScreensController extends AbstractScreensController {
             case Events.START_GAME:
                 setScreen(Screens.MATCH_SCOREBOARD_PAGE, (Game) evt.getNewValue());
                 break;
+            case Events.REUME_GAME:
+                setScreen(Screens.MATCH_SCOREBOARD_PAGE, (Game) evt.getNewValue());
+                break;
+            case Events.CANCEL_MATCH_CONFIGURATION:
+                currentTeam = (Team) evt.getNewValue();
+                setScreen(Screens.TEAM_MAIN_PAGE, currentTeam);
+                break;
             case Events.DISPLAY_STATS_FROM_MAIN:
                 setScreen(Screens.STATS_PAGE, currentTeam);
+                break;
+            case Events.LOAD_GAME_TO_RESUME:
+                setScreen(Screens.MATCH_SCOREBOARD_PAGE, (Game) evt.getNewValue());
+                break;
+            case Events.EDIT_CURRENT_GAME:
+                currentTeam = (Team) evt.getOldValue();
+                setScreen(Screens.MATCH_CONFIGURATOR_PAGE, currentTeam, evt.getNewValue());
                 break;
             default:
                 throw new UnsupportedOperationException("unhandled property change event :" + evt.getPropertyName());
         }
     }
 
-    public void saveTeam() {
+    public boolean saveTeam() {
+        System.err.println(" TRYNING TO SAVE TEAM :: " + currentTeam);
         if (currentTeam != null) {
-            XMLSaver.saveTeam(currentTeam);
+            return XMLSaver.saveTeam(currentTeam);
         }
-
+        return false;
     }
 
 }

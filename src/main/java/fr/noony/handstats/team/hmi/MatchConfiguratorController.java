@@ -29,6 +29,7 @@ import java.util.Comparator;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.application.Platform;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -53,6 +54,10 @@ public class MatchConfiguratorController extends FXController implements Propert
 
     private static final Logger LOG = Logger.getLogger(MatchConfiguratorController.class.getName());
     private static final Level LOG_LEVEL = Level.FINEST;
+
+    private enum GameConfigurationMode {
+        CREATION, EDITION
+    }
 
     @FXML
     private ListView<Player> homePlayersList;
@@ -97,6 +102,8 @@ public class MatchConfiguratorController extends FXController implements Propert
     private int selectedAwayPlayerIndex = -1;
     private Color awayColor = Color.ORANGE;
     private LocalDate date;
+    private GameConfigurationMode configurationMode = GameConfigurationMode.CREATION;
+    private Game game = null;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -105,9 +112,10 @@ public class MatchConfiguratorController extends FXController implements Propert
         existingOpponents = FXCollections.observableArrayList();
         // home player list set up
         homePlayersList.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
-        homePlayersList.getSelectionModel().selectedItemProperty().addListener((ObservableValue<? extends Player> observable, Player oldValue, Player newValue) -> {
-            throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-        });
+        //TODO send selected player to be edited
+//        homePlayersList.getSelectionModel().selectedItemProperty().addListener((ObservableValue<? extends Player> observable, Player oldValue, Player newValue) -> {
+//            throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+//        });
         // away player list set up
         awayPlayersList.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
         awayPlayersList.getSelectionModel().selectedItemProperty().addListener((ObservableValue<? extends String> observable, String oldValue, String newValue) -> {
@@ -145,6 +153,7 @@ public class MatchConfiguratorController extends FXController implements Propert
             System.out.println("Selected date: " + date);
         });
         //
+        homePlayersList.setEditable(false);
 
     }
 
@@ -155,11 +164,36 @@ public class MatchConfiguratorController extends FXController implements Propert
 
     @Override
     public void loadParameters(Object... params) {
-        homeTeam = (Team) params[0];
-        homePlayers.setAll(homeTeam.getActivePlayers());
-        homePlayersList.setItems(homePlayers);
-        setUpOpposingTeams();
-        updateControls();
+        if (params.length == 1) {
+            setEditionMode(GameConfigurationMode.CREATION);
+            homeTeam = (Team) params[0];
+            homePlayers.setAll(homeTeam.getActivePlayers());
+            homePlayersList.setItems(homePlayers);
+            setUpOpposingTeams();
+            updateControls();
+            game = null;
+        } else if (params.length == 2) {
+            setEditionMode(GameConfigurationMode.EDITION);
+            homeTeam = (Team) params[0];
+            homePlayers.setAll(homeTeam.getActivePlayers());
+            homePlayersList.setItems(homePlayers);
+            game = (Game) params[1];
+            awayTeam = game.getAwayTeam();
+//            awayPlayers.setAll(awayTeam.getActivePlayers());
+            //
+            alreadyPlayedCheckBox.setDisable(true);
+            alreadyPlayedCheckBox.setSelected(true);
+            existingOpponents.clear();
+            existingOpponents.addAll(homeTeam.getOpponentTeams());
+            oppTeamChoiceBox.setItems(existingOpponents);
+            oppTeamChoiceBox.getSelectionModel().select(game.getAwayTeam());
+            //
+            checkOppPlayerNumber();
+            checkOppTeamChoice();
+            checkOppTeamComposition();
+            checkOppTeamName();
+            updateControls();
+        }
     }
 
     private void setUpOpposingTeams() {
@@ -222,6 +256,11 @@ public class MatchConfiguratorController extends FXController implements Propert
     }
 
     @FXML
+    public void editHomeTeamAction(ActionEvent event) {
+        firePropertyChange(Events.EDIT_CURRENT_TEAM, null, homeTeam);
+    }
+
+    @FXML
     public void addPlayerAction(ActionEvent action) {
         //TODO : log action event
         String player = playerNumberField.getText();
@@ -239,17 +278,50 @@ public class MatchConfiguratorController extends FXController implements Propert
 
     @FXML
     public void supprPlayerAction(ActionEvent event) {
-        awayPlayers.remove(awayPlayersList.getSelectionModel().getSelectedItem());
+        String p = awayPlayersList.getSelectionModel().getSelectedItem();
+        if (game != null) {
+            //TODO
+        }
+        awayPlayers.remove(p);
         awayPlayersList.getSelectionModel().clearSelection();
+        awayPlayersList.setItems(awayPlayers);
         updateControls();
     }
 
     @FXML
     public void startAction(ActionEvent event) {
+        switch (configurationMode) {
+            case CREATION:
+                createNewGame();
+                break;
+            case EDITION:
+                resumeGame();
+                break;
+        }
+
+    }
+
+    private void setEditionMode(GameConfigurationMode mode) {
+        configurationMode = mode;
+        switch (configurationMode) {
+            case CREATION:
+                Platform.runLater(() -> {
+                    startButton.setText("Commencer le match");
+                });
+                break;
+            case EDITION:
+                Platform.runLater(() -> {
+                    startButton.setText("Reprendre le match");
+                });
+                break;
+        }
+    }
+
+    private void createNewGame() {
         if (awayTeam != null) {
             //do some checking
 //            homeTeam.addOpponentTeam(awayTeam);
-            Game game = new Game();
+            game = new Game();
             game.setUpGame(homeTeam, awayTeam, datePicker.getValue());
             //TODO fix and create GAME
             firePropertyChange(Events.START_GAME, null, game);
@@ -271,11 +343,15 @@ public class MatchConfiguratorController extends FXController implements Propert
             }
             oppTeam.setPreferedColor(awayColor);
             homeTeam.addOpponentTeam(oppTeam);
-            Game game = new Game();
+            game = new Game();
             game.setUpGame(homeTeam, oppTeam, datePicker.getValue());
             //TODO fix and create GAME
             firePropertyChange(Events.START_GAME, null, game);
         }
+    }
+
+    private void resumeGame() {
+        firePropertyChange(Events.START_GAME, null, game);
     }
 
     private boolean processOppPlayers(int newPlayer) {
@@ -299,22 +375,29 @@ public class MatchConfiguratorController extends FXController implements Propert
     }
 
     private void checkOppTeamChoice() {
-        awayTeam = oppTeamChoiceBox.getValue();
-        oppTeamNameField.setText(awayTeam.getName());
-        awayColor = awayTeam.getPreferedColor();
-        colorPicker.setValue(awayColor);
-        awayPlayers.clear();
-        //on ne doit pas pouvoir suppr une joueur ???
-        for (Player p : awayTeam.getActivePlayers()) {
-            String pDisplay = "" + p.getNumber();
-            if (p.getPositionPreferee().equals(Poste.GARDIEN)) {
-                pDisplay += " G";
+        Platform.runLater(() -> {
+            awayTeam = oppTeamChoiceBox.getValue();
+            oppTeamNameField.setText(awayTeam.getName());
+            awayColor = awayTeam.getPreferedColor();
+            colorPicker.setValue(awayColor);
+            awayPlayers.clear();
+            //on ne doit pas pouvoir suppr une joueur ???
+            for (Player p : awayTeam.getActivePlayers()) {
+                String pDisplay = "" + p.getNumber();
+                if (p.getPositionPreferee().equals(Poste.GARDIEN)) {
+                    pDisplay += " G";
+                }
+                awayPlayers.add(pDisplay);
             }
-            awayPlayers.add(pDisplay);
-        }
-        awayPlayersList.getItems().clear();
-        awayPlayersList.getItems().setAll(awayPlayers);
-        startButton.setDisable(false);
+            awayPlayersList.getItems().clear();
+            awayPlayersList.getItems().setAll(awayPlayers);
+            startButton.setDisable(false);
+        });
+    }
+
+    @FXML
+    protected void previousMenuAction(ActionEvent event) {
+        firePropertyChange(Events.CANCEL_MATCH_CONFIGURATION, null, homeTeam);
     }
 
     private class OppPlayerComparator implements Comparator<String> {

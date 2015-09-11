@@ -193,4 +193,15 @@ public class TeamDrawing {
     public void setFill(Color fill) {
         background.setFill(fill);
     }
+
+    public void clean() {
+        for (PlayerDrawing playerDrawing : fieldPlayerDrawings) {
+            mainNode.getChildren().remove(playerDrawing.getNode());
+        }
+        for (PlayerDrawing playerDrawing : goalKeeperDrawings) {
+            mainNode.getChildren().remove(playerDrawing.getNode());
+        }
+        fieldPlayerDrawings.clear();
+        goalKeeperDrawings.clear();
+    }
 }

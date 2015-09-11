@@ -64,6 +64,8 @@ public class ClockDrawing implements PropertyChangeListener {
         gameClock.getLookup().lookup(PropertyChangeSupport.class).addPropertyChangeListener(ClockDrawing.this);
         playButton.setGameClock(clock);
         pauseButton.setGameClock(clock);
+
+        Platform.runLater(() -> timeLabel.setText(gameClock.getTime()));
     }
 
     private void initDrawing() {

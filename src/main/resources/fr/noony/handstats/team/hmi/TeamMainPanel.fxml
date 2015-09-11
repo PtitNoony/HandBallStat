@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="592.0" prefWidth="854.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.noony.handstats.team.hmi.TeamMainController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="592.0" prefWidth="854.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.noony.handstats.team.hmi.TeamMainController">
    <children>
       <Label alignment="CENTER" contentDisplay="CENTER" layoutX="14.0" layoutY="14.0" prefHeight="93.0" prefWidth="210.0" text="Equipe :" textAlignment="CENTER" underline="true">
          <font>
@@ -40,14 +40,14 @@
             <Font size="36.0" />
          </font>
       </Button>
-      <Button disable="true" layoutX="291.0" layoutY="182.0" mnemonicParsing="false" prefHeight="194.0" prefWidth="251.0" text="Saisir un match déjà joué" textAlignment="CENTER" wrapText="true">
+      <Button disable="true" layoutX="291.0" layoutY="182.0" mnemonicParsing="false" prefHeight="119.0" prefWidth="251.0" text="Saisir un match déjà joué" textAlignment="CENTER" wrapText="true">
          <font>
-            <Font size="36.0" />
+            <Font size="24.0" />
          </font>
       </Button>
-      <Button layoutX="291.0" layoutY="393.0" mnemonicParsing="false" onAction="#configureMatchAction" prefHeight="194.0" prefWidth="251.0" text="Jouer un match" textAlignment="CENTER" wrapText="true">
+      <Button fx:id="configureGameButton" layoutX="291.0" layoutY="320.0" mnemonicParsing="false" onAction="#configureMatchAction" prefHeight="119.0" prefWidth="251.0" text="Jouer un match" textAlignment="CENTER" wrapText="true">
          <font>
-            <Font size="36.0" />
+            <Font size="24.0" />
          </font>
       </Button>
       <Button layoutX="575.0" layoutY="235.0" mnemonicParsing="false" onAction="#seeStatsAction" prefHeight="194.0" prefWidth="251.0" text="Consulter les statistiques" textAlignment="CENTER" wrapText="true">
@@ -56,6 +56,11 @@
          </font>
       </Button>
       <Button layoutX="699.0" layoutY="6.0" mnemonicParsing="false" onAction="#retourAction" prefHeight="93.0" prefWidth="153.0" text="Changer d'équipe" textAlignment="CENTER" wrapText="true">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Button>
+      <Button fx:id="resumeGameButton" layoutX="291.0" layoutY="459.0" mnemonicParsing="false" onAction="#resumeGameAction" prefHeight="119.0" prefWidth="251.0" text="Reprendre le match en cours" textAlignment="CENTER" wrapText="true">
          <font>
             <Font size="24.0" />
          </font>

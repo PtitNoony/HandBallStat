@@ -16,6 +16,7 @@
  */
 package fr.noony.handstats;
 
+import static fr.noony.handstats.GameClock.CLOCK_END_SECOND_HALF;
 import fr.noony.handstats.core.DefenseBlockedShot;
 import fr.noony.handstats.core.Fault;
 import fr.noony.handstats.core.FaultAction;
@@ -66,6 +67,7 @@ public class Game implements PropertyChangeListener {
     private final List<GoodShot> homeGoodShots;
     private final List<GoodShot> awayGoodShots;
     private final List<Player> twoMinutesPlayers;
+    private boolean isOver;
 
     public Game() {
         propertyChangeSupport = new PropertyChangeSupport(Game.this);
@@ -83,6 +85,7 @@ public class Game implements PropertyChangeListener {
 //        if (!ready) {
 //            throw new IllegalStateException("Le match n'est pas bien parametre !!");
 //        }
+        isOver = false;
     }
 
     public void setUpGame(Team teamA, Team teamB, LocalDate date) {
@@ -210,6 +213,10 @@ public class Game implements PropertyChangeListener {
                 player.getLookup().lookup(PropertyChangeSupport.class).removePropertyChangeListener(this);
                 Platform.runLater(() -> twoMinutesPlayers.remove(player));
                 break;
+            case CLOCK_END_SECOND_HALF:
+                //TODO: fix when prolongations
+                isOver = true;
+                break;
             default:
                 //nothing
                 break;
@@ -285,6 +292,19 @@ public class Game implements PropertyChangeListener {
         hash = 11 * hash + Objects.hashCode(this.awayGoodShots);
         hash = 11 * hash + Objects.hashCode(this.twoMinutesPlayers);
         return hash;
+    }
+
+    public boolean isFinished() {
+        return isOver;
+    }
+
+    public void setStatus(boolean over) {
+        //TODO checks it is OK
+        isOver = over;
+    }
+
+    public void setCurrentTime(String time) {
+        gameClock.setTime(time);
     }
 
 }

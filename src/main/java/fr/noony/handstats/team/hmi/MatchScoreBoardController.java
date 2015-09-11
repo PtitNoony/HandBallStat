@@ -296,6 +296,11 @@ public class MatchScoreBoardController extends FXController implements PropertyC
     }
 
     private void createHomeGoalKeepersButtons() {
+        for (GoalKeeperDrawing goalKeeperDrawing : homeGoalKeeperDrawings) {
+            scoreBoardPane.getChildren().remove(goalKeeperDrawing.getNode());
+        }
+        homeGoalKeeperDrawings.clear();
+        homeGoalKeepers.clear();
         homeTeam.getActivePlayers().stream().filter(p -> p.getPositionActuelle().equals(Poste.GARDIEN))
                 .forEach(p -> homeGoalKeepers.add(p));
         for (Player goal : homeGoalKeepers) {
@@ -602,6 +607,9 @@ public class MatchScoreBoardController extends FXController implements PropertyC
             homeTeam = game.getHomeTeam();
             awayTeam = game.getAwayTeam();
         }
+        //TODO: stop quitting subtle tactics
+        homeTeamDrawing.clean();
+        awayTeamDrawing.clean();
         homeTeamDrawing.setTeam(homeTeam);
         awayTeamDrawing.setTeam(awayTeam);
         //
@@ -667,6 +675,10 @@ public class MatchScoreBoardController extends FXController implements PropertyC
                 break;
             case Events.BACK_TO_GAME:
                 teamStatsPopUp.hide();
+                break;
+            case Events.BACK_MACTH_MENU:
+                game.getGameClock().pauseTime();
+                firePropertyChange(Events.EDIT_CURRENT_GAME, homeTeam, game);
                 break;
             default:
                 throw new UnsupportedOperationException("ppty change event " + evt.getPropertyName());

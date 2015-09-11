@@ -29,6 +29,7 @@ public enum Poste {
     DEMI_CENTRE,
     GARDIEN,
     PIVOT,
+    COATCH,
     /**
      * used for opposing teams
      */

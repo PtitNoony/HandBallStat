@@ -52,9 +52,12 @@ public final class Events {
 
     //team editor panel events
     public static final String BACK_TO_TEAM_MAIN = "backToTeamMainAction";
+    public static final String LOAD_GAME_TO_RESUME = "loadGameToResume";
 
     //match  configurator events
     public static final String START_GAME = "startGame";
+    public static final String REUME_GAME = "resumeGame";
+    public static final String CANCEL_MATCH_CONFIGURATION = "cancelGameConfiguration";
 
     //match controller events
     public static final String BACK_MACTH_MENU = "backToMatchMenu";
@@ -64,6 +67,7 @@ public final class Events {
     public static final String SEVEN_METERS_GOAL = "7m";
     public static final String GOAL_COUNTERED = "goalCountered";
     public static final String TEAM_STATS = "teamStats";
+    public static final String EDIT_CURRENT_GAME = "editCurrentGame";
 
     //stat pop up
     public static final String BACK_TO_GAME = "backToGame";

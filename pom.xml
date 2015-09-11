@@ -88,11 +88,6 @@
             <groupId>org.netbeans.api</groupId>
             <version>${netbeans.release.version}</version>
         </dependency>
-        <dependency>
-            <groupId>org.controlsfx</groupId> 
-            <artifactId>controlsfx</artifactId>
-            <version>8.20.8</version>
-        </dependency>
         
         <!--
         <dependency>
@@ -114,18 +109,22 @@
             <type>pom</type>
         </dependency>
         -->
+        <!--
         <dependency>
             <groupId>org.netbeans.api</groupId>
             <artifactId>org-openide-filesystems</artifactId>
             <version>RELEASE802</version>
             <type>jar</type>
         </dependency>
+        -->
+        <!--
         <dependency>
             <groupId>org.apache.maven.shared</groupId>
             <artifactId>maven-shared-utils</artifactId>
             <version>0.7</version>
             <type>jar</type>
         </dependency>
+        -->
     </dependencies>
     
 

@@ -5,7 +5,7 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="706.0" prefWidth="924.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.noony.handstats.team.hmi.MatchConfiguratorController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="706.0" prefWidth="924.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.noony.handstats.team.hmi.MatchConfiguratorController">
    <children>
       <Label layoutX="306.0" layoutY="27.0" text="Match Configurator">
          <font>
@@ -19,7 +19,7 @@
             <Font size="32.0" />
          </font>
       </Label>
-      <Button fx:id="previousMenuButton" layoutX="703.0" layoutY="28.0" mnemonicParsing="false" text="Menu précedent">
+      <Button fx:id="previousMenuButton" layoutX="703.0" layoutY="28.0" mnemonicParsing="false" onAction="#previousMenuAction" text="Menu précedent">
          <font>
             <Font size="24.0" />
          </font>
@@ -65,7 +65,7 @@
       </CheckBox>
       <Separator layoutX="388.0" layoutY="210.0" prefHeight="3.0" prefWidth="491.0" />
       <ChoiceBox fx:id="oppTeamChoiceBox" layoutX="544.0" layoutY="161.0" prefHeight="35.0" prefWidth="220.0" />
-      <Button layoutX="33.0" layoutY="543.0" mnemonicParsing="false" prefHeight="51.0" prefWidth="258.0" text="Editer">
+      <Button layoutX="33.0" layoutY="543.0" mnemonicParsing="false" onAction="#editHomeTeamAction" prefHeight="51.0" prefWidth="258.0" text="Editer">
          <font>
             <Font size="24.0" />
          </font>

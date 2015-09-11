@@ -70,6 +70,11 @@ public class GameClock {
         timeline.setCycleCount(Timeline.INDEFINITE);
     }
 
+    protected void setTime(String time) {
+        nbSeconds = TimeCalculator.timeStringToSeconds(time);
+        nbMinutes = TimeCalculator.timeStringToMinutes(time);
+    }
+
     public Lookup getLookup() {
         return alookup;
     }

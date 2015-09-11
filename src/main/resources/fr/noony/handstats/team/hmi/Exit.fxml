@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="331.0" prefWidth="535.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.noony.handstats.team.hmi.ExitController">
+   <children>
+      <Button layoutX="318.0" layoutY="216.0" mnemonicParsing="false" onAction="#quitSaveAction" prefHeight="101.0" prefWidth="203.0" text="Quitter et Sauvegarder" textAlignment="CENTER" wrapText="true">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Button>
+      <Button layoutX="14.0" layoutY="216.0" mnemonicParsing="false" onAction="#quitNoSaveAction" prefHeight="101.0" prefWidth="203.0" text="Quitter sans sauvegarder" textAlignment="CENTER" wrapText="true">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Button>
+      <Button layoutX="166.0" layoutY="14.0" mnemonicParsing="false" onAction="#cancelAction" prefHeight="101.0" prefWidth="203.0" text="Annuler" textAlignment="CENTER" wrapText="true">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Button>
+   </children>
+</AnchorPane>

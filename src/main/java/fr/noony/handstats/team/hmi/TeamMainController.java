@@ -18,6 +18,7 @@ package fr.noony.handstats.team.hmi;
 
 import fr.noony.handstats.core.Player;
 import fr.noony.handstats.core.Team;
+import static fr.noony.handstats.team.hmi.Events.LOAD_GAME_TO_RESUME;
 import fr.noony.handstats.utils.XMLSaver;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
@@ -29,6 +30,7 @@ import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
@@ -47,6 +49,10 @@ public class TeamMainController extends FXController implements PropertyChangeLi
     private Label teamLabel;
 
     private Team currentTeam;
+    @FXML
+    private Button resumeGameButton;
+    @FXML
+    private Button configureGameButton;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -113,9 +119,24 @@ public class TeamMainController extends FXController implements PropertyChangeLi
         try {
             currentTeam = (Team) params[0];
             Platform.runLater(() -> teamLabel.setText(currentTeam.getName()));
+            if (currentTeam.getGameInProgress() != null) {
+                resumeGameButton.setDisable(false);
+                configureGameButton.setDisable(true);
+            } else {
+                Platform.runLater(() -> {
+                    resumeGameButton.setDisable(true);
+                    configureGameButton.setDisable(false);
+                    System.err.println(" ONE GAME IS NOT FINISHED");
+                });
+            }
         } catch (Exception e) {
             Logger.getLogger(TeamMainController.class.getName()).log(Level.SEVERE, "Not usable paramters : {0}", e);
         }
+    }
+
+    @FXML
+    private void resumeGameAction(ActionEvent event) {
+        firePropertyChange(LOAD_GAME_TO_RESUME, null, currentTeam.getGameInProgress());
     }
 
 }
