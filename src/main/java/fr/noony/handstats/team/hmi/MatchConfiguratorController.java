@@ -278,11 +278,15 @@ public class MatchConfiguratorController extends FXController implements Propert
 
     @FXML
     public void supprPlayerAction(ActionEvent event) {
-        String p = awayPlayersList.getSelectionModel().getSelectedItem();
+        String playerString = awayPlayersList.getSelectionModel().getSelectedItem();
         if (game != null) {
-            //TODO
+            String[] reg;
+            int playerNum;
+            reg = playerString.split(" ");
+            playerNum = Integer.parseInt(reg[0]);
+            awayTeam.removePlayer(playerNum);
         }
-        awayPlayers.remove(p);
+        awayPlayers.remove(playerString);
         awayPlayersList.getSelectionModel().clearSelection();
         awayPlayersList.setItems(awayPlayers);
         updateControls();

@@ -213,4 +213,20 @@ public class Team {
         return null;
     }
 
+    public void removePlayer(int playerNum) {
+        Player playerToRemove = null;
+        for (Player p : allPlayers) {
+            if (p.getNumber() == playerNum) {
+                playerToRemove = p;
+                break;
+            }
+        }
+        if (activePlayers.contains(playerToRemove)) {
+            activePlayers.remove(playerToRemove);
+        }
+        if (allPlayers.contains(playerToRemove)) {
+            allPlayers.remove(playerToRemove);
+        }
+    }
+
 }
