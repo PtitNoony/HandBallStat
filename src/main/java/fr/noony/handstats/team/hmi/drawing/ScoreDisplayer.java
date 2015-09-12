@@ -16,7 +16,7 @@
  */
 package fr.noony.handstats.team.hmi.drawing;
 
-import fr.noony.handstats.Game;
+import fr.noony.handstats.core.Game;
 import fr.noony.handstats.core.Team;
 import java.awt.Dimension;
 import java.beans.PropertyChangeEvent;
@@ -59,10 +59,13 @@ public class ScoreDisplayer implements PropertyChangeListener {
         homeTeam = myGame.getHomeTeam();
         awayTeam = myGame.getAwayTeam();
         //
-        game.getLookup().lookup(PropertyChangeSupport.class).addPropertyChangeListener(this);
+        game.getLookup().lookup(PropertyChangeSupport.class).addPropertyChangeListener(ScoreDisplayer.this);
         //
         mainNode = new Group();
         initDrawing();
+        //
+        homeScoreLabel.setText("" + game.getHomeScore());
+        awayScoreLabel.setText("" + game.getAwayScore());
     }
 
     private void initDrawing() {

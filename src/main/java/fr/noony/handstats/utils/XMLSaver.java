@@ -16,7 +16,7 @@
  */
 package fr.noony.handstats.utils;
 
-import fr.noony.handstats.Game;
+import fr.noony.handstats.core.Game;
 import fr.noony.handstats.core.Player;
 import fr.noony.handstats.core.Team;
 import static fr.noony.handstats.utils.EnvLoader.TEAM_RELATIVE_DIRECTORY;
@@ -99,6 +99,8 @@ public class XMLSaver {
     public static final String GAMEACTION_FAULT = "gameActionFault";
 
     public static final String GAMEACTION_TEAM = "gameActionTeam";
+
+    public static final String GAMEACTION_GOALKEEPER_SUBS = "goalKeeperSubstitution";
 
     public static final String GAMEACTION_FAULT_DESCRIPTION = "gameActionFaultDescription";
 

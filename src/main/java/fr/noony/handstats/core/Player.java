@@ -31,6 +31,7 @@ public class Player {
 
     public static final String END_TWO_MINUTES = "endOfTwoMinutes";
     public static final String TWO_MINUTES_TIME_REMAINING = "twoMinutesTimeRemaining";
+    public static final String IS_ACTIVE_GOAL_KEEPER = "isActiveGoalKeeper";
     //
     private final PropertyChangeSupport propertyChangeSupport;
     private final InstanceContent lookupContents = new InstanceContent();
@@ -44,6 +45,8 @@ public class Player {
 
     private Poste positionPreferee;
     private Poste positionActuelle;
+
+    private boolean isInPlace = false;
 
     public Player(String premon, String nom, int numero, Poste positionPreferee, Poste positionActuelle) {
         propertyChangeSupport = new PropertyChangeSupport(Player.this);
@@ -139,6 +142,16 @@ public class Player {
 
     private void firePropertyChange(String propertyName, Object oldValue, Object newValue) {
         propertyChangeSupport.firePropertyChange(propertyName, oldValue, newValue);
+    }
+
+    protected void setCurrentGoalKeeper(boolean isInGoal) {
+        //MOCHE
+        isInPlace = isInGoal;
+        firePropertyChange(IS_ACTIVE_GOAL_KEEPER, null, isInPlace);
+    }
+
+    public boolean isCurrentGoalKeeper() {
+        return isInPlace;
     }
 
 }

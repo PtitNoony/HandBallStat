@@ -5,7 +5,7 @@
  */
 package fr.noony.handstats.stats;
 
-import fr.noony.handstats.Game;
+import fr.noony.handstats.core.Game;
 import fr.noony.handstats.core.Team;
 import java.util.LinkedList;
 import java.util.List;

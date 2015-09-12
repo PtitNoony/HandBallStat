@@ -16,7 +16,7 @@
  */
 package fr.noony.handstats.team.hmi;
 
-import fr.noony.handstats.Game;
+import fr.noony.handstats.core.Game;
 import fr.noony.handstats.core.Team;
 import fr.noony.handstats.utils.XMLSaver;
 import java.beans.PropertyChangeEvent;

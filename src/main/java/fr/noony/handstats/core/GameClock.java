@@ -14,7 +14,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package fr.noony.handstats;
+package fr.noony.handstats.core;
 
 import fr.noony.handstats.utils.TimeCalculator;
 import java.beans.PropertyChangeSupport;

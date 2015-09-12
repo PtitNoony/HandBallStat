@@ -41,7 +41,7 @@ import org.openide.util.lookup.InstanceContent;
 public class ButtonDrawing {
 
     public static final double DEFAULT_WRAPPING_WIDTH = 0.9;
-    public static final Dimension DEFAULT_BUTTON_SIZE = new Dimension(140, 75);
+    public static final Dimension DEFAULT_BUTTON_SIZE = new Dimension(120, 75);
     public static final String BUTTON_CLICKED = "BUTTON_CLICKED";
 
     public enum ButtonInnerState {
@@ -78,7 +78,7 @@ public class ButtonDrawing {
         //
         mainNode = new Group();
         buttonText = new Text(text);
-        buttonText.setFont(new Font(26));
+        buttonText.setFont(new Font(24));
         buttonText.setFontSmoothingType(FontSmoothingType.LCD);
         initDrawing();
     }

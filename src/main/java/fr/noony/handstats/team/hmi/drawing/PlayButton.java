@@ -16,7 +16,7 @@
  */
 package fr.noony.handstats.team.hmi.drawing;
 
-import fr.noony.handstats.GameClock;
+import fr.noony.handstats.core.GameClock;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.scene.Group;

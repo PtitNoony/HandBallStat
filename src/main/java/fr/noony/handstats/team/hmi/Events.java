@@ -68,6 +68,7 @@ public final class Events {
     public static final String GOAL_COUNTERED = "goalCountered";
     public static final String TEAM_STATS = "teamStats";
     public static final String EDIT_CURRENT_GAME = "editCurrentGame";
+    public static final String GOAL_ACTIVE = "setActiveGoalKeeper";
 
     //stat pop up
     public static final String BACK_TO_GAME = "backToGame";

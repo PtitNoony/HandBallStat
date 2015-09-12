@@ -16,7 +16,7 @@
  */
 package fr.noony.handstats.utils;
 
-import fr.noony.handstats.Game;
+import fr.noony.handstats.core.Game;
 import fr.noony.handstats.core.GameAction;
 import static fr.noony.handstats.utils.XMLSaver.GAME_AWAY_TEAM_SCORE_TAG;
 import static fr.noony.handstats.utils.XMLSaver.GAME_AWAY_TEAM_TAG;

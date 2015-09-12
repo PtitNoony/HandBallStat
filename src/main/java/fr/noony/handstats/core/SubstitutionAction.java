@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2015 Arnaud
+ * Copyright (C) 2015 HAMON-KEROMEN A.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -16,15 +16,10 @@
  */
 package fr.noony.handstats.core;
 
-import static fr.noony.handstats.utils.XMLSaver.GAMEACTION_GOALKEEPER_FIRSTNAME;
-import static fr.noony.handstats.utils.XMLSaver.GAMEACTION_GOALKEEPER_NAME;
-import static fr.noony.handstats.utils.XMLSaver.GAMEACTION_GOALKEEPER_NUMBER;
-import static fr.noony.handstats.utils.XMLSaver.GAMEACTION_GOALZONE;
+import static fr.noony.handstats.utils.XMLSaver.GAMEACTION_GOALKEEPER_SUBS;
 import static fr.noony.handstats.utils.XMLSaver.GAMEACTION_PLAYER_FIRSTNAME;
 import static fr.noony.handstats.utils.XMLSaver.GAMEACTION_PLAYER_LASTNAME;
 import static fr.noony.handstats.utils.XMLSaver.GAMEACTION_PLAYER_NUMBER;
-import static fr.noony.handstats.utils.XMLSaver.GAMEACTION_SHOTZONE;
-import static fr.noony.handstats.utils.XMLSaver.GAMEACTION_SHOT_STOP;
 import static fr.noony.handstats.utils.XMLSaver.GAMEACTION_TAG;
 import static fr.noony.handstats.utils.XMLSaver.GAMEACTION_TEAM;
 import static fr.noony.handstats.utils.XMLSaver.GAMEACTION_TIME;
@@ -34,66 +29,37 @@ import org.w3c.dom.Element;
 
 /**
  *
- * @author Arnaud Hamon-Keromen
+ * @author Arnaud
  */
-public class ShotStop extends GameAction {
+public class SubstitutionAction extends GameAction {
 
-    private final Player goalK;
     private final Player player;
     private final Team playerTeam;
-    private final String shootingZone;
-    private final String goalZone;
 
-    public ShotStop(Player goalKeeper, Player shooter, Team shooterTeam, String sZone, String gZone, String time) {
+    public SubstitutionAction(Player goalKeeper, Team goalTeam, String time) {
         super(time);
-        goalK = goalKeeper;
-        player = shooter;
-        playerTeam = shooterTeam;
-        shootingZone = sZone;
-        goalZone = gZone;
-    }
-
-    public Player getGoalKeeper() {
-        return goalK;
-    }
-
-    public Player getShooter() {
-        return player;
-    }
-
-    public Team getShooterTeam() {
-        return playerTeam;
-    }
-
-    public String getShootingZone() {
-        return shootingZone;
-    }
-
-    public String getGoalZone() {
-        return goalZone;
+        player = goalKeeper;
+        playerTeam = goalTeam;
     }
 
     @Override
     public Element visit(Document doc) {
         Element gameActionElement = doc.createElement(GAMEACTION_TAG);
-        gameActionElement.setAttribute(GAMEACTION_TYPE, GAMEACTION_SHOT_STOP);
+        gameActionElement.setAttribute(GAMEACTION_TYPE, GAMEACTION_GOALKEEPER_SUBS);
         gameActionElement.setAttribute(GAMEACTION_TEAM, playerTeam.getName());
         gameActionElement.setAttribute(GAMEACTION_PLAYER_LASTNAME, player.getLastName());
         gameActionElement.setAttribute(GAMEACTION_PLAYER_FIRSTNAME, player.getFirstName());
         gameActionElement.setAttribute(GAMEACTION_PLAYER_NUMBER, "" + player.getNumber());
-        gameActionElement.setAttribute(GAMEACTION_GOALKEEPER_NAME, goalK.getLastName());
-        gameActionElement.setAttribute(GAMEACTION_GOALKEEPER_FIRSTNAME, goalK.getFirstName());
-        gameActionElement.setAttribute(GAMEACTION_GOALKEEPER_NUMBER, "" + goalK.getNumber());
         gameActionElement.setAttribute(GAMEACTION_TIME, getActionTime());
-        gameActionElement.setAttribute(GAMEACTION_SHOTZONE, shootingZone);
-        gameActionElement.setAttribute(GAMEACTION_GOALZONE, goalZone);
         return gameActionElement;
     }
 
-    @Override
-    public String toString() {
-        //UGLY
-        return "" + GAMEACTION_SHOT_STOP + " " + playerTeam + " " + player + " " + goalK + " " + getActionTime();
+    public Player getGoalKeeper() {
+        return player;
+    }
+
+    public Team getPlayerTeam() {
+        return playerTeam;
     }
 
 }

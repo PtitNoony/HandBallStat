@@ -92,6 +92,7 @@ public class PlayerDrawing implements PropertyChangeListener {
     private static final Color SELECTED_BACKGROUND_COLOR = Color.FUCHSIA;
     private final Image playerIcon = new Image(PlayerDrawing.class.getResourceAsStream("alien.png"));
     private final Image playerIconInversed = new Image(PlayerDrawing.class.getResourceAsStream("alienInversed.png"));
+    private final Image playerIconGreen = new Image(PlayerDrawing.class.getResourceAsStream("alienGreen.png"));
     private final Image playerIconRed = new Image(PlayerDrawing.class.getResourceAsStream("alienRed.png"));
     private final Image timeIcon = new Image(PlayerDrawing.class.getResourceAsStream("time.png"));
     private final Image timeIconInversed = new Image(PlayerDrawing.class.getResourceAsStream("timeInversed.png"));
@@ -110,6 +111,8 @@ public class PlayerDrawing implements PropertyChangeListener {
     private int nbYellowCards = 0;
     private int nb2Mins = 0;
     private boolean redCardReceived = false;
+
+    private boolean isActive = false;
 
     public enum SelectedState {
 
@@ -243,6 +246,11 @@ public class PlayerDrawing implements PropertyChangeListener {
                 //nothing
                 break;
         }
+    }
+
+    private void setActive(boolean active) {
+        isActive = active;
+
     }
 
     public Lookup getLookup() {
@@ -398,7 +406,11 @@ public class PlayerDrawing implements PropertyChangeListener {
         switch (selectedState) {
             case IDLE:
                 background.setFill(idleBackgroundColor);
-                playerImageView.setImage(playerIcon);
+                if (isActive) {
+                    playerImageView.setImage(playerIconGreen);
+                } else {
+                    playerImageView.setImage(playerIcon);
+                }
                 break;
             case SELECTED:
                 background.setFill(SELECTED_BACKGROUND_COLOR);
@@ -470,6 +482,10 @@ public class PlayerDrawing implements PropertyChangeListener {
                     selectedState = SelectedState.IDLE;
                     updateColors();
                 }
+                break;
+            case Player.IS_ACTIVE_GOAL_KEEPER:
+                isActive = (boolean) evt.getNewValue();
+                updateColors();
                 break;
             default:
                 throw new UnsupportedOperationException("unsupported property change ::" + evt.getPropertyName());

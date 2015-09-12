@@ -16,7 +16,7 @@
  */
 package fr.noony.handstats.stats;
 
-import fr.noony.handstats.Game;
+import fr.noony.handstats.core.Game;
 import fr.noony.handstats.core.DefenseBlockedShot;
 import fr.noony.handstats.core.FaultAction;
 import fr.noony.handstats.core.GameAction;

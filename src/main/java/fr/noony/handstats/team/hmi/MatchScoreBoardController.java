@@ -16,10 +16,11 @@ package fr.noony.handstats.team.hmi;
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-import fr.noony.handstats.Game;
 import fr.noony.handstats.Poste;
 import fr.noony.handstats.core.Fault;
+import fr.noony.handstats.core.Game;
 import fr.noony.handstats.core.Player;
+import fr.noony.handstats.core.SubstitutionAction;
 import fr.noony.handstats.core.Team;
 import fr.noony.handstats.court.GoalCageDrawing;
 import fr.noony.handstats.court.HalfCourtDrawing;
@@ -124,14 +125,21 @@ public class MatchScoreBoardController extends FXController implements PropertyC
     private ButtonDrawing right7MetersButton;
     private ButtonDrawing cancelButton;
     private ButtonDrawing matchMenu;
-    private ButtonDrawing statButton;
+    private ButtonDrawing startButton;
+    private ButtonDrawing leftActiveGoalButton;
+    private ButtonDrawing rightActiveGoalButton;
     private ImageView rightCourtImage;
     private ImageView leftCourtImage;
     private CustomPopup teamStatsPopUp;
 
+    private Dimension resolution = null;
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        background = new Rectangle(DEFAULT_SCOREBOARD_CONTROLLER.getWidth(), DEFAULT_SCOREBOARD_CONTROLLER.getHeight());
+        //TODO use it
+//        resolution = EnvLoader.getCurrentResolution();
+        resolution = DEFAULT_SCOREBOARD_CONTROLLER;
+        background = new Rectangle(resolution.getWidth(), resolution.getHeight());
         background.setFill(Color.WHITESMOKE);
         background.setStroke(Color.BLACK);
         background.setStrokeWidth(4.0);
@@ -145,12 +153,12 @@ public class MatchScoreBoardController extends FXController implements PropertyC
         homeTeamDrawing = new TeamDrawing(TeamDrawing.TeamSide.LEFT);
         scoreBoardPane.getChildren().add(homeTeamDrawing.getNode());
         homeTeamDrawing.setPosition(0, ClockDrawing.DEFAULT_CLOCK_DIMENSION.getHeight());
-        homeTeamDrawing.setSize(DEFAULT_SCOREBOARD_CONTROLLER.getWidth() / 2.0, DEFAULT_SCOREBOARD_CONTROLLER.getHeight() - ClockDrawing.DEFAULT_CLOCK_DIMENSION.getHeight());
+        homeTeamDrawing.setSize(resolution.getWidth() / 2.0, resolution.getHeight() - ClockDrawing.DEFAULT_CLOCK_DIMENSION.getHeight());
         //
         awayTeamDrawing = new TeamDrawing(TeamDrawing.TeamSide.RIGHT);
         scoreBoardPane.getChildren().add(awayTeamDrawing.getNode());
-        awayTeamDrawing.setPosition(DEFAULT_SCOREBOARD_CONTROLLER.getWidth() / 2.0, ClockDrawing.DEFAULT_CLOCK_DIMENSION.getHeight());
-        awayTeamDrawing.setSize(DEFAULT_SCOREBOARD_CONTROLLER.getWidth() / 2.0, DEFAULT_SCOREBOARD_CONTROLLER.getHeight() - ClockDrawing.DEFAULT_CLOCK_DIMENSION.getHeight());
+        awayTeamDrawing.setPosition(resolution.getWidth() / 2.0, ClockDrawing.DEFAULT_CLOCK_DIMENSION.getHeight());
+        awayTeamDrawing.setSize(resolution.getWidth() / 2.0, resolution.getHeight() - ClockDrawing.DEFAULT_CLOCK_DIMENSION.getHeight());
         //
         createSeparators();
         //
@@ -172,26 +180,26 @@ public class MatchScoreBoardController extends FXController implements PropertyC
         scoreBoardPane.getChildren().add(leftValidateButton.getNode());
         scoreBoardPane.getChildren().add(rightValidateButton.getNode());
         leftValidateButton.setPosition(430, 550);
-        rightValidateButton.setPosition(430 + DEFAULT_SCOREBOARD_CONTROLLER.getWidth() / 2.0, 550);
+        rightValidateButton.setPosition(430 + resolution.getWidth() / 2.0, 550);
         leftValidateButton.getLookup().lookup(PropertyChangeSupport.class).addPropertyChangeListener(this);
         rightValidateButton.getLookup().lookup(PropertyChangeSupport.class).addPropertyChangeListener(this);
         //
         matchMenu = new ButtonDrawing("MENU MATCH", Events.BACK_MACTH_MENU);
         scoreBoardPane.getChildren().add(matchMenu.getNode());
-        matchMenu.setPosition(DEFAULT_SCOREBOARD_CONTROLLER.getWidth() - ButtonDrawing.DEFAULT_BUTTON_SIZE.getWidth(), DEFAULT_INNER_MARGIN);
+        matchMenu.setPosition(resolution.getWidth() - ButtonDrawing.DEFAULT_BUTTON_SIZE.getWidth(), DEFAULT_INNER_MARGIN);
         matchMenu.getLookup().lookup(PropertyChangeSupport.class).addPropertyChangeListener(this);
         matchMenu.setInnerState(ButtonDrawing.ButtonInnerState.ENABLED);
         //
         cancelButton = new ButtonDrawing("ANNULER", Events.CANCEL_EVENT);
         scoreBoardPane.getChildren().add(cancelButton.getNode());
-        cancelButton.setPosition(DEFAULT_SCOREBOARD_CONTROLLER.getWidth() - DEFAULT_INNER_MARGIN - ButtonDrawing.DEFAULT_BUTTON_SIZE.getWidth() * 2.0, DEFAULT_INNER_MARGIN);
+        cancelButton.setPosition(resolution.getWidth() - DEFAULT_INNER_MARGIN - ButtonDrawing.DEFAULT_BUTTON_SIZE.getWidth() * 2.0, DEFAULT_INNER_MARGIN);
         cancelButton.getLookup().lookup(PropertyChangeSupport.class).addPropertyChangeListener(this);
         //
-        statButton = new ButtonDrawing("STATS", Events.TEAM_STATS);
-        scoreBoardPane.getChildren().add(statButton.getNode());
-        statButton.setPosition(DEFAULT_SCOREBOARD_CONTROLLER.getWidth() - 2.0 * DEFAULT_INNER_MARGIN - ButtonDrawing.DEFAULT_BUTTON_SIZE.getWidth() * 3.0, DEFAULT_INNER_MARGIN);
-        statButton.getLookup().lookup(PropertyChangeSupport.class).addPropertyChangeListener(this);
-        statButton.setInnerState(ButtonDrawing.ButtonInnerState.ENABLED);
+        startButton = new ButtonDrawing("STATS", Events.TEAM_STATS);
+        scoreBoardPane.getChildren().add(startButton.getNode());
+        startButton.setPosition(resolution.getWidth() - 2.0 * DEFAULT_INNER_MARGIN - ButtonDrawing.DEFAULT_BUTTON_SIZE.getWidth() * 3.0, DEFAULT_INNER_MARGIN);
+        startButton.getLookup().lookup(PropertyChangeSupport.class).addPropertyChangeListener(this);
+        startButton.setInnerState(ButtonDrawing.ButtonInnerState.ENABLED);
         //
         leftYellowCardButton = new ButtonDrawing("Carton Jaune", Events.YELLOW_CARD);
         scoreBoardPane.getChildren().add(leftYellowCardButton.getNode());
@@ -208,39 +216,49 @@ public class MatchScoreBoardController extends FXController implements PropertyC
         leftRedCardButton.setPosition(3.0 * DEFAULT_INNER_MARGIN + 2.0 * ButtonDrawing.DEFAULT_BUTTON_SIZE.getWidth(), ClockDrawing.DEFAULT_CLOCK_DIMENSION.getHeight() + HalfCourtDrawing.DEFAULT_HALF_COURT_HEIGHT + 2.0 * DEFAULT_INNER_MARGIN);
         leftRedCardButton.getLookup().lookup(PropertyChangeSupport.class).addPropertyChangeListener(this);
         //
+        leftActiveGoalButton = new ButtonDrawing("Gardien Actif", Events.GOAL_ACTIVE);
+        scoreBoardPane.getChildren().add(leftActiveGoalButton.getNode());
+        leftActiveGoalButton.setPosition(4.0 * DEFAULT_INNER_MARGIN + 3.0 * ButtonDrawing.DEFAULT_BUTTON_SIZE.getWidth(), ClockDrawing.DEFAULT_CLOCK_DIMENSION.getHeight() + HalfCourtDrawing.DEFAULT_HALF_COURT_HEIGHT + 2.0 * DEFAULT_INNER_MARGIN);
+        leftActiveGoalButton.getLookup().lookup(PropertyChangeSupport.class).addPropertyChangeListener(this);
+        //
         rightYellowCardButton = new ButtonDrawing("Carton Jaune", Events.YELLOW_CARD);
         scoreBoardPane.getChildren().add(rightYellowCardButton.getNode());
-        rightYellowCardButton.setPosition(DEFAULT_SCOREBOARD_CONTROLLER.getWidth() / 2.0 + DEFAULT_INNER_MARGIN, ClockDrawing.DEFAULT_CLOCK_DIMENSION.getHeight() + HalfCourtDrawing.DEFAULT_HALF_COURT_HEIGHT + 2.0 * DEFAULT_INNER_MARGIN);
+        rightYellowCardButton.setPosition(resolution.getWidth() / 2.0 + DEFAULT_INNER_MARGIN, ClockDrawing.DEFAULT_CLOCK_DIMENSION.getHeight() + HalfCourtDrawing.DEFAULT_HALF_COURT_HEIGHT + 2.0 * DEFAULT_INNER_MARGIN);
         rightYellowCardButton.getLookup().lookup(PropertyChangeSupport.class).addPropertyChangeListener(this);
         //
         right2MinButton = new ButtonDrawing("2 Minutes", Events.TWO_MINUTES);
         scoreBoardPane.getChildren().add(right2MinButton.getNode());
-        right2MinButton.setPosition(DEFAULT_SCOREBOARD_CONTROLLER.getWidth() / 2.0 + 2.0 * DEFAULT_INNER_MARGIN + ButtonDrawing.DEFAULT_BUTTON_SIZE.getWidth(), ClockDrawing.DEFAULT_CLOCK_DIMENSION.getHeight() + HalfCourtDrawing.DEFAULT_HALF_COURT_HEIGHT + 2.0 * DEFAULT_INNER_MARGIN);
+        right2MinButton.setPosition(resolution.getWidth() / 2.0 + 2.0 * DEFAULT_INNER_MARGIN + ButtonDrawing.DEFAULT_BUTTON_SIZE.getWidth(), ClockDrawing.DEFAULT_CLOCK_DIMENSION.getHeight() + HalfCourtDrawing.DEFAULT_HALF_COURT_HEIGHT + 2.0 * DEFAULT_INNER_MARGIN);
         right2MinButton.getLookup().lookup(PropertyChangeSupport.class).addPropertyChangeListener(this);
         //
         rightRedCardButton = new ButtonDrawing("Carton Rouge", Events.RED_CARD);
         scoreBoardPane.getChildren().add(rightRedCardButton.getNode());
-        rightRedCardButton.setPosition(DEFAULT_SCOREBOARD_CONTROLLER.getWidth() / 2.0 + 3.0 * DEFAULT_INNER_MARGIN + 2.0 * ButtonDrawing.DEFAULT_BUTTON_SIZE.getWidth(), ClockDrawing.DEFAULT_CLOCK_DIMENSION.getHeight() + HalfCourtDrawing.DEFAULT_HALF_COURT_HEIGHT + 2.0 * DEFAULT_INNER_MARGIN);
+        rightRedCardButton.setPosition(resolution.getWidth() / 2.0 + 3.0 * DEFAULT_INNER_MARGIN + 2.0 * ButtonDrawing.DEFAULT_BUTTON_SIZE.getWidth(), ClockDrawing.DEFAULT_CLOCK_DIMENSION.getHeight() + HalfCourtDrawing.DEFAULT_HALF_COURT_HEIGHT + 2.0 * DEFAULT_INNER_MARGIN);
         rightRedCardButton.getLookup().lookup(PropertyChangeSupport.class).addPropertyChangeListener(this);
+        //
+        rightActiveGoalButton = new ButtonDrawing("Gardien Actif", Events.GOAL_ACTIVE);
+        scoreBoardPane.getChildren().add(rightActiveGoalButton.getNode());
+        rightActiveGoalButton.setPosition(resolution.getWidth() / 2.0 + 4.0 * DEFAULT_INNER_MARGIN + 3.0 * ButtonDrawing.DEFAULT_BUTTON_SIZE.getWidth(), ClockDrawing.DEFAULT_CLOCK_DIMENSION.getHeight() + HalfCourtDrawing.DEFAULT_HALF_COURT_HEIGHT + 2.0 * DEFAULT_INNER_MARGIN);
+        rightActiveGoalButton.getLookup().lookup(PropertyChangeSupport.class).addPropertyChangeListener(this);
         //
         leftCounteredButton = new ButtonDrawing("Tir contré", Events.GOAL_COUNTERED);
         scoreBoardPane.getChildren().add(leftCounteredButton.getNode());
-        leftCounteredButton.setPosition(DEFAULT_SCOREBOARD_CONTROLLER.getWidth() / 2.0 - ButtonDrawing.DEFAULT_BUTTON_SIZE.getWidth(), ClockDrawing.DEFAULT_CLOCK_DIMENSION.getHeight() + HalfCourtDrawing.DEFAULT_HALF_COURT_HEIGHT);
+        leftCounteredButton.setPosition(resolution.getWidth() / 2.0 - ButtonDrawing.DEFAULT_BUTTON_SIZE.getWidth(), ClockDrawing.DEFAULT_CLOCK_DIMENSION.getHeight() + HalfCourtDrawing.DEFAULT_HALF_COURT_HEIGHT);
         leftCounteredButton.getLookup().lookup(PropertyChangeSupport.class).addPropertyChangeListener(this);
         //
         rightCounteredButton = new ButtonDrawing("Tir contré", Events.GOAL_COUNTERED);
         scoreBoardPane.getChildren().add(rightCounteredButton.getNode());
-        rightCounteredButton.setPosition(2.0 * DEFAULT_SCOREBOARD_CONTROLLER.getWidth() / 3.0 - ButtonDrawing.DEFAULT_BUTTON_SIZE.getWidth(), ClockDrawing.DEFAULT_CLOCK_DIMENSION.getHeight() + HalfCourtDrawing.DEFAULT_HALF_COURT_HEIGHT);
+        rightCounteredButton.setPosition(2.0 * resolution.getWidth() / 3.0 - ButtonDrawing.DEFAULT_BUTTON_SIZE.getWidth(), ClockDrawing.DEFAULT_CLOCK_DIMENSION.getHeight() + HalfCourtDrawing.DEFAULT_HALF_COURT_HEIGHT);
         rightCounteredButton.getLookup().lookup(PropertyChangeSupport.class).addPropertyChangeListener(this);
         //
         left7MetersButton = new ButtonDrawing("Jet de 7 M", Events.SEVEN_METERS_GOAL);
         scoreBoardPane.getChildren().add(left7MetersButton.getNode());
-        left7MetersButton.setPosition(DEFAULT_SCOREBOARD_CONTROLLER.getWidth() / 2.0 - DEFAULT_INNER_MARGIN - ButtonDrawing.DEFAULT_BUTTON_SIZE.getWidth(), ClockDrawing.DEFAULT_CLOCK_DIMENSION.getHeight() + (HalfCourtDrawing.DEFAULT_HALF_COURT_HEIGHT - ButtonDrawing.DEFAULT_BUTTON_SIZE.getHeight()) / 2.0);
+        left7MetersButton.setPosition(resolution.getWidth() / 2.0 - DEFAULT_INNER_MARGIN - ButtonDrawing.DEFAULT_BUTTON_SIZE.getWidth(), ClockDrawing.DEFAULT_CLOCK_DIMENSION.getHeight() + (HalfCourtDrawing.DEFAULT_HALF_COURT_HEIGHT - ButtonDrawing.DEFAULT_BUTTON_SIZE.getHeight()) / 2.0);
         left7MetersButton.getLookup().lookup(PropertyChangeSupport.class).addPropertyChangeListener(this);
         //
         right7MetersButton = new ButtonDrawing("Jet de 7 M", Events.SEVEN_METERS_GOAL);
         scoreBoardPane.getChildren().add(right7MetersButton.getNode());
-        right7MetersButton.setPosition(DEFAULT_SCOREBOARD_CONTROLLER.getWidth() - DEFAULT_INNER_MARGIN - ButtonDrawing.DEFAULT_BUTTON_SIZE.getWidth(), ClockDrawing.DEFAULT_CLOCK_DIMENSION.getHeight() + (HalfCourtDrawing.DEFAULT_HALF_COURT_HEIGHT - ButtonDrawing.DEFAULT_BUTTON_SIZE.getHeight()) / 2.0);
+        right7MetersButton.setPosition(resolution.getWidth() - DEFAULT_INNER_MARGIN - ButtonDrawing.DEFAULT_BUTTON_SIZE.getWidth(), ClockDrawing.DEFAULT_CLOCK_DIMENSION.getHeight() + (HalfCourtDrawing.DEFAULT_HALF_COURT_HEIGHT - ButtonDrawing.DEFAULT_BUTTON_SIZE.getHeight()) / 2.0);
         right7MetersButton.getLookup().lookup(PropertyChangeSupport.class).addPropertyChangeListener(this);
         //
 
@@ -258,7 +276,7 @@ public class MatchScoreBoardController extends FXController implements PropertyC
         scoreBoardPane.getChildren().add(rightCourtImage);
         rightCourtImage.setFitWidth(HalfCourtDrawing.DEFAULT_HALF_COURT_WIDTH * DEFAUL_MINIATURE_SCALE);
         rightCourtImage.setFitHeight(HalfCourtDrawing.DEFAULT_HALF_COURT_HEIGHT * DEFAUL_MINIATURE_SCALE);
-        rightCourtImage.setX(DEFAULT_SCOREBOARD_CONTROLLER.getWidth() / 2.0 + DEFAULT_INNER_MARGIN);
+        rightCourtImage.setX(resolution.getWidth() / 2.0 + DEFAULT_INNER_MARGIN);
         rightCourtImage.setY(160);
         createImageInteractivity(rightCourtImage);
     }
@@ -267,7 +285,7 @@ public class MatchScoreBoardController extends FXController implements PropertyC
         leftCourtDrawing = new LeftCourtDrawing();
         rightCourtDrawing = new RightCourtDrawing();
         leftCourtDrawing.setPosition(20, 160);
-        rightCourtDrawing.setPosition(DEFAULT_SCOREBOARD_CONTROLLER.getWidth() / 2.0 + DEFAULT_INNER_MARGIN, 160);
+        rightCourtDrawing.setPosition(resolution.getWidth() / 2.0 + DEFAULT_INNER_MARGIN, 160);
         scoreBoardPane.getChildren().add(leftCourtDrawing.getNode());
         scoreBoardPane.getChildren().add(rightCourtDrawing.getNode());
         rightCourtDrawing.getInteractiveAreas().stream().forEach(interactiveArea
@@ -283,7 +301,7 @@ public class MatchScoreBoardController extends FXController implements PropertyC
         scoreBoardPane.getChildren().add(leftGoalAreaDrawing.getNode());
         scoreBoardPane.getChildren().add(rightGoalAreaDrawing.getNode());
         leftGoalAreaDrawing.setPosition(2.0 * DEFAULT_INNER_MARGIN + HalfCourtDrawing.DEFAULT_HALF_COURT_WIDTH * DEFAUL_MINIATURE_SCALE, 160);
-        rightGoalAreaDrawing.setPosition(DEFAULT_SCOREBOARD_CONTROLLER.getWidth() / 2.0 + 2.0 * DEFAULT_INNER_MARGIN + HalfCourtDrawing.DEFAULT_HALF_COURT_WIDTH * DEFAUL_MINIATURE_SCALE, 160);
+        rightGoalAreaDrawing.setPosition(resolution.getWidth() / 2.0 + 2.0 * DEFAULT_INNER_MARGIN + HalfCourtDrawing.DEFAULT_HALF_COURT_WIDTH * DEFAUL_MINIATURE_SCALE, 160);
         leftGoalAreaDrawing.getInteractiveAreas().stream().forEach(interactiveArea
                 -> interactiveArea.getLookup().lookup(PropertyChangeSupport.class).addPropertyChangeListener(this));
         rightGoalAreaDrawing.getInteractiveAreas().stream().forEach(interactiveArea
@@ -326,7 +344,7 @@ public class MatchScoreBoardController extends FXController implements PropertyC
             goalKeeperDrawing.getLookup().lookup(PropertyChangeSupport.class).addPropertyChangeListener(this);
             awayGoalKeeperDrawings.add(goalKeeperDrawing);
             int index = awayGoalKeepers.indexOf(goal);
-            double x = DEFAULT_SCOREBOARD_CONTROLLER.getWidth() / 2.0 + 2.0 * DEFAULT_INNER_MARGIN + HalfCourtDrawing.DEFAULT_HALF_COURT_WIDTH * DEFAUL_MINIATURE_SCALE
+            double x = resolution.getWidth() / 2.0 + 2.0 * DEFAULT_INNER_MARGIN + HalfCourtDrawing.DEFAULT_HALF_COURT_WIDTH * DEFAUL_MINIATURE_SCALE
                     + index * (DEFAULT_INNER_MARGIN + GoalKeeperDrawing.STANDARD_PLAYER_HEIGHT);
             //TODO: set proper goal cage position and use it here
             double y = 160 + DEFAULT_INNER_MARGIN + GoalCageDrawing.DEFAULT_GOAL_CAGE_HEIGHT;
@@ -356,11 +374,11 @@ public class MatchScoreBoardController extends FXController implements PropertyC
         clockDrawing = new ClockDrawing();
         scoreBoardPane.getChildren().add(clockDrawing.getNode());
         //
-        verticalSeparator = new Line(DEFAULT_SCOREBOARD_CONTROLLER.getWidth() / 2.0, 0,
-                DEFAULT_SCOREBOARD_CONTROLLER.getWidth() / 2.0, DEFAULT_SCOREBOARD_CONTROLLER.getHeight());
+        verticalSeparator = new Line(resolution.getWidth() / 2.0, 0,
+                resolution.getWidth() / 2.0, resolution.getHeight());
         verticalSeparator.setStrokeWidth(4.0);
         horizontalSeparator = new Line(0.0, ClockDrawing.DEFAULT_CLOCK_DIMENSION.getHeight(),
-                DEFAULT_SCOREBOARD_CONTROLLER.getWidth(), ClockDrawing.DEFAULT_CLOCK_DIMENSION.getHeight());
+                resolution.getWidth(), ClockDrawing.DEFAULT_CLOCK_DIMENSION.getHeight());
         horizontalSeparator.setStrokeWidth(4.0);
         scoreBoardPane.getChildren().add(verticalSeparator);
         scoreBoardPane.getChildren().add(horizontalSeparator);
@@ -409,6 +427,8 @@ public class MatchScoreBoardController extends FXController implements PropertyC
         leftGoalAreaDrawing.setVisibility(false);
         leftValidateButton.setVisible(false);
         rightValidateButton.setVisible(false);
+        leftActiveGoalButton.setVisible(false);
+        rightActiveGoalButton.setVisible(false);
         setHomeGoalKeepersVisible(false);
         setAwayGoalKeepersVisible(false);
         if (selectedPlayerDrawing != null) {
@@ -431,6 +451,8 @@ public class MatchScoreBoardController extends FXController implements PropertyC
             leftCourtDrawing.setVisibilty(false);
             setRightFaultButtonsVisible(true);
             setLeftFaultButtonsVisible(false);
+            leftActiveGoalButton.setVisible(false);
+            rightActiveGoalButton.setVisible(selectedPlayer.getPositionActuelle().equals(Poste.GARDIEN));
         } else {
             homeTeamDrawing.setVisible(false);
             awayTeamDrawing.setVisible(true);
@@ -438,6 +460,8 @@ public class MatchScoreBoardController extends FXController implements PropertyC
             leftCourtDrawing.setVisibilty(true);
             setRightFaultButtonsVisible(false);
             setLeftFaultButtonsVisible(true);
+            leftActiveGoalButton.setVisible(selectedPlayer.getPositionActuelle().equals(Poste.GARDIEN));
+            rightActiveGoalButton.setVisible(false);
         }
         rightGoalAreaDrawing.setVisibility(false);
         leftGoalAreaDrawing.setVisibility(false);
@@ -486,6 +510,8 @@ public class MatchScoreBoardController extends FXController implements PropertyC
         setAwayGoalKeepersVisible(false);
         setRightFaultButtonsVisible(false);
         setLeftFaultButtonsVisible(false);
+        leftActiveGoalButton.setVisible(false);
+        rightActiveGoalButton.setVisible(false);
         cancelButton.setInnerState(ButtonDrawing.ButtonInnerState.ENABLED);
     }
 
@@ -521,6 +547,8 @@ public class MatchScoreBoardController extends FXController implements PropertyC
         setAwayGoalKeepersVisible(false);
         setRightFaultButtonsVisible(false);
         setLeftFaultButtonsVisible(false);
+        leftActiveGoalButton.setVisible(false);
+        rightActiveGoalButton.setVisible(false);
         leftCounteredButton.setVisible(false);
         rightCounteredButton.setVisible(false);
     }
@@ -564,18 +592,32 @@ public class MatchScoreBoardController extends FXController implements PropertyC
         cancelButton.setInnerState(ButtonDrawing.ButtonInnerState.ENABLED);
         setRightFaultButtonsVisible(false);
         setLeftFaultButtonsVisible(false);
+        leftActiveGoalButton.setVisible(false);
+        rightActiveGoalButton.setVisible(false);
         leftCounteredButton.setVisible(false);
         rightCounteredButton.setVisible(false);
     }
 
     private void setHomeGoalKeepersVisible(boolean visiblity) {
-        homeGoalKeeperDrawings.stream().forEach(goalKeeperDrawing
-                -> goalKeeperDrawing.setVisible(visiblity));
+        if (visiblity) {
+            homeGoalKeeperDrawings.stream().forEach(goalKeeperDrawing
+                    -> goalKeeperDrawing.setVisible(goalKeeperDrawing.getPlayer().isCurrentGoalKeeper()));
+        } else {
+            homeGoalKeeperDrawings.stream().forEach(goalKeeperDrawing
+                    -> goalKeeperDrawing.setVisible(false));
+
+        }
     }
 
     private void setAwayGoalKeepersVisible(boolean visiblity) {
-        awayGoalKeeperDrawings.stream().forEach(goalKeeperDrawing
-                -> goalKeeperDrawing.setVisible(visiblity));
+        if (visiblity) {
+            awayGoalKeeperDrawings.stream().forEach(goalKeeperDrawing
+                    -> goalKeeperDrawing.setVisible(goalKeeperDrawing.getPlayer().isCurrentGoalKeeper()));
+        } else {
+            awayGoalKeeperDrawings.stream().forEach(goalKeeperDrawing
+                    -> goalKeeperDrawing.setVisible(false));
+
+        }
     }
 
     private void setLeftFaultButtonsVisible(boolean visibility) {
@@ -621,9 +663,12 @@ public class MatchScoreBoardController extends FXController implements PropertyC
         createGoalKeepersButtons();
         //TODO::
         clockDrawing.setGameClock(game.getGameClock());
+        if (scoreDisplayer != null) {
+            scoreBoardPane.getChildren().remove(scoreDisplayer.getNode());
+        }
         scoreDisplayer = new ScoreDisplayer(game);
         scoreBoardPane.getChildren().add(scoreDisplayer.getNode());
-        scoreDisplayer.setPosition(DEFAULT_SCOREBOARD_CONTROLLER.getWidth() / 2.0 - ScoreDisplayer.DEFAULT_SCORE_DISPLAYER_DIMENSION.getWidth() / 2.0, 0.0);
+        scoreDisplayer.setPosition(resolution.getWidth() / 2.0 - ScoreDisplayer.DEFAULT_SCORE_DISPLAYER_DIMENSION.getWidth() / 2.0, 0.0);
         //TODO: set IDle
         setState(ScoringState.IN_PLAY);
         homeTeamDrawing.setFill(homeTeam.getPreferedColor());
@@ -665,10 +710,6 @@ public class MatchScoreBoardController extends FXController implements PropertyC
                 processGoalCountered();
                 break;
             case Events.TEAM_STATS:
-                System.err.println(" trigger pop up");
-//                teamStatsPopUp.setOpacity(1.0);
-//                teamStatsPopUp.setWidth(670);
-//                teamStatsPopUp.setHeight(630);
                 teamStatsPopUp.show(getWindow(), 0.0, 0.0);
                 final GameStat gameStat = new GameStat(game);
                 teamStatsPopUp.loadParameters(gameStat);
@@ -679,6 +720,9 @@ public class MatchScoreBoardController extends FXController implements PropertyC
             case Events.BACK_MACTH_MENU:
                 game.getGameClock().pauseTime();
                 firePropertyChange(Events.EDIT_CURRENT_GAME, homeTeam, game);
+                break;
+            case Events.GOAL_ACTIVE:
+                processGoalKeeperActivation();
                 break;
             default:
                 throw new UnsupportedOperationException("ppty change event " + evt.getPropertyName());
@@ -704,6 +748,23 @@ public class MatchScoreBoardController extends FXController implements PropertyC
         }
     }
 
+    private void processGoalKeeperActivation() {
+        switch (state) {
+            case PLAYER_SELECTED:
+                assert selectedPlayerDrawing instanceof GoalKeeperDrawing;
+                if (selectedPlayerIsHome) {
+                    game.addSubstitution(new SubstitutionAction(selectedPlayer, homeTeam, game.getGameClock().getTime()));
+                } else {
+                    game.addSubstitution(new SubstitutionAction(selectedPlayer, awayTeam, game.getGameClock().getTime()));
+                }
+                setState(ScoringState.IN_PLAY);
+                clearAllFields();
+                break;
+            default:
+                System.err.println("Fail to process Goal activationclicked while in state " + state);
+        }
+    }
+
     private void setFirstTimePlayerSelected(PlayerDrawing playerDrawing, Player player) {
         selectedPlayerDrawing = playerDrawing;
         selectedPlayer = player;
@@ -716,6 +777,7 @@ public class MatchScoreBoardController extends FXController implements PropertyC
         selectedPlayerDrawing = playerDrawing;
         selectedPlayer = player;
         selectedPlayerDrawing.setSelectedState(PlayerDrawing.SelectedState.SELECTED);
+        setState(ScoringState.PLAYER_SELECTED);
     }
 
     private void processYellowCard() {

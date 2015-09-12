@@ -17,8 +17,8 @@
 package fr.noony.handstats.core;
 
 import fr.noony.handstats.Championship;
-import fr.noony.handstats.Game;
-import static fr.noony.handstats.Game.MAX_PLAYERS_PER_MATCH;
+import fr.noony.handstats.Poste;
+import static fr.noony.handstats.core.Game.MAX_PLAYERS_PER_MATCH;
 import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -51,6 +51,8 @@ public class Team {
     private final List<Team> opponentTeams;
     //
     private Color preferedColor = Color.BLUEVIOLET;
+
+    private Player currentGoalKeeper = null;
 
     public Team(String name, Championship c) {
         propertyChangeSupport = new PropertyChangeSupport(Team.this);
@@ -227,6 +229,34 @@ public class Team {
         if (allPlayers.contains(playerToRemove)) {
             allPlayers.remove(playerToRemove);
         }
+    }
+
+    public Player getCurrentGoalKeeper() {
+        return currentGoalKeeper;
+    }
+
+    public void setCurrentGoalKeeper(Player goalkeeper) {
+        if (currentGoalKeeper != null) {
+            currentGoalKeeper.setCurrentGoalKeeper(false);
+        }
+        currentGoalKeeper = goalkeeper;
+        currentGoalKeeper.setCurrentGoalKeeper(true);
+    }
+
+    public boolean initCurrentGoalKeeper() {
+        if (currentGoalKeeper == null) {
+            for (Player p : activePlayers) {
+                if (Poste.GARDIEN.equals(p.getPositionActuelle())) {
+                    currentGoalKeeper = p;
+                    currentGoalKeeper.setCurrentGoalKeeper(true);
+                    return true;
+                }
+            }
+            throw new IllegalStateException("No GoalKeeper in active players");
+        } else {
+            return true;
+        }
+
     }
 
 }

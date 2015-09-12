@@ -17,11 +17,11 @@
 package fr.noony.handstats.utils;
 
 import fr.noony.handstats.Championship;
-import fr.noony.handstats.Game;
 import fr.noony.handstats.Poste;
 import fr.noony.handstats.core.DefenseBlockedShot;
 import fr.noony.handstats.core.Fault;
 import fr.noony.handstats.core.FaultAction;
+import fr.noony.handstats.core.Game;
 import fr.noony.handstats.core.GoodShot;
 import fr.noony.handstats.core.Player;
 import fr.noony.handstats.core.ShotStop;

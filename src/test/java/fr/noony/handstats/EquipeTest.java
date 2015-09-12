@@ -16,6 +16,7 @@
  */
 package fr.noony.handstats;
 
+import fr.noony.handstats.core.Game;
 import fr.noony.handstats.core.Player;
 import fr.noony.handstats.core.Team;
 import java.time.LocalDate;

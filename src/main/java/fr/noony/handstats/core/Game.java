@@ -14,17 +14,10 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package fr.noony.handstats;
+package fr.noony.handstats.core;
 
-import static fr.noony.handstats.GameClock.CLOCK_END_SECOND_HALF;
-import fr.noony.handstats.core.DefenseBlockedShot;
-import fr.noony.handstats.core.Fault;
-import fr.noony.handstats.core.FaultAction;
-import fr.noony.handstats.core.GameAction;
-import fr.noony.handstats.core.GoodShot;
-import fr.noony.handstats.core.Player;
-import fr.noony.handstats.core.ShotStop;
-import fr.noony.handstats.core.Team;
+import static fr.noony.handstats.core.GameClock.CLOCK_END_SECOND_HALF;
+import static fr.noony.handstats.core.GameClock.CLOCK_START_FIRST_HALF;
 import fr.noony.handstats.court.InteractiveShootingArea;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
@@ -217,6 +210,12 @@ public class Game implements PropertyChangeListener {
                 //TODO: fix when prolongations
                 isOver = true;
                 break;
+            case CLOCK_START_FIRST_HALF:
+                boolean homeGoalKeeerOK = homeTeam.initCurrentGoalKeeper();
+                assert homeGoalKeeerOK;
+                boolean awayGoalKeeerOK = awayTeam.initCurrentGoalKeeper();
+                assert awayGoalKeeerOK;
+                break;
             default:
                 //nothing
                 break;
@@ -245,6 +244,15 @@ public class Game implements PropertyChangeListener {
                 awayGoodShots.add(goodShot);
             }
         }
+        gameActions.add(action);
+    }
+
+    public void addSubstitution(SubstitutionAction action) {
+//        if (action.getPlayerTeam().getCurrentGoalKeeper() != null) {
+        action.getPlayerTeam().setCurrentGoalKeeper(action.getGoalKeeper());
+
+//        currentGoalKeeper = action.getGoalKeeper();
+//        currentGoalKeeper.setCurrentGoalKeeper(true);
         gameActions.add(action);
     }
 

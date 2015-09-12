@@ -40,9 +40,9 @@
             <Font size="36.0" />
          </font>
       </Button>
-      <Button fx:id="terminateGameButton" disable="true" layoutX="291.0" layoutY="446.0" mnemonicParsing="false" onAction="#closeGameInProgress" prefHeight="119.0" prefWidth="251.0" text="Cloturer le match en cours" textAlignment="CENTER" wrapText="true">
+      <Button fx:id="terminateGameButton" disable="true" layoutX="356.0" layoutY="342.0" mnemonicParsing="false" onAction="#closeGameInProgress" prefHeight="61.0" prefWidth="121.0" text="Cloturer le match en cours" textAlignment="CENTER" textFill="RED" wrapText="true">
          <font>
-            <Font size="24.0" />
+            <Font size="14.0" />
          </font>
       </Button>
       <Button fx:id="configureGameButton" layoutX="291.0" layoutY="176.0" mnemonicParsing="false" onAction="#configureMatchAction" prefHeight="119.0" prefWidth="251.0" text="Jouer un match" textAlignment="CENTER" wrapText="true">
@@ -60,7 +60,7 @@
             <Font size="24.0" />
          </font>
       </Button>
-      <Button fx:id="resumeGameButton" layoutX="291.0" layoutY="310.0" mnemonicParsing="false" onAction="#resumeGameAction" prefHeight="119.0" prefWidth="251.0" text="Reprendre le match en cours" textAlignment="CENTER" wrapText="true">
+      <Button fx:id="resumeGameButton" layoutX="291.0" layoutY="451.0" mnemonicParsing="false" onAction="#resumeGameAction" prefHeight="119.0" prefWidth="251.0" text="Reprendre le match en cours" textAlignment="CENTER" wrapText="true">
          <font>
             <Font size="24.0" />
          </font>

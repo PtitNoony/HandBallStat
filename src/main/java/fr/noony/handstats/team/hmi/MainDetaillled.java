@@ -83,6 +83,7 @@ public class MainDetaillled extends Application {
             exitPopUp = new ExitPopUp(stage, screensController);
             //
             myStage.setFullScreen(true);
+            EnvLoader.setCurrentResolution((int) myStage.getMaxWidth(), (int) myStage.getMaxHeight());
             myStage.setOnCloseRequest((WindowEvent event) -> {
                 Logger.getLogger(MainDetaillled.class.getName()).log(Level.SEVERE, "Closing application window on event :: {0}", new Object[]{event});
                 //TODO:: make a pop up to confirm and ask for save

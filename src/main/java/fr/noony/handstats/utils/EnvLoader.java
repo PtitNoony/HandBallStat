@@ -17,6 +17,7 @@
 package fr.noony.handstats.utils;
 
 import fr.noony.handstats.core.Team;
+import java.awt.Dimension;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
@@ -51,11 +52,23 @@ public final class EnvLoader {
     private static final List<Team> TEAMS = new LinkedList<>();
     private static final Map<String, String> PROPERTIES = new HashMap<>();
 
+    private static final Dimension DEFAULT_RESOLUTION = new Dimension(800, 600);
+    private static Dimension currentDimension = DEFAULT_RESOLUTION;
+
     private EnvLoader() {
         version = "unknown";
         preferedTeam = null;
 //        teams = new LinkedList<>();
 //        properties = new HashMap<>();
+    }
+
+    public static final void setCurrentResolution(int width, int height) {
+        currentDimension = new Dimension(width, height);
+        //TODO: fire ppty change
+    }
+
+    public static final Dimension getCurrentResolution() {
+        return currentDimension;
     }
 
     public static final void loadEnvironment() {
