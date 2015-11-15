@@ -21,13 +21,12 @@ import fr.noony.handstats.core.Player;
 import fr.noony.handstats.core.PopUpMode;
 import static fr.noony.handstats.team.hmi.Events.CANCEL_EVENT;
 import static fr.noony.handstats.team.hmi.Events.PLAYER_CREATION_OK_EVENT;
+import fr.noony.handstats.utils.log.MainLogger;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.net.URL;
 import java.util.Arrays;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
@@ -36,6 +35,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import org.pmw.tinylog.Level;
 
 /**
  * FXML Controller class
@@ -80,19 +80,20 @@ public class PlayerEditorController extends FXController implements PropertyChan
         posteL.setDisable(true);
         posteSelecteur.setItems(FXCollections.observableList(Arrays.asList(Poste.values())));
         posteSelecteur.getSelectionModel().selectedItemProperty().addListener((ObservableValue observable, Object oldValue, Object newValue) -> {
-            Logger.getLogger(PlayerEditorController.class.getName()).log(Level.FINEST, "{0} {1} {2}", new Object[]{observable, oldValue, newValue});
+            MainLogger.log(Level.INFO, "posteSelecteur changed", observable, oldValue, newValue);
             checkPlayerValidity();
         });
         prenomField.textProperty().addListener((ObservableValue<? extends String> observable, String oldValue, String newValue) -> {
-            Logger.getLogger(PlayerEditorController.class.getName()).log(Level.FINEST, "{0} {1} {2}", new Object[]{observable, oldValue, newValue});
+            MainLogger.log(Level.INFO, "prenomField changed", observable, oldValue, newValue);
             checkPlayerValidity();
         });
         nomField.textProperty().addListener((ObservableValue<? extends String> observable, String oldValue, String newValue) -> {
-            Logger.getLogger(PlayerEditorController.class.getName()).log(Level.FINEST, "{0} {1} {2}", new Object[]{observable, oldValue, newValue});
+            MainLogger.log(Level.INFO, "nomField changed", observable, oldValue, newValue);
             checkPlayerValidity();
         });
         numeroField.textProperty().addListener((ObservableValue<? extends String> observable, String oldValue, String newValue) -> {
-            Logger.getLogger(PlayerEditorController.class.getName()).log(Level.FINEST, "{0} {1} {2}", new Object[]{observable, oldValue, newValue});
+            MainLogger.log(Level.INFO, "numeroField changed", observable, oldValue, newValue);
+
             checkPlayerValidity();
         });
     }
@@ -117,7 +118,7 @@ public class PlayerEditorController extends FXController implements PropertyChan
             number = Integer.parseInt(numeroS);
             return true;
         } catch (Exception e) {
-            Logger.getLogger(PlayerEditorController.class.getName()).log(Level.SEVERE, "While cheking player number :: {0}", new Object[]{e});
+            MainLogger.log(Level.INFO, "While cheking player number :: {0}", new Object[]{e});
             return false;
         }
     }
@@ -146,7 +147,7 @@ public class PlayerEditorController extends FXController implements PropertyChan
             poste = Poste.valueOf(posteS);
             return true;
         } catch (Exception e) {
-            Logger.getLogger(PlayerEditorController.class.getName()).log(Level.SEVERE, "While cheking player poste :: {0}", new Object[]{e});
+            MainLogger.log(Level.INFO, "While cheking player poste :: {0}", new Object[]{e});
             return false;
         }
     }

@@ -18,12 +18,11 @@ package fr.noony.handstats.team.hmi;
 
 import fr.noony.handstats.core.Team;
 import fr.noony.handstats.utils.EnvLoader;
+import fr.noony.handstats.utils.log.MainLogger;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.net.URL;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -31,6 +30,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
+import org.pmw.tinylog.Level;
 
 /**
  *
@@ -50,7 +50,7 @@ public class TeamSelectionController extends FXController implements PropertyCha
         choiceTeamButton.setDisable(true);
         deleteTeamButton.setDisable(true);
         possibleTeamsList.getSelectionModel().selectedItemProperty().addListener((ObservableValue<? extends Team> observable, Team oldValue, Team newValue) -> {
-            Logger.getLogger(TeamSelectionController.class.getName()).log(Level.FINEST, "new team selected", new Object[]{observable, oldValue, newValue});
+            MainLogger.log(Level.INFO, "new team selected", new Object[]{observable, oldValue, newValue});
             checkTeamSelection();
         });
     }
@@ -62,13 +62,13 @@ public class TeamSelectionController extends FXController implements PropertyCha
 
     @FXML
     public void cancelTeamSelectionAction(ActionEvent event) {
-        Logger.getLogger(TeamSelectionController.class.getName()).log(Level.INFO, "cancelTeamSelectionAction {0}", new Object[]{event});
+        MainLogger.log(Level.INFO, "cancelTeamSelectionAction {0}", new Object[]{event});
         firePropertyChange(Events.CANCEL_TEAM_SELECTED_EVENT, null, null);
     }
 
     @FXML
     public void teamSelectionAction(ActionEvent event) {
-        Logger.getLogger(TeamSelectionController.class.getName()).log(Level.INFO, "teamSelectionAction {0}", new Object[]{event});
+        MainLogger.log(Level.INFO, "teamSelectionAction {0}", new Object[]{event});
         Team selectedTeam = possibleTeamsList.getSelectionModel().getSelectedItem();
         EnvLoader.setPreferedTeam(selectedTeam);
         firePropertyChange(Events.NEW_TEAM_SELECTED_EVENT, null, selectedTeam);
@@ -76,7 +76,7 @@ public class TeamSelectionController extends FXController implements PropertyCha
 
     @FXML
     public void deleteTeamAction(ActionEvent event) {
-        Logger.getLogger(TeamSelectionController.class.getName()).log(Level.INFO, "deleteTeamAction {0}", new Object[]{event});
+        MainLogger.log(Level.INFO, "deleteTeamAction {0}", new Object[]{event});
         deleteTeam();
     }
 

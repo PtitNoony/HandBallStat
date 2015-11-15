@@ -18,13 +18,12 @@ package fr.noony.handstats.team.hmi;
 
 import static fr.noony.handstats.team.hmi.Screens.LOADING_PAGE;
 import fr.noony.handstats.utils.EnvLoader;
+import fr.noony.handstats.utils.log.MainLogger;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.beans.PropertyChangeEvent;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.beans.value.ObservableValue;
@@ -32,6 +31,9 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import javax.swing.Timer;
+import org.pmw.tinylog.Configurator;
+import org.pmw.tinylog.Level;
+import org.pmw.tinylog.writers.FileWriter;
 
 /**
  *
@@ -40,7 +42,6 @@ import javax.swing.Timer;
 public class MainDetaillled extends Application {
 
     public static final Dimension DEFAULT_RESOLUTION = new Dimension(800, 600);
-    public static final Logger LOG = Logger.getLogger(MainDetaillled.class.getName());
 
     private static final String WELCOME_MESSAGE = "WELCOME TO HANDSTAT v";
 
@@ -85,7 +86,7 @@ public class MainDetaillled extends Application {
             myStage.setFullScreen(true);
             EnvLoader.setCurrentResolution((int) myStage.getMaxWidth(), (int) myStage.getMaxHeight());
             myStage.setOnCloseRequest((WindowEvent event) -> {
-                Logger.getLogger(MainDetaillled.class.getName()).log(Level.SEVERE, "Closing application window on event :: {0}", new Object[]{event});
+                MainLogger.log(Level.WARNING, "Closing application window on event :: {0}", event);
                 //TODO:: make a pop up to confirm and ask for save
 //                screensController.saveTeam();
                 event.consume();
@@ -100,12 +101,12 @@ public class MainDetaillled extends Application {
 //        screensController.setScreen(Screens.INIT_PAGE, EnvLoader.getTeams(), EnvLoader.getPreferedTeam());
         screensController.processEvent(new PropertyChangeEvent(this, Screens.INIT_PAGE, EnvLoader.getTeams(), EnvLoader.getPreferedTeam()));
         myScene.widthProperty().addListener((ObservableValue<? extends Number> observableValue, Number oldSceneWidth, Number newSceneWidth) -> {
-            Logger.getLogger(MainDetaillled.class.getName()).log(Level.INFO, "new width : {0} old {1} new {2}", new Object[]{observableValue, oldSceneWidth, newSceneWidth});
+            MainLogger.log(Level.INFO, "new width : {0} old {1} new {2}", new Object[]{observableValue, oldSceneWidth, newSceneWidth});
             sceneWidth = newSceneWidth.doubleValue();
             updatePagesSize();
         });
         myScene.heightProperty().addListener((ObservableValue<? extends Number> observableValue, Number oldSceneHeight, Number newSceneHeight) -> {
-            Logger.getLogger(MainDetaillled.class.getName()).log(Level.INFO, "new height : {0} old {1} new {2}", new Object[]{observableValue, oldSceneHeight, newSceneHeight});
+            MainLogger.log(Level.INFO, "new height : {0} old {1} new {2}", new Object[]{observableValue, oldSceneHeight, newSceneHeight});
             sceneHeight = newSceneHeight.doubleValue();
             updatePagesSize();
         });
@@ -139,7 +140,13 @@ public class MainDetaillled extends Application {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        LOG.setLevel(Level.SEVERE);
+        Configurator.defaultConfig()
+                .writer(new FileWriter("Log" + System.currentTimeMillis() + ".txt"))
+                .level(org.pmw.tinylog.Level.INFO)
+                .activate();
+
+        MainLogger.init();
+        MainLogger.log(Level.WARNING, "Launching the application");
         launch(args);
     }
 

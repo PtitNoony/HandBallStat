@@ -18,7 +18,6 @@ package fr.noony.handstats.court;
 
 import static fr.noony.handstats.Court.TERRAIN_LENGHT;
 import static fr.noony.handstats.Court.TERRAIN_WIDTH;
-import static fr.noony.handstats.Court.ZONE_9_RADIUS;
 import static fr.noony.handstats.Court.ZONE_RADIUS;
 import fr.noony.handstats.areas.CourtArea;
 import static fr.noony.handstats.court.CourtDrawing.LINE_COLOR;
@@ -33,6 +32,7 @@ import javafx.scene.shape.Arc;
 import javafx.scene.shape.ArcType;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
+import static fr.noony.handstats.Court.ZONE9_RADIUS;
 
 /**
  *
@@ -87,11 +87,11 @@ public class RightCourtDrawing extends HalfCourtDrawing {
     }
 
     private Shape create9MFullShape() {
-        Arc zone9DFull = new Arc(COURT_RATIO * TERRAIN_LENGHT / 2.0, COURT_RATIO * (TERRAIN_WIDTH - GOAL_WIDTH) / 2.0, ZONE_9_RADIUS * COURT_RATIO, ZONE_9_RADIUS * COURT_RATIO, 90.0, 90.0);
+        Arc zone9DFull = new Arc(COURT_RATIO * TERRAIN_LENGHT / 2.0, COURT_RATIO * (TERRAIN_WIDTH - GOAL_WIDTH) / 2.0, ZONE9_RADIUS * COURT_RATIO, ZONE9_RADIUS * COURT_RATIO, 90.0, 90.0);
         zone9DFull.setType(ArcType.ROUND);
-        Arc zone9GFull = new Arc(COURT_RATIO * TERRAIN_LENGHT / 2.0, COURT_RATIO * (TERRAIN_WIDTH + GOAL_WIDTH) / 2.0, ZONE_9_RADIUS * COURT_RATIO, ZONE_9_RADIUS * COURT_RATIO, 180.0, 90.0);
+        Arc zone9GFull = new Arc(COURT_RATIO * TERRAIN_LENGHT / 2.0, COURT_RATIO * (TERRAIN_WIDTH + GOAL_WIDTH) / 2.0, ZONE9_RADIUS * COURT_RATIO, ZONE9_RADIUS * COURT_RATIO, 180.0, 90.0);
         zone9GFull.setType(ArcType.ROUND);
-        Rectangle zone9CFull = new Rectangle(COURT_RATIO * (TERRAIN_LENGHT / 2.0 - ZONE_9_RADIUS), COURT_RATIO * (TERRAIN_WIDTH - GOAL_WIDTH) / 2.0, COURT_RATIO * ZONE_9_RADIUS, COURT_RATIO * GOAL_WIDTH);
+        Rectangle zone9CFull = new Rectangle(COURT_RATIO * (TERRAIN_LENGHT / 2.0 - ZONE9_RADIUS), COURT_RATIO * (TERRAIN_WIDTH - GOAL_WIDTH) / 2.0, COURT_RATIO * ZONE9_RADIUS, COURT_RATIO * GOAL_WIDTH);
         Shape sZone9Full = Shape.union(zone9CFull, Shape.union(zone9DFull, zone9GFull));
         return sZone9Full;
     }
@@ -124,7 +124,7 @@ public class RightCourtDrawing extends HalfCourtDrawing {
     private void createShootZone1() {
         Arc aileD_small = new Arc(COURT_RATIO * TERRAIN_LENGHT / 2.0, COURT_RATIO * (TERRAIN_WIDTH - GOAL_WIDTH) / 2.0, ZONE_RADIUS * COURT_RATIO, ZONE_RADIUS * COURT_RATIO, 90, 45.0);
         aileD_small.setType(ArcType.ROUND);
-        Arc aileD_large = new Arc(COURT_RATIO * TERRAIN_LENGHT / 2.0, COURT_RATIO * (TERRAIN_WIDTH - GOAL_WIDTH) / 2.0, ZONE_9_RADIUS * COURT_RATIO, ZONE_9_RADIUS * COURT_RATIO, 90, 45.0);
+        Arc aileD_large = new Arc(COURT_RATIO * TERRAIN_LENGHT / 2.0, COURT_RATIO * (TERRAIN_WIDTH - GOAL_WIDTH) / 2.0, ZONE9_RADIUS * COURT_RATIO, ZONE9_RADIUS * COURT_RATIO, 90, 45.0);
         aileD_large.setType(ArcType.ROUND);
         Shape aileD = Shape.intersect(Shape.subtract(aileD_large, aileD_small), (Shape) createHalfCourtClip());
         InteractiveShootingArea shotZone1 = new InteractiveShootingArea(CourtArea.RIGHT_SHOOT_EXT_LEFT, aileD, ZONE_9M_COLOR, true, "RIGHT_CLOSE_1");
@@ -135,7 +135,7 @@ public class RightCourtDrawing extends HalfCourtDrawing {
     private void createShootZone2() {
         Arc aileD_small = new Arc(COURT_RATIO * TERRAIN_LENGHT / 2.0, COURT_RATIO * (TERRAIN_WIDTH - GOAL_WIDTH) / 2.0, ZONE_RADIUS * COURT_RATIO, ZONE_RADIUS * COURT_RATIO, 135, 45.0);
         aileD_small.setType(ArcType.ROUND);
-        Arc aileD_large = new Arc(COURT_RATIO * TERRAIN_LENGHT / 2.0, COURT_RATIO * (TERRAIN_WIDTH - GOAL_WIDTH) / 2.0, ZONE_9_RADIUS * COURT_RATIO, ZONE_9_RADIUS * COURT_RATIO, 135, 45.0);
+        Arc aileD_large = new Arc(COURT_RATIO * TERRAIN_LENGHT / 2.0, COURT_RATIO * (TERRAIN_WIDTH - GOAL_WIDTH) / 2.0, ZONE9_RADIUS * COURT_RATIO, ZONE9_RADIUS * COURT_RATIO, 135, 45.0);
         aileD_large.setType(ArcType.ROUND);
         Shape aileD = Shape.intersect(Shape.subtract(aileD_large, aileD_small), (Shape) createHalfCourtClip());
         InteractiveShootingArea shotZone2 = new InteractiveShootingArea(CourtArea.RIGHT_SHOOT_INT_LEFT, aileD, ZONE_9M_COLOR, true, "RIGHT_CLOSE_2");
@@ -144,7 +144,7 @@ public class RightCourtDrawing extends HalfCourtDrawing {
     }
 
     private void createShootZone3() {
-        Rectangle zoneC = new Rectangle(COURT_RATIO * (TERRAIN_LENGHT / 2.0 - ZONE_9_RADIUS), COURT_RATIO * (TERRAIN_WIDTH - GOAL_WIDTH) / 2.0,
+        Rectangle zoneC = new Rectangle(COURT_RATIO * (TERRAIN_LENGHT / 2.0 - ZONE9_RADIUS), COURT_RATIO * (TERRAIN_WIDTH - GOAL_WIDTH) / 2.0,
                 COURT_RATIO * ZONE_RADIUS, COURT_RATIO * GOAL_WIDTH);
         Shape shotZone3 = Shape.intersect(zoneC, create9MZoneDShape());
         InteractiveShootingArea iShotZone3 = new InteractiveShootingArea(CourtArea.RIGHT_SHOOT_CENTER, shotZone3, ZONE_9M_COLOR, true, "RIGHT_CLOSE_3");
@@ -155,7 +155,7 @@ public class RightCourtDrawing extends HalfCourtDrawing {
     private void createShootZone4() {
         Arc aileD_small = new Arc(COURT_RATIO * TERRAIN_LENGHT / 2.0, COURT_RATIO * (TERRAIN_WIDTH + GOAL_WIDTH) / 2.0, ZONE_RADIUS * COURT_RATIO, ZONE_RADIUS * COURT_RATIO, 180, 45.0);
         aileD_small.setType(ArcType.ROUND);
-        Arc aileD_large = new Arc(COURT_RATIO * TERRAIN_LENGHT / 2.0, COURT_RATIO * (TERRAIN_WIDTH + GOAL_WIDTH) / 2.0, ZONE_9_RADIUS * COURT_RATIO, ZONE_9_RADIUS * COURT_RATIO, 180, 45.0);
+        Arc aileD_large = new Arc(COURT_RATIO * TERRAIN_LENGHT / 2.0, COURT_RATIO * (TERRAIN_WIDTH + GOAL_WIDTH) / 2.0, ZONE9_RADIUS * COURT_RATIO, ZONE9_RADIUS * COURT_RATIO, 180, 45.0);
         aileD_large.setType(ArcType.ROUND);
         Shape aileD = Shape.intersect(Shape.subtract(aileD_large, aileD_small), (Shape) createHalfCourtClip());
         InteractiveShootingArea shotZone4 = new InteractiveShootingArea(CourtArea.RIGHT_SHOOT_INT_RIGHT, aileD, ZONE_9M_COLOR, true, "RIGHT_CLOSE_4");
@@ -166,7 +166,7 @@ public class RightCourtDrawing extends HalfCourtDrawing {
     private void createShootZone5() {
         Arc aileD_small = new Arc(COURT_RATIO * TERRAIN_LENGHT / 2.0, COURT_RATIO * (TERRAIN_WIDTH + GOAL_WIDTH) / 2.0, ZONE_RADIUS * COURT_RATIO, ZONE_RADIUS * COURT_RATIO, 225, 45.0);
         aileD_small.setType(ArcType.ROUND);
-        Arc aileD_large = new Arc(COURT_RATIO * TERRAIN_LENGHT / 2.0, COURT_RATIO * (TERRAIN_WIDTH + GOAL_WIDTH) / 2.0, ZONE_9_RADIUS * COURT_RATIO, ZONE_9_RADIUS * COURT_RATIO, 225, 45.0);
+        Arc aileD_large = new Arc(COURT_RATIO * TERRAIN_LENGHT / 2.0, COURT_RATIO * (TERRAIN_WIDTH + GOAL_WIDTH) / 2.0, ZONE9_RADIUS * COURT_RATIO, ZONE9_RADIUS * COURT_RATIO, 225, 45.0);
         aileD_large.setType(ArcType.ROUND);
         Shape aileD = Shape.intersect(Shape.subtract(aileD_large, aileD_small), (Shape) createHalfCourtClip());
         InteractiveShootingArea shotZone5 = new InteractiveShootingArea(CourtArea.RIGHT_SHOOT_EXT_RIGHT, aileD, ZONE_9M_COLOR, true, "RIGHT_CLOSE_5");

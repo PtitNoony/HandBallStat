@@ -45,7 +45,7 @@ public class ExitPopUp extends Popup {
         popupTranslucidBackground.setOpacity(0.7);
         popupBackground = new Rectangle(DEFAULT_POP_UP_DIMENSION.getWidth(), DEFAULT_POP_UP_DIMENSION.getHeight());
         popupBackground.setFill(Color.GREY);
-        popupScreen = new Screen("exit");
+        popupScreen = new Screen("Exit");
         getContent().add(popupTranslucidBackground);
         getContent().add(popupBackground);
         getContent().add(popupScreen.getNode());

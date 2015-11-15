@@ -16,7 +16,7 @@
             <actionName>CUSTOM-assemble</actionName>
             <displayName>assemble</displayName>
             <goals>
-                <goal>assembly:single</goal>
+                <goal>clean compile assembly:single</goal>
                 
                 
             </goals>

@@ -17,13 +17,13 @@
 package fr.noony.handstats.team.hmi.drawing;
 
 import fr.noony.handstats.core.GameClock;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import fr.noony.handstats.utils.log.MainLogger;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Polygon;
+import org.pmw.tinylog.Level;
 
 /**
  *
@@ -63,7 +63,7 @@ public class PlayButton implements Button {
 
     private void createInteractivity() {
         mainShape.setOnMouseEntered((MouseEvent event) -> {
-            Logger.getLogger(PlayButton.class.getName()).log(Level.OFF, "entering play button on event {0}", event);
+            MainLogger.log(Level.OFF, "Entering play button on event", event);
             switch (state) {
                 case ENABLED:
                     mainShape.setStroke(BUTTON_STROKE_COLOR);
@@ -74,11 +74,11 @@ public class PlayButton implements Button {
             }
         });
         mainShape.setOnMouseExited((MouseEvent event) -> {
-            Logger.getLogger(PlayButton.class.getName()).log(Level.OFF, "exiting play button on event {0}", event);
+            MainLogger.log(Level.OFF, "Exiting play button on event", event);
             mainShape.setStroke(null);
         });
         mainShape.setOnMouseClicked((MouseEvent event) -> {
-            Logger.getLogger(PlayButton.class.getName()).log(Level.OFF, "clicking play button on event {0}", event);
+            MainLogger.log(Level.INFO, "Clicking play button on event", event);
             switch (state) {
                 case ENABLED:
                     gameClock.startTime();

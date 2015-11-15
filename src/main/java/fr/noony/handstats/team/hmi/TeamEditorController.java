@@ -21,13 +21,12 @@ import fr.noony.handstats.core.Team;
 import static fr.noony.handstats.team.hmi.Events.CANCEL_EVENT;
 import static fr.noony.handstats.team.hmi.Events.PLAYER_CREATION_OK_EVENT;
 import static fr.noony.handstats.team.hmi.Events.PLAYER_EDITION_OK_EVENT;
+import fr.noony.handstats.utils.log.MainLogger;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.net.URL;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.application.Platform;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -40,6 +39,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.SelectionMode;
 import javafx.scene.paint.Color;
+import org.pmw.tinylog.Level;
 
 /**
  *
@@ -75,7 +75,7 @@ public class TeamEditorController extends FXController implements PropertyChange
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        Logger.getLogger(TeamEditorController.class.getName()).log(Level.INFO, "Init Team editor panel");
+        MainLogger.log(Level.INFO, "Init Team editor panel");
         editPlayerB.setDisable(true);
         playerEditor = new CustomPopup("PlayerEditorPanel");
         createNewPlayerEditor();
@@ -90,11 +90,11 @@ public class TeamEditorController extends FXController implements PropertyChange
         activeList.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
         reposListe.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
         activeList.getSelectionModel().selectedItemProperty().addListener((ObservableValue<? extends Player> observable, Player oldValue, Player newValue) -> {
-            Logger.getLogger(TeamEditorController.class.getName()).log(Level.FINEST, "active player selection changed", new Object[]{observable, oldValue, newValue});
+            MainLogger.log(Level.INFO, "active player selection changed", new Object[]{observable, oldValue, newValue});
             processActiveListSelectionChanged();
         });
         reposListe.getSelectionModel().selectedItemProperty().addListener((ObservableValue<? extends Player> observable, Player oldValue, Player newValue) -> {
-            Logger.getLogger(TeamEditorController.class.getName()).log(Level.FINEST, "resting player selection changed", new Object[]{observable, oldValue, newValue});
+            MainLogger.log(Level.INFO, "resting player selection changed", new Object[]{observable, oldValue, newValue});
             processReposListSelectionChanged();
         });
         colorPicker.setOnAction((ActionEvent event) -> {
@@ -110,7 +110,7 @@ public class TeamEditorController extends FXController implements PropertyChange
      */
     @FXML
     public void newPlayerAction(ActionEvent event) {
-        Logger.getLogger(TeamEditorController.class.getName()).log(Level.INFO, "Editing new player {0}", new Object[]{event});
+        MainLogger.log(Level.INFO, "Editing new player {0}", new Object[]{event});
         newPlayerB.setDisable(true);
         playerEditorController.loadParameters();
         playerEditor.show(getWindow());
@@ -120,7 +120,7 @@ public class TeamEditorController extends FXController implements PropertyChange
 
     @FXML
     public void toRestingAction(ActionEvent event) {
-        Logger.getLogger(TeamEditorController.class.getName()).log(Level.INFO, "To resting players action {0}", new Object[]{event});
+        MainLogger.log(Level.INFO, "To resting players action {0}", new Object[]{event});
         Player toRestPlayer = activeList.getSelectionModel().getSelectedItem();
         activePlayers.remove(toRestPlayer);
         restingPlayers.add(toRestPlayer);
@@ -129,7 +129,7 @@ public class TeamEditorController extends FXController implements PropertyChange
 
     @FXML
     public void toActiveAction(ActionEvent event) {
-        Logger.getLogger(TeamEditorController.class.getName()).log(Level.INFO, "To active players action {0}", new Object[]{event});
+        MainLogger.log(Level.INFO, "To active players action {0}", new Object[]{event});
         Player toActivePlayer = reposListe.getSelectionModel().getSelectedItem();
         restingPlayers.remove(toActivePlayer);
         activePlayers.add(toActivePlayer);
@@ -138,7 +138,7 @@ public class TeamEditorController extends FXController implements PropertyChange
 
     @FXML
     public void backAction(ActionEvent event) {
-        Logger.getLogger(TeamEditorController.class.getName()).log(Level.INFO, "backAction {0}", new Object[]{event});
+        MainLogger.log(Level.INFO, "backAction {0}", new Object[]{event});
         firePropertyChange(Events.BACK_TO_TEAM_MAIN, null, currentTeam);
     }
 
@@ -226,7 +226,7 @@ public class TeamEditorController extends FXController implements PropertyChange
             colorPicker.setValue(currentTeam.getPreferedColor());
             //
         } catch (Exception e) {
-            Logger.getLogger(TeamEditorController.class.getName()).log(Level.SEVERE, "Not usable paramters : {0}", e);
+            MainLogger.log(Level.ERROR, "TEAM EDITOR CONTROLLER :: Not usable paramters : {0}", e);
         }
     }
 

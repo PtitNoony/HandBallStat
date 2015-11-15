@@ -16,10 +16,11 @@ package fr.noony.handstats.team.hmi;
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-import fr.noony.handstats.core.Game;
 import fr.noony.handstats.Poste;
+import fr.noony.handstats.core.Game;
 import fr.noony.handstats.core.Player;
 import fr.noony.handstats.core.Team;
+import fr.noony.handstats.utils.log.MainLogger;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.net.URL;
@@ -27,8 +28,6 @@ import java.time.LocalDate;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.application.Platform;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -44,6 +43,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TextField;
 import javafx.scene.paint.Color;
+import org.pmw.tinylog.Level;
 
 /**
  * FXML Controller class
@@ -51,9 +51,6 @@ import javafx.scene.paint.Color;
  * @author Arnaud HAMON-KEROMEN
  */
 public class MatchConfiguratorController extends FXController implements PropertyChangeListener {
-
-    private static final Logger LOG = Logger.getLogger(MatchConfiguratorController.class.getName());
-    private static final Level LOG_LEVEL = Level.FINEST;
 
     private enum GameConfigurationMode {
         CREATION, EDITION
@@ -123,17 +120,17 @@ public class MatchConfiguratorController extends FXController implements Propert
         });
         //listening opp team name
         oppTeamNameField.textProperty().addListener((ObservableValue<? extends String> observable, String oldValue, String newValue) -> {
-            Logger.getLogger(MatchConfiguratorController.class.getName()).log(Level.FINEST, "{0} {1} {2}", new Object[]{observable, oldValue, newValue});
+            MainLogger.log(Level.INFO, "{0} {1} {2}", new Object[]{observable, oldValue, newValue});
             checkOppTeamName();
         });
         //listening opp player number
         playerNumberField.textProperty().addListener((ObservableValue<? extends String> observable, String oldValue, String newValue) -> {
-            Logger.getLogger(MatchConfiguratorController.class.getName()).log(Level.FINEST, "{0} {1} {2}", new Object[]{observable, oldValue, newValue});
+            MainLogger.log(Level.INFO, "{0} {1} {2}", new Object[]{observable, oldValue, newValue});
             checkOppPlayerNumber();
         });
         //listening existing opp team choice
         oppTeamChoiceBox.getSelectionModel().selectedItemProperty().addListener((ObservableValue<? extends Team> observable, Team oldValue, Team newValue) -> {
-            Logger.getLogger(MatchConfiguratorController.class.getName()).log(Level.FINEST, "{0} {1} {2}", new Object[]{observable, oldValue, newValue});
+            MainLogger.log(Level.INFO, "{0} {1} {2}", new Object[]{observable, oldValue, newValue});
             checkOppTeamChoice();
         });
         //

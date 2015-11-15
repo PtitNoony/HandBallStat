@@ -18,19 +18,19 @@ package fr.noony.handstats.team.hmi;
 
 import fr.noony.handstats.Championship;
 import fr.noony.handstats.core.Team;
+import fr.noony.handstats.utils.log.MainLogger;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.net.URL;
 import java.util.Arrays;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
+import org.pmw.tinylog.Level;
 
 /**
  *
@@ -56,13 +56,13 @@ public class TeamCreatorController extends FXController implements PropertyChang
         //
         championshipChoiceB.getItems().setAll(Arrays.asList(Championship.values()));
         championshipChoiceB.getSelectionModel().selectedItemProperty().addListener((ObservableValue<? extends Championship> observable, Championship oldValue, Championship newValue) -> {
-            Logger.getLogger(TeamCreatorController.class.getName()).log(Level.FINEST, "new championship for team creation", new Object[]{observable, oldValue, newValue});
+            MainLogger.log(Level.INFO, "new championship for team creation", new Object[]{observable, oldValue, newValue});
             checkTeamValidity();
         });
         //
-        Logger.getLogger(TeamCreatorController.class.getName()).log(Level.INFO, "Init Team creator panel");
+        MainLogger.log(Level.INFO, "Init Team creator panel");
         teamField.textProperty().addListener((ObservableValue<? extends String> observable, String oldValue, String newValue) -> {
-            Logger.getLogger(TeamCreatorController.class.getName()).log(Level.FINEST, "new name for team creation", new Object[]{observable, oldValue, newValue});
+            MainLogger.log(Level.OFF, "new name for team creation", new Object[]{observable, oldValue, newValue});
             checkTeamValidity();
         });
     }
@@ -80,14 +80,14 @@ public class TeamCreatorController extends FXController implements PropertyChang
     }
 
     public void cancelTeamCreationAction(ActionEvent event) {
-        Logger.getLogger(TeamCreatorController.class.getName()).log(Level.INFO, "cancelTeamCreationAction {0}", new Object[]{event});
+        MainLogger.log(Level.INFO, "cancelTeamCreationAction {0}", new Object[]{event});
         firePropertyChange(Events.CANCEL_TEAM_CREATION_EVENT, null, null);
 
     }
 
     @FXML
     public void createTeamAction(ActionEvent event) {
-        Logger.getLogger(TeamCreatorController.class.getName()).log(Level.INFO, "createTeamAction {0}", new Object[]{event});
+        MainLogger.log(Level.INFO, "createTeamAction {0}", new Object[]{event});
         Team team = new Team(teamField.getText(), selectedChampionship);
         firePropertyChange(Events.CREATE_TEAM_EVENT, null, team);
     }

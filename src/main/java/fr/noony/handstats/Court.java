@@ -31,7 +31,7 @@ public class Court {
      */
     public static final int TERRAIN_LENGHT = 4000;
     public static final int ZONE_RADIUS = 600;
-    public static final int ZONE_9_RADIUS = 900;
+    public static final int ZONE9_RADIUS = 900;
     public static final int GOAL_WIDTH = 300;
     public static final int GOAL_Z = 80;
     public static final int PENALTY_LENGH = 100;

@@ -58,6 +58,7 @@ import static fr.noony.handstats.utils.XMLSaver.TEAM_CHAMPIONSHIP_TAG;
 import static fr.noony.handstats.utils.XMLSaver.TEAM_NAME_TAG;
 import static fr.noony.handstats.utils.XMLSaver.TEAM_PREFERED_COLOR;
 import static fr.noony.handstats.utils.XMLSaver.TEAM_TAG;
+import fr.noony.handstats.utils.log.MainLogger;
 import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -65,14 +66,13 @@ import java.net.URL;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDate;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.scene.paint.Color;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import org.openide.util.Exceptions;
 import org.openide.util.Utilities;
+import org.pmw.tinylog.Level;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
@@ -149,7 +149,8 @@ public final class XMLLoader {
             //
             return team;
         } catch (IOException | SAXException | ParserConfigurationException ex) {
-            Logger.getLogger(XMLLoader.class.getName()).log(Level.SEVERE, "", ex);
+            MainLogger.log(Level.ERROR, "Exception while loading team ", path, ex
+            );
             return null;
         }
     }

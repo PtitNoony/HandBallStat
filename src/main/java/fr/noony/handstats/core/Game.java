@@ -19,6 +19,7 @@ package fr.noony.handstats.core;
 import static fr.noony.handstats.core.GameClock.CLOCK_END_SECOND_HALF;
 import static fr.noony.handstats.core.GameClock.CLOCK_START_FIRST_HALF;
 import fr.noony.handstats.court.InteractiveShootingArea;
+import fr.noony.handstats.utils.log.MainLogger;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
@@ -119,6 +120,7 @@ public class Game implements PropertyChangeListener {
             firePropertyChange("AWAY_SCORED", null, awayGoodShots.size());
         }
         gameActions.add(shot);
+        MainLogger.log(MainLogger.GAME_EVENT_LEVEL, "SHOOT ", shot);
     }
 
     public void addGoalStop(Player goal, Player shootingPlayer, boolean shootingPlayerIsHome, InteractiveShootingArea shootingZone, InteractiveShootingArea goalArea) {
@@ -131,6 +133,7 @@ public class Game implements PropertyChangeListener {
             firePropertyChange("HOME_BLOCKED_GOAL_ATEMPT", null, goal);
         }
         gameActions.add(shot);
+        MainLogger.log(MainLogger.GAME_EVENT_LEVEL, "Shot Stop", shot);
     }
 
     public void addGoalCountered(Player shootingPlayer, boolean shootingPlayerIsHome, InteractiveShootingArea shootingZone) {
@@ -143,6 +146,7 @@ public class Game implements PropertyChangeListener {
             firePropertyChange("HOME_BLOCKED_BY_DEFENSE_ATEMPT", null, shot);
         }
         gameActions.add(shot);
+        MainLogger.log(MainLogger.GAME_EVENT_LEVEL, "Goal Countered by defense player", shot);
     }
 
     public void addFault(Player player, boolean shootingPlayerIsHome, Fault fault) {
@@ -173,6 +177,7 @@ public class Game implements PropertyChangeListener {
                 throw new UnsupportedOperationException("unknown fault :" + fault + " by player " + player);
         }
         gameActions.add(faultAction);
+        MainLogger.log(MainLogger.GAME_EVENT_LEVEL, "Fault", faultAction);
     }
 
     public Lookup getLookup() {
@@ -317,6 +322,7 @@ public class Game implements PropertyChangeListener {
 
     public void close() {
         isOver = true;
+        MainLogger.log(MainLogger.GAME_EVENT_LEVEL, "Closing Game");
     }
 
 }

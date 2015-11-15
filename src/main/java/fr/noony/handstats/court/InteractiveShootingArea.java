@@ -21,9 +21,8 @@ import static fr.noony.handstats.court.CourtDrawing.MIN_WIDTH;
 import static fr.noony.handstats.court.CourtDrawing.SHOOTING_ZONE_FILL;
 import static fr.noony.handstats.court.CourtDrawing.SHOOTING_ZONE_STROKE;
 import fr.noony.handstats.team.hmi.drawing.PlayerDrawing;
+import fr.noony.handstats.utils.log.MainLogger;
 import java.beans.PropertyChangeSupport;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.scene.Node;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
@@ -31,6 +30,7 @@ import javafx.scene.shape.Shape;
 import org.openide.util.Lookup;
 import org.openide.util.lookup.AbstractLookup;
 import org.openide.util.lookup.InstanceContent;
+import org.pmw.tinylog.Level;
 
 /**
  *
@@ -48,8 +48,6 @@ public class InteractiveShootingArea {
     private final AbstractArea courtArea;
     private final Shape mainNode;
     private Color fillColor;
-    private static final Logger LOG = Logger.getLogger(InteractiveShootingArea.class.getName());
-    private static final Level LOG_LEVEL = Level.FINEST;
     //
     private final PropertyChangeSupport propertyChangeSupport;
     private final InstanceContent lookupContents = new InstanceContent();
@@ -75,15 +73,15 @@ public class InteractiveShootingArea {
 
     private void createInteractivity() {
         mainNode.setOnMouseEntered((MouseEvent event) -> {
-            LOG.log(LOG_LEVEL, "Event {0} in Zone {1}", new Object[]{event, courtArea});
+            MainLogger.log(Level.OFF, "Event {0} in Zone {1}", new Object[]{event, courtArea});
             mainNode.setFill(SHOOTING_ZONE_FILL);
         });
         mainNode.setOnMouseExited((MouseEvent event) -> {
-            LOG.log(LOG_LEVEL, "Event {0} in Zone {1}", new Object[]{event, courtArea});
+            MainLogger.log(Level.OFF, "Event {0} in Zone {1}", new Object[]{event, courtArea});
             updateDrawing();
         });
         mainNode.setOnMouseClicked((MouseEvent event) -> {
-            LOG.log(LOG_LEVEL, "Event {0} in Zone {1}", new Object[]{event, courtArea});
+            MainLogger.log(Level.OFF, "Event {0} in Zone {1}", new Object[]{event, courtArea});
             propertyChangeSupport.firePropertyChange(INTERACTIVE_ZONE_CLICKED, allowScore, this);
         });
     }

@@ -16,20 +16,22 @@
  */
 package fr.noony.handstats.team.hmi;
 
+import fr.noony.handstats.utils.log.MainLogger;
 import java.beans.PropertyChangeEvent;
 import java.util.LinkedHashMap;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
 import javafx.beans.property.DoubleProperty;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.scene.Node;
 import javafx.scene.layout.StackPane;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Window;
 import javafx.util.Duration;
+import org.pmw.tinylog.Level;
 
 /**
  * Code partly from
@@ -74,7 +76,7 @@ public abstract class AbstractScreensController extends StackPane {
                 Timeline fade = new Timeline(
                         new KeyFrame(Duration.ZERO, new KeyValue(opacity, 1.0)),
                         new KeyFrame(new Duration(300), (ActionEvent t) -> {
-                            Logger.getLogger(AbstractScreensController.class.getName()).log(Level.OFF, "new key frame on event {0}", t);
+                            MainLogger.log(Level.OFF, "new key frame on event", t);
                             //remove displayed screen
                             getChildren().remove(0);
                             //add new screen
@@ -96,7 +98,7 @@ public abstract class AbstractScreensController extends StackPane {
             }
             return true;
         } else {
-            Logger.getLogger(AbstractScreensController.class.getName()).log(Level.WARNING, "screen hasn't been loaded!\n");
+            MainLogger.log(Level.ERROR, "screen hasn't been loaded since next screen is NULL!");
             return false;
         }
     }
@@ -107,6 +109,12 @@ public abstract class AbstractScreensController extends StackPane {
 
     public String getCurrentScreen() {
         return currentScreen;
+    }
+
+    @Override
+    public final ObservableList<Node> getChildren() {
+        //made final
+        return super.getChildren();
     }
 
     protected abstract void processEvent(PropertyChangeEvent evt);

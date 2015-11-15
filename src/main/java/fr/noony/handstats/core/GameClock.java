@@ -17,9 +17,8 @@
 package fr.noony.handstats.core;
 
 import fr.noony.handstats.utils.TimeCalculator;
+import fr.noony.handstats.utils.log.MainLogger;
 import java.beans.PropertyChangeSupport;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
@@ -27,6 +26,7 @@ import javafx.util.Duration;
 import org.openide.util.Lookup;
 import org.openide.util.lookup.AbstractLookup;
 import org.openide.util.lookup.InstanceContent;
+import org.pmw.tinylog.Level;
 
 /**
  *
@@ -45,8 +45,6 @@ public class GameClock {
     public static final String CLOCK_END_FIST_HALF = "clockEndFirstHalf";
     public static final String CLOCK_START_SECOND_HALF = "clockStartSecondHalf";
     public static final String CLOCK_END_SECOND_HALF = "clockEndSecondHalf";
-
-    private static final Logger LOG = Logger.getLogger(GameClock.class.getName());
     //
     private final PropertyChangeSupport propertyChangeSupport;
     private final InstanceContent lookupContents = new InstanceContent();
@@ -73,6 +71,7 @@ public class GameClock {
     protected void setTime(String time) {
         nbSeconds = TimeCalculator.timeStringToSeconds(time);
         nbMinutes = TimeCalculator.timeStringToMinutes(time);
+        MainLogger.log(MainLogger.GAME_EVENT_LEVEL, "Setting time", nbMinutes, nbSeconds);
     }
 
     public Lookup getLookup() {
@@ -85,7 +84,7 @@ public class GameClock {
     }
 
     private void nextSecond(ActionEvent e) {
-        LOG.log(Level.FINE, "next second :: {0}", e);
+        MainLogger.log(Level.INFO, "next second ::", e);
         if (nbSeconds == 59) {
             nbSeconds = 0;
             nbMinutes++;
@@ -112,6 +111,7 @@ public class GameClock {
     }
 
     public void startTime() {
+        MainLogger.log(MainLogger.GAME_EVENT_LEVEL, "Starting time", nbMinutes, nbSeconds);
         if (nbMinutes == 0 && nbSeconds == 0) {
             // notifier le debut du match
             //enregistrer l'heure ???
@@ -123,6 +123,7 @@ public class GameClock {
     }
 
     public void pauseTime() {
+        MainLogger.log(MainLogger.GAME_EVENT_LEVEL, "Pausing time", nbMinutes, nbSeconds);
         setPaused();
     }
 

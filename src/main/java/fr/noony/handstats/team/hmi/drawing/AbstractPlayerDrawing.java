@@ -17,14 +17,12 @@
 package fr.noony.handstats.team.hmi.drawing;
 
 import fr.noony.handstats.core.Player;
-import fr.noony.handstats.court.InteractiveShootingArea;
 import fr.noony.handstats.team.hmi.Events;
 import fr.noony.handstats.utils.Calculations;
+import fr.noony.handstats.utils.log.MainLogger;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Node;
@@ -38,6 +36,7 @@ import javafx.scene.text.Font;
 import org.openide.util.Lookup;
 import org.openide.util.lookup.AbstractLookup;
 import org.openide.util.lookup.InstanceContent;
+import org.pmw.tinylog.Level;
 
 /**
  *
@@ -103,8 +102,6 @@ public class AbstractPlayerDrawing implements PropertyChangeListener {
     private final PropertyChangeSupport propertyChangeSupport;
     private final InstanceContent lookupContents = new InstanceContent();
     private final AbstractLookup alookup = new AbstractLookup(lookupContents);
-    private static final Logger LOG = Logger.getLogger(InteractiveShootingArea.class.getName());
-    private static final Level LOG_LEVEL = Level.FINEST;
     private SelectedState selectedState;
     private String eventNameOnAction;
     private int nbYellowCards = 0;
@@ -256,7 +253,7 @@ public class AbstractPlayerDrawing implements PropertyChangeListener {
     }
 
     private void processMouseClick(MouseEvent event) {
-        LOG.log(LOG_LEVEL, "Event {0} on player {1}", new Object[]{event, this});
+        MainLogger.log(Level.INFO, "Event {0} on player {1}", new Object[]{event, this});
         switch (selectedState) {
             case IDLE:
             case SELECTED:
@@ -272,7 +269,7 @@ public class AbstractPlayerDrawing implements PropertyChangeListener {
     }
 
     private void processMouseEntered(MouseEvent event) {
-        LOG.log(LOG_LEVEL, "Event {0} on player {1}", new Object[]{event, this});
+        MainLogger.log(Level.OFF, "Event {0} on player {1}", new Object[]{event, this});
         switch (selectedState) {
             case IDLE:
             case SELECTED:
@@ -299,7 +296,7 @@ public class AbstractPlayerDrawing implements PropertyChangeListener {
     }
 
     private void processMouseExited(MouseEvent event) {
-        LOG.log(LOG_LEVEL, "Event {0} on player {1}", new Object[]{event, this});
+        MainLogger.log(Level.OFF, "Event {0} on player {1}", new Object[]{event, this});
         switch (selectedState) {
             case IDLE:
             case SELECTED:
@@ -482,25 +479,32 @@ public class AbstractPlayerDrawing implements PropertyChangeListener {
 
     private void addYellowCard() {
         nbYellowCards++;
-        if (nbYellowCards == 1) {
-            yellowCard1.setVisible(true);
-        } else if (nbYellowCards == 2) {
-            yellowCard2.setVisible(true);
-        } else {
-            throw new IllegalStateException("no more yellow card allowed, max=2");
+        switch (nbYellowCards) {
+            case 1:
+                yellowCard1.setVisible(true);
+                break;
+            case 2:
+                yellowCard2.setVisible(true);
+                break;
+            default:
+                throw new IllegalStateException("no more yellow card allowed, max=2");
         }
     }
 
     private void triggerTwoMinutes() {
         nb2Mins++;
-        if (nb2Mins == 1) {
-            twoMinImageView1.setVisible(true);
-        } else if (nb2Mins == 2) {
-            twoMinImageView2.setVisible(true);
-        } else if (nb2Mins == 3) {
-            twoMinImageView3.setVisible(true);
-        } else {
-            throw new IllegalStateException("no more 2 minutes  allowed, max=3");
+        switch (nb2Mins) {
+            case 1:
+                twoMinImageView1.setVisible(true);
+                break;
+            case 2:
+                twoMinImageView2.setVisible(true);
+                break;
+            case 3:
+                twoMinImageView3.setVisible(true);
+                break;
+            default:
+                throw new IllegalStateException("no more 2 minutes  allowed, max=3");
         }
         twoMinutesTimeLabel.setText("2:00");
         twoMinutesTimeLabel.setVisible(true);

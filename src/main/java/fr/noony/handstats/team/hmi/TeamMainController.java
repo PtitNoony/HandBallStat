@@ -20,12 +20,11 @@ import fr.noony.handstats.core.Player;
 import fr.noony.handstats.core.Team;
 import static fr.noony.handstats.team.hmi.Events.LOAD_GAME_TO_RESUME;
 import fr.noony.handstats.utils.XMLSaver;
+import fr.noony.handstats.utils.log.MainLogger;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.net.URL;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -33,6 +32,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
+import org.pmw.tinylog.Level;
 
 /**
  *
@@ -58,7 +58,7 @@ public class TeamMainController extends FXController implements PropertyChangeLi
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        Logger.getLogger(TeamMainController.class.getName()).log(Level.INFO, "Init Team editor panel");
+        MainLogger.log(Level.INFO, "Init Team editor panel");
 //        editPlayerB.setDisable(true);
 //        playerEditor = createNewPlayerEditor();
 //        restingPlayers = FXCollections.observableArrayList();
@@ -83,26 +83,26 @@ public class TeamMainController extends FXController implements PropertyChangeLi
 
     @FXML
     public void retourAction(ActionEvent event) {
-        Logger.getLogger(TeamMainController.class.getName()).log(Level.INFO, "retourAction {0}", new Object[]{event});
+        MainLogger.log(Level.INFO, "retourAction {0}", new Object[]{event});
         XMLSaver.saveTeam(currentTeam);
         firePropertyChange(Events.BACK_TEAM_SELECTION, null, null);
     }
 
     @FXML
     public void editTeamAction(ActionEvent event) {
-        Logger.getLogger(TeamMainController.class.getName()).log(Level.INFO, "editTeamAction {0}", new Object[]{event});
+        MainLogger.log(Level.INFO, "editTeamAction {0}", new Object[]{event});
         firePropertyChange(Events.EDIT_CURRENT_TEAM, null, currentTeam);
     }
 
     @FXML
     public void configureMatchAction(ActionEvent event) {
-        Logger.getLogger(TeamMainController.class.getName()).log(Level.INFO, "playMatchAction {0}", new Object[]{event});
+        MainLogger.log(Level.INFO, "playMatchAction {0}", new Object[]{event});
         firePropertyChange(Events.CONFIGURE_MATCH, null, currentTeam);
     }
 
     @FXML
     public void seeStatsAction(ActionEvent event) {
-        Logger.getLogger(TeamMainController.class.getName()).log(Level.INFO, "seeStatsAction {0}", new Object[]{event});
+        MainLogger.log(Level.INFO, "seeStatsAction {0}", new Object[]{event});
         firePropertyChange(Events.DISPLAY_STATS_FROM_MAIN, null, currentTeam);
     }
 
@@ -133,7 +133,7 @@ public class TeamMainController extends FXController implements PropertyChangeLi
                 });
             }
         } catch (Exception e) {
-            Logger.getLogger(TeamMainController.class.getName()).log(Level.SEVERE, "Not usable paramters : {0}", e);
+            MainLogger.log(Level.INFO, "Not usable paramters : {0}", e);
         }
     }
 

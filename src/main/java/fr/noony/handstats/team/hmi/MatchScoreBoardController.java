@@ -35,6 +35,7 @@ import fr.noony.handstats.team.hmi.drawing.GoalKeeperDrawing;
 import fr.noony.handstats.team.hmi.drawing.PlayerDrawing;
 import fr.noony.handstats.team.hmi.drawing.ScoreDisplayer;
 import fr.noony.handstats.team.hmi.drawing.TeamDrawing;
+import fr.noony.handstats.utils.log.MainLogger;
 import java.awt.Dimension;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
@@ -44,8 +45,6 @@ import java.time.LocalDate;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.fxml.FXML;
 import javafx.scene.SnapshotParameters;
 import javafx.scene.effect.ColorAdjust;
@@ -58,6 +57,7 @@ import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Window;
+import org.pmw.tinylog.Level;
 
 /**
  * FXML Controller class
@@ -69,8 +69,6 @@ public class MatchScoreBoardController extends FXController implements PropertyC
     public static final Dimension DEFAULT_SCOREBOARD_CONTROLLER = new Dimension(1200, 675);
     private static final double DEFAUL_MINIATURE_SCALE = 0.25;
     private static final double DEFAULT_INNER_MARGIN = 20.0;
-    private static final Logger LOG = Logger.getLogger(InteractiveShootingArea.class.getName());
-    private static final Level LOG_LEVEL = Level.FINEST;
 
     private enum ScoringState {
 
@@ -314,9 +312,7 @@ public class MatchScoreBoardController extends FXController implements PropertyC
     }
 
     private void createHomeGoalKeepersButtons() {
-        for (GoalKeeperDrawing goalKeeperDrawing : homeGoalKeeperDrawings) {
-            scoreBoardPane.getChildren().remove(goalKeeperDrawing.getNode());
-        }
+        homeGoalKeeperDrawings.stream().forEach(goalKeeperDrawing -> scoreBoardPane.getChildren().remove(goalKeeperDrawing.getNode()));
         homeGoalKeeperDrawings.clear();
         homeGoalKeepers.clear();
         homeTeam.getActivePlayers().stream().filter(p -> p.getPositionActuelle().equals(Poste.GARDIEN))
@@ -356,17 +352,17 @@ public class MatchScoreBoardController extends FXController implements PropertyC
 
     private void createImageInteractivity(ImageView image) {
         image.setOnMouseEntered((MouseEvent event) -> {
-            LOG.log(LOG_LEVEL, "Event {0} on MatchScoreBoardController {1}", new Object[]{event, this});
+            MainLogger.log(Level.INFO, "Mouse entered on MatchScoreBoardController ", event, this);
             ColorAdjust colorAdjust = new ColorAdjust(0.5, 1, 0.5, 0.3);
             image.setEffect(colorAdjust);
         });
         image.setOnMouseExited((MouseEvent event) -> {
-            LOG.log(LOG_LEVEL, "Event {0} on MatchScoreBoardController {1}", new Object[]{event, this});
+            MainLogger.log(Level.INFO, "Mouse Exited on MatchScoreBoardController ", event, this);
             image.setEffect(null);
         });
         image.setOnMouseClicked((MouseEvent event) -> {
-            LOG.log(LOG_LEVEL, "Event {0} on MatchScoreBoardController {1}", new Object[]{event, this});
-            processImageClicked(image);
+            MainLogger.log(Level.INFO, "MouseClicked on MatchScoreBoardController ", event, this);
+            processImageClicked();
         });
     }
 
@@ -389,8 +385,7 @@ public class MatchScoreBoardController extends FXController implements PropertyC
         //TODO
     }
 
-    private void processImageClicked(ImageView image) {
-        LOG.log(LOG_LEVEL, "Image clicked : {0}", new Object[]{image});
+    private void processImageClicked() {
         setState(ScoringState.PLAYER_SELECTED);
     }
 

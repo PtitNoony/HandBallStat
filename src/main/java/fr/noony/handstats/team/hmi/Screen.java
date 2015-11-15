@@ -44,6 +44,7 @@ public class Screen implements ControlledScreen, PropertyChangeListener {
 //        propertyChangeSupport = new PropertyChangeSupport(Screen.this);
 //        lookupContents.add(propertyChangeSupport);
         fxmlName = fxmlFileName;
+        System.err.println(" TRYING TO LOAD ::" + fxmlName + ".fxml");
         loader = new FXMLLoader(getClass().getResource(fxmlName + ".fxml"));
         try {
             loader.load();

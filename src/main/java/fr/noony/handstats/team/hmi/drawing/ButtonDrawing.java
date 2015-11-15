@@ -16,10 +16,9 @@
  */
 package fr.noony.handstats.team.hmi.drawing;
 
+import fr.noony.handstats.utils.log.MainLogger;
 import java.awt.Dimension;
 import java.beans.PropertyChangeSupport;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.geometry.VPos;
 import javafx.scene.Group;
 import javafx.scene.Node;
@@ -33,6 +32,7 @@ import javafx.scene.text.TextAlignment;
 import org.openide.util.Lookup;
 import org.openide.util.lookup.AbstractLookup;
 import org.openide.util.lookup.InstanceContent;
+import org.pmw.tinylog.Level;
 
 /**
  *
@@ -55,10 +55,6 @@ public class ButtonDrawing {
 
     private final Group mainNode;
     private final Text buttonText;
-    //
-    private static final Logger LOG = Logger.getLogger(ButtonDrawing.class.getName());
-    private static final Level LOG_LEVEL = Level.FINEST;
-
     //
     private double sizeX, sizeY;
     private ButtonInnerState myState;
@@ -150,19 +146,19 @@ public class ButtonDrawing {
 
     private void createInteractivity() {
         foreground.setOnMousePressed((MouseEvent event) -> {
-            LOG.log(LOG_LEVEL, "mouse event {0} on object {1}", new Object[]{event, this});
+            MainLogger.log(Level.OFF, "mouse event {0} on object {1}", new Object[]{event, this});
             processMousePressed();
         });
         foreground.setOnMouseReleased((MouseEvent event) -> {
-            LOG.log(LOG_LEVEL, "mouse event {0} on object {1}", new Object[]{event, this});
+            MainLogger.log(Level.OFF, "mouse event {0} on object {1}", new Object[]{event, this});
             processMouseReleased();
         });
         foreground.setOnMouseEntered((MouseEvent event) -> {
-            LOG.log(LOG_LEVEL, "mouse event {0} on object {1}", new Object[]{event, this});
+            MainLogger.log(Level.OFF, "mouse event {0} on object {1}", new Object[]{event, this});
             processMouseEntered();
         });
         foreground.setOnMouseExited((MouseEvent event) -> {
-            LOG.log(LOG_LEVEL, "mouse event {0} on object {1}", new Object[]{event, this});
+            MainLogger.log(Level.OFF, "mouse event {0} on object {1}", new Object[]{event, this});
             processMouseExited();
         });
     }
