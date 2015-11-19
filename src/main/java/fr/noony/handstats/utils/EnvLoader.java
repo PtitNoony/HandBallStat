@@ -43,7 +43,9 @@ public final class EnvLoader {
     private static final String VERSION_PPTY = "version";
     private static final String PREFERED_TEAM_PPTY = "preferedTeam";
     //
-    private static final String DEBUG_FOLDER = "C:\\Handstat";
+    private static final String DEBUG_FOLDER = "C:\\Users\\Arnaud\\Desktop\\HandStat_2015_09_12_001";
+    //C:\Users\Arnaud\Desktop\HandStat_2015_09_12_001
+    //"C:\\Handstat";
     //
     private static String currentPath;
     //

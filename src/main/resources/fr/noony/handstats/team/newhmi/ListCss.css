@@ -1,0 +1,3 @@
+.scroll-bar .increment-arrow, .scroll-bar .decrement-arrow {
+    -fx-padding: 15;
+}

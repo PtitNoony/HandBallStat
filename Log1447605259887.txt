@@ -1,0 +1,202 @@
+2015-11-15 17:34:19 [main] fr.noony.handstats.utils.log.MainLogger.log()
+INFO: Launching the application
+2015-11-15 17:34:20 [JavaFX Application Thread] fr.noony.handstats.utils.log.MainLogger.log()
+INFO: new key frame on event
+2015-11-15 17:34:20 [AWT-EventQueue-0] fr.noony.handstats.utils.log.MainLogger.log()
+INFO: Setting time
+2015-11-15 17:34:20 [JavaFX Application Thread] fr.noony.handstats.utils.log.MainLogger.log()
+INFO: Init Team creator panel
+2015-11-15 17:34:20 [JavaFX Application Thread] fr.noony.handstats.utils.log.MainLogger.log()
+INFO: Init Team editor panel
+2015-11-15 17:34:21 [JavaFX Application Thread] fr.noony.handstats.utils.log.MainLogger.log()
+INFO: Init Team editor panel
+2015-11-15 17:34:21 [JavaFX Application Thread] fr.noony.handstats.utils.log.MainLogger.log()
+INFO: new key frame on event
+2015-11-15 17:34:21 [JavaFX Application Thread] fr.noony.handstats.utils.log.MainLogger.log()
+INFO: new key frame on event
+2015-11-15 17:34:23 [JavaFX Application Thread] fr.noony.handstats.utils.log.MainLogger.log()
+INFO: new key frame on event
+2015-11-15 17:34:25 [JavaFX Application Thread] fr.noony.handstats.utils.log.MainLogger.log()
+INFO: new key frame on event
+2015-11-15 17:34:26 [JavaFX Application Thread] fr.noony.handstats.utils.log.MainLogger.log()
+INFO: Mouse Entered on player
+2015-11-15 17:34:26 [JavaFX Application Thread] fr.noony.handstats.utils.log.MainLogger.log()
+INFO: Mouse Exited on player 
+2015-11-15 17:34:26 [JavaFX Application Thread] fr.noony.handstats.utils.log.MainLogger.log()
+INFO: Mouse Entered on player
+2015-11-15 17:34:26 [JavaFX Application Thread] fr.noony.handstats.utils.log.MainLogger.log()
+INFO: Mouse Exited on player 
+2015-11-15 17:34:26 [JavaFX Application Thread] fr.noony.handstats.utils.log.MainLogger.log()
+INFO: Mouse Entered on player
+2015-11-15 17:34:26 [JavaFX Application Thread] fr.noony.handstats.utils.log.MainLogger.log()
+INFO: Mouse Exited on player 
+2015-11-15 17:34:26 [JavaFX Application Thread] fr.noony.handstats.utils.log.MainLogger.log()
+INFO: Mouse Entered on player
+2015-11-15 17:34:26 [JavaFX Application Thread] fr.noony.handstats.utils.log.MainLogger.log()
+INFO: Mouse Exited on player 
+2015-11-15 17:34:26 [JavaFX Application Thread] fr.noony.handstats.utils.log.MainLogger.log()
+INFO: Mouse Entered on player
+2015-11-15 17:34:26 [JavaFX Application Thread] fr.noony.handstats.utils.log.MainLogger.log()
+INFO: Mouse Exited on player 
+2015-11-15 17:34:26 [JavaFX Application Thread] fr.noony.handstats.utils.log.MainLogger.log()
+INFO: Mouse Entered on player
+2015-11-15 17:34:26 [JavaFX Application Thread] fr.noony.handstats.utils.log.MainLogger.log()
+INFO: Mouse Exited on player 
+2015-11-15 17:34:26 [JavaFX Application Thread] fr.noony.handstats.utils.log.MainLogger.log()
+INFO: mouse event {0} on object {1}
+2015-11-15 17:34:26 [JavaFX Application Thread] fr.noony.handstats.utils.log.MainLogger.log()
+INFO: mouse event {0} on object {1}
+2015-11-15 17:34:26 [JavaFX Application Thread] fr.noony.handstats.utils.log.MainLogger.log()
+INFO: Mouse Entered on player
+2015-11-15 17:34:26 [JavaFX Application Thread] fr.noony.handstats.utils.log.MainLogger.log()
+INFO: Mouse Exited on player 
+2015-11-15 17:34:26 [JavaFX Application Thread] fr.noony.handstats.utils.log.MainLogger.log()
+INFO: Mouse Entered on player
+2015-11-15 17:34:26 [JavaFX Application Thread] fr.noony.handstats.utils.log.MainLogger.log()
+INFO: Mouse Exited on player 
+2015-11-15 17:34:26 [JavaFX Application Thread] fr.noony.handstats.utils.log.MainLogger.log()
+INFO: Mouse Entered on player
+2015-11-15 17:34:26 [JavaFX Application Thread] fr.noony.handstats.utils.log.MainLogger.log()
+INFO: Mouse Exited on player 
+2015-11-15 17:34:26 [JavaFX Application Thread] fr.noony.handstats.utils.log.MainLogger.log()
+INFO: Mouse Entered on player
+2015-11-15 17:34:26 [JavaFX Application Thread] fr.noony.handstats.utils.log.MainLogger.log()
+INFO: Mouse Exited on player 
+2015-11-15 17:34:26 [JavaFX Application Thread] fr.noony.handstats.utils.log.MainLogger.log()
+INFO: Mouse Entered on player
+2015-11-15 17:34:26 [JavaFX Application Thread] fr.noony.handstats.utils.log.MainLogger.log()
+INFO: Mouse Exited on player 
+2015-11-15 17:34:26 [JavaFX Application Thread] fr.noony.handstats.utils.log.MainLogger.log()
+INFO: Mouse Entered on player
+2015-11-15 17:34:26 [JavaFX Application Thread] fr.noony.handstats.utils.log.MainLogger.log()
+INFO: Mouse Exited on player 
+2015-11-15 17:34:26 [JavaFX Application Thread] fr.noony.handstats.utils.log.MainLogger.log()
+INFO: Mouse Entered on player
+2015-11-15 17:34:27 [JavaFX Application Thread] fr.noony.handstats.utils.log.MainLogger.log()
+INFO: Mouse Exited on player 
+2015-11-15 17:34:27 [JavaFX Application Thread] fr.noony.handstats.utils.log.MainLogger.log()
+INFO: Mouse Entered on player
+2015-11-15 17:34:27 [JavaFX Application Thread] fr.noony.handstats.utils.log.MainLogger.log()
+INFO: Mouse Exited on player 
+2015-11-15 17:34:27 [JavaFX Application Thread] fr.noony.handstats.utils.log.MainLogger.log()
+INFO: Mouse Entered on player
+2015-11-15 17:34:27 [JavaFX Application Thread] fr.noony.handstats.utils.log.MainLogger.log()
+INFO: Mouse Exited on player 
+2015-11-15 17:34:27 [JavaFX Application Thread] fr.noony.handstats.utils.log.MainLogger.log()
+INFO: Mouse Entered on player
+2015-11-15 17:34:27 [JavaFX Application Thread] fr.noony.handstats.utils.log.MainLogger.log()
+INFO: Mouse Exited on player 
+2015-11-15 17:34:27 [JavaFX Application Thread] fr.noony.handstats.utils.log.MainLogger.log()
+INFO: Mouse Entered on player
+2015-11-15 17:34:27 [JavaFX Application Thread] fr.noony.handstats.utils.log.MainLogger.log()
+INFO: Mouse Exited on player 
+2015-11-15 17:34:27 [JavaFX Application Thread] fr.noony.handstats.utils.log.MainLogger.log()
+INFO: Mouse Entered on player
+2015-11-15 17:34:27 [JavaFX Application Thread] fr.noony.handstats.utils.log.MainLogger.log()
+INFO: Mouse Exited on player 
+2015-11-15 17:34:27 [JavaFX Application Thread] fr.noony.handstats.utils.log.MainLogger.log()
+INFO: Mouse Entered on player
+2015-11-15 17:34:27 [JavaFX Application Thread] fr.noony.handstats.utils.log.MainLogger.log()
+INFO: Mouse Exited on player 
+2015-11-15 17:34:27 [JavaFX Application Thread] fr.noony.handstats.utils.log.MainLogger.log()
+INFO: Mouse Entered on player
+2015-11-15 17:34:27 [JavaFX Application Thread] fr.noony.handstats.utils.log.MainLogger.log()
+INFO: Mouse Exited on player 
+2015-11-15 17:34:32 [JavaFX Application Thread] fr.noony.handstats.utils.log.MainLogger.log()
+INFO: new width : {0} old {1} new {2}
+2015-11-15 17:34:32 [JavaFX Application Thread] fr.noony.handstats.utils.log.MainLogger.log()
+INFO: new height : {0} old {1} new {2}
+2015-11-15 17:34:32 [JavaFX Application Thread] fr.noony.handstats.utils.log.MainLogger.log()
+INFO: new width : {0} old {1} new {2}
+2015-11-15 17:34:32 [JavaFX Application Thread] fr.noony.handstats.utils.log.MainLogger.log()
+INFO: new height : {0} old {1} new {2}
+2015-11-15 17:34:32 [JavaFX Application Thread] fr.noony.handstats.utils.log.MainLogger.log()
+INFO: Mouse Entered on player
+2015-11-15 17:34:32 [JavaFX Application Thread] fr.noony.handstats.utils.log.MainLogger.log()
+INFO: Mouse Exited on player 
+2015-11-15 17:34:33 [JavaFX Application Thread] fr.noony.handstats.utils.log.MainLogger.log()
+INFO: Mouse Entered on player
+2015-11-15 17:34:33 [JavaFX Application Thread] fr.noony.handstats.utils.log.MainLogger.log()
+INFO: Mouse Exited on player 
+2015-11-15 17:34:33 [JavaFX Application Thread] fr.noony.handstats.utils.log.MainLogger.log()
+INFO: Mouse Entered on player
+2015-11-15 17:34:33 [JavaFX Application Thread] fr.noony.handstats.utils.log.MainLogger.log()
+INFO: Mouse Exited on player 
+2015-11-15 17:34:33 [JavaFX Application Thread] fr.noony.handstats.utils.log.MainLogger.log()
+INFO: Mouse Entered on player
+2015-11-15 17:34:33 [JavaFX Application Thread] fr.noony.handstats.utils.log.MainLogger.log()
+INFO: Mouse Exited on player 
+2015-11-15 17:34:34 [JavaFX Application Thread] fr.noony.handstats.utils.log.MainLogger.log()
+INFO: new width : {0} old {1} new {2}
+2015-11-15 17:34:34 [JavaFX Application Thread] fr.noony.handstats.utils.log.MainLogger.log()
+INFO: new height : {0} old {1} new {2}
+2015-11-15 17:34:35 [JavaFX Application Thread] fr.noony.handstats.utils.log.MainLogger.log()
+INFO: new width : {0} old {1} new {2}
+2015-11-15 17:34:35 [JavaFX Application Thread] fr.noony.handstats.utils.log.MainLogger.log()
+INFO: new height : {0} old {1} new {2}
+2015-11-15 17:34:35 [JavaFX Application Thread] fr.noony.handstats.utils.log.MainLogger.log()
+INFO: Mouse Entered on player
+2015-11-15 17:34:35 [JavaFX Application Thread] fr.noony.handstats.utils.log.MainLogger.log()
+INFO: Mouse Exited on player 
+2015-11-15 17:34:35 [JavaFX Application Thread] fr.noony.handstats.utils.log.MainLogger.log()
+INFO: Mouse Entered on player
+2015-11-15 17:34:35 [JavaFX Application Thread] fr.noony.handstats.utils.log.MainLogger.log()
+INFO: Mouse Exited on player 
+2015-11-15 17:34:35 [JavaFX Application Thread] fr.noony.handstats.utils.log.MainLogger.log()
+INFO: Mouse Entered on player
+2015-11-15 17:34:35 [JavaFX Application Thread] fr.noony.handstats.utils.log.MainLogger.log()
+INFO: Mouse Exited on player 
+2015-11-15 17:34:35 [JavaFX Application Thread] fr.noony.handstats.utils.log.MainLogger.log()
+INFO: Mouse Entered on player
+2015-11-15 17:34:36 [JavaFX Application Thread] fr.noony.handstats.utils.log.MainLogger.log()
+INFO: Mouse Exited on player 
+2015-11-15 17:34:36 [JavaFX Application Thread] fr.noony.handstats.utils.log.MainLogger.log()
+INFO: Mouse Entered on player
+2015-11-15 17:34:36 [JavaFX Application Thread] fr.noony.handstats.utils.log.MainLogger.log()
+INFO: Mouse Exited on player 
+2015-11-15 17:34:36 [JavaFX Application Thread] fr.noony.handstats.utils.log.MainLogger.log()
+INFO: Mouse Entered on player
+2015-11-15 17:34:36 [JavaFX Application Thread] fr.noony.handstats.utils.log.MainLogger.log()
+INFO: Mouse Exited on player 
+2015-11-15 17:34:37 [JavaFX Application Thread] fr.noony.handstats.utils.log.MainLogger.log()
+INFO: Mouse Entered on player
+2015-11-15 17:34:37 [JavaFX Application Thread] fr.noony.handstats.utils.log.MainLogger.log()
+INFO: Mouse Exited on player 
+2015-11-15 17:34:37 [JavaFX Application Thread] fr.noony.handstats.utils.log.MainLogger.log()
+INFO: Mouse Entered on player
+2015-11-15 17:34:37 [JavaFX Application Thread] fr.noony.handstats.utils.log.MainLogger.log()
+INFO: Mouse Exited on player 
+2015-11-15 17:34:37 [JavaFX Application Thread] fr.noony.handstats.utils.log.MainLogger.log()
+INFO: Mouse Entered on player
+2015-11-15 17:34:37 [JavaFX Application Thread] fr.noony.handstats.utils.log.MainLogger.log()
+INFO: Mouse Exited on player 
+2015-11-15 17:34:37 [JavaFX Application Thread] fr.noony.handstats.utils.log.MainLogger.log()
+INFO: Mouse Entered on player
+2015-11-15 17:34:37 [JavaFX Application Thread] fr.noony.handstats.utils.log.MainLogger.log()
+INFO: Mouse Exited on player 
+2015-11-15 17:34:37 [JavaFX Application Thread] fr.noony.handstats.utils.log.MainLogger.log()
+INFO: Mouse Entered on player
+2015-11-15 17:34:37 [JavaFX Application Thread] fr.noony.handstats.utils.log.MainLogger.log()
+INFO: Mouse Exited on player 
+2015-11-15 17:35:35 [JavaFX Application Thread] fr.noony.handstats.utils.log.MainLogger.log()
+INFO: mouse event {0} on object {1}
+2015-11-15 17:35:35 [JavaFX Application Thread] fr.noony.handstats.utils.log.MainLogger.log()
+INFO: mouse event {0} on object {1}
+2015-11-15 17:35:38 [JavaFX Application Thread] fr.noony.handstats.utils.log.MainLogger.log()
+INFO: mouse event {0} on object {1}
+2015-11-15 17:35:38 [JavaFX Application Thread] fr.noony.handstats.utils.log.MainLogger.log()
+INFO: mouse event {0} on object {1}
+2015-11-15 17:35:40 [JavaFX Application Thread] fr.noony.handstats.utils.log.MainLogger.log()
+INFO: mouse event {0} on object {1}
+2015-11-15 17:35:40 [JavaFX Application Thread] fr.noony.handstats.utils.log.MainLogger.log()
+INFO: mouse event {0} on object {1}
+2015-11-15 17:35:45 [JavaFX Application Thread] fr.noony.handstats.utils.log.MainLogger.log()
+INFO: Closing application window on event :: {0}
+2015-11-15 17:35:45 [JavaFX Application Thread] fr.noony.handstats.utils.log.MainLogger.log()
+INFO: mouse event {0} on object {1}
+2015-11-15 17:35:45 [JavaFX Application Thread] fr.noony.handstats.utils.log.MainLogger.log()
+INFO: mouse event {0} on object {1}
+2015-11-15 17:35:45 [JavaFX Application Thread] fr.noony.handstats.utils.log.MainLogger.log()
+INFO: mouse event {0} on object {1}
+2015-11-15 17:35:45 [JavaFX Application Thread] fr.noony.handstats.utils.log.MainLogger.log()
+INFO: mouse event {0} on object {1}

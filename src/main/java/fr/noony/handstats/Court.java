@@ -23,11 +23,11 @@ package fr.noony.handstats;
 public class Court {
 
     /**
-     * Along the Y axis
+     * Along the Y axis in cm
      */
     public static final int TERRAIN_WIDTH = 2000;
     /**
-     * Along the X axis
+     * Along the X axis in cm
      */
     public static final int TERRAIN_LENGHT = 4000;
     public static final int ZONE_RADIUS = 600;
