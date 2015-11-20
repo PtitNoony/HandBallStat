@@ -64,6 +64,15 @@ public abstract class FXScreen implements PropertyChangeListener {
         mainNode.getChildren().add(node);
     }
 
+    /**
+     * Must be called from withing javaFX thread
+     *
+     * @param node
+     */
+    protected void removeNode(Node node) {
+        mainNode.getChildren().remove(node);
+    }
+
     protected void firePropertyChangeEvent(String name, Object oldValue, Object newValue) {
         propertyChangeSupport.firePropertyChange(name, oldValue, newValue);
     }

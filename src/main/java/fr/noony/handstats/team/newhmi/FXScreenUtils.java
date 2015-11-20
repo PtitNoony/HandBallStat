@@ -29,7 +29,9 @@ public final class FXScreenUtils {
     /**
      * default number of pixels between screens components
      */
-    public static final int DEFAULT_ELEMENT_SPACING = 15;
+    public static final int DEFAULT_ELEMENT_SPACING = 25;
+
+    public static final int NB_ITEMS_PER_LIST = 15;
 
     public static final double DOCK_VERTICAL_RATIO = 0.18;
     public static final double PAGES_VERTICAL_RATIO = 1 - DOCK_VERTICAL_RATIO;
@@ -44,6 +46,14 @@ public final class FXScreenUtils {
 
     private FXScreenUtils() {
         //utility private constructor
+    }
+
+    public static int getFontSize(double componentHeight) {
+        return (int) (componentHeight * 0.7);
+    }
+
+    public static int getButtonFontSize(double componentHeight) {
+        return (int) (componentHeight * 0.5);
     }
 
 }

@@ -28,7 +28,6 @@ import javafx.beans.value.ObservableValue;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import org.pmw.tinylog.Level;
@@ -46,7 +45,6 @@ public class HMIV2Launcher extends Application {
     private Group root;
     private Group mainContents;
     private Group screensGroup;
-    private Button fullScreenButton;
 
     private double sceneWidth;
     private double sceneHeight;
@@ -81,15 +79,14 @@ public class HMIV2Launcher extends Application {
         screensGroup = new Group();
         mainContents.getChildren().add(screensGroup);
         //
-        fullScreenButton = new Button("F");
-        fullScreenButton.setPrefSize(FXScreenUtils.UPPER_BORDER_HEIGHT, FXScreenUtils.UPPER_BORDER_HEIGHT);
-        fullScreenButton.setOnAction(event -> {
-            //TODO: log event
-            myStage.setFullScreen(!myStage.isFullScreen());
-        });
-        root.getChildren().add(fullScreenButton);
         //
         //TODO: factorize code
+        //create header panel
+        HeaderPanel headerPanel = HeaderPanel.getInstance();
+        root.getChildren().add(headerPanel.getNode());
+        propertyChangeSupport.addPropertyChangeListener(headerPanel);
+        headerPanel.addPropertyChangeListener(event -> handleFullSceenChange(event));
+
         //create dock
         Dock dock = new Dock();
         mainContents.getChildren().add(dock.getNode());
@@ -116,10 +113,6 @@ public class HMIV2Launcher extends Application {
     }
 
     private void updateSize() {
-        Platform.runLater(() -> {
-            fullScreenButton.setTranslateX(sceneWidth - FXScreenUtils.UPPER_BORDER_HEIGHT);
-        });
-        System.err.println(" w=" + sceneWidth + " h=" + sceneHeight);
         propertyChangeSupport.firePropertyChange(FXScreenUtils.STAGE_DIMENSION_CHANGED, sceneWidth, sceneHeight - FXScreenUtils.UPPER_BORDER_HEIGHT);
     }
 
@@ -127,18 +120,28 @@ public class HMIV2Launcher extends Application {
         launch(args);
     }
 
+    private void handleFullSceenChange(PropertyChangeEvent event) {
+        if (HeaderPanel.SWITCH_FULL_SCREEN_MODE.equals(event.getPropertyName())) {
+            myStage.setFullScreen(!myStage.isFullScreen());
+        }
+    }
+
     private void handleSceenChange(PropertyChangeEvent event) {
         switch (event.getPropertyName()) {
             case FXScreenUtils.REQUEST_TEAM_SCREEN:
+                HeaderPanel.getInstance().cleanControls();
                 handleWelcomeScreenRequest();
                 break;
             case FXScreenUtils.REQUEST_GAME_SCREEN:
+                HeaderPanel.getInstance().cleanControls();
                 handleGameScreenRequest();
                 break;
             case FXScreenUtils.REQUEST_STATS_SCREEN:
+                HeaderPanel.getInstance().cleanControls();
                 handleStatsScreenRequest();
                 break;
             case FXScreenUtils.REQUEST_PARAMETERS_SCREEN:
+                HeaderPanel.getInstance().cleanControls();
                 handleParametersScreenRequest();
                 break;
             default:
@@ -173,6 +176,7 @@ public class HMIV2Launcher extends Application {
             propertyChangeSupport.addPropertyChangeListener(statScreen);
         }
         clearScreens();
+        statScreen.repopulateHeaderPanel();
         screensGroup.getChildren().add(statScreen.getNode());
         statScreen.propertyChange(new PropertyChangeEvent(this, FXScreenUtils.STAGE_DIMENSION_CHANGED, sceneWidth, sceneHeight - FXScreenUtils.UPPER_BORDER_HEIGHT));
     }

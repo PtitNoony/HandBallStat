@@ -17,6 +17,7 @@
 package fr.noony.handstats.utils;
 
 import fr.noony.handstats.core.Team;
+import fr.noony.handstats.team.newhmi.MainCore;
 import java.awt.Dimension;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -79,6 +80,7 @@ public final class EnvLoader {
         loadInitFile();
         parseTeamFolder();
         analyzeProperties();
+        MainCore.setCurrentTeam(preferedTeam);
     }
 
     private static void loadInitFile() {

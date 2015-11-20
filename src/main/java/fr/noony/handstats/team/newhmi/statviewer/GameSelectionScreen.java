@@ -16,16 +16,25 @@
  */
 package fr.noony.handstats.team.newhmi.statviewer;
 
+import fr.noony.handstats.core.Game;
 import fr.noony.handstats.team.newhmi.FXScreen;
 import fr.noony.handstats.team.newhmi.FXScreenUtils;
+import fr.noony.handstats.team.newhmi.MainCore;
 import javafx.application.Platform;
+import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.geometry.Pos;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
+import javafx.scene.control.SelectionMode;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.StrokeLineCap;
 import javafx.scene.text.Font;
-import javafx.scene.text.TextAlignment;
 
 /**
  *
@@ -33,23 +42,33 @@ import javafx.scene.text.TextAlignment;
  */
 public class GameSelectionScreen extends FXScreen {
 
+    public static final String DISPLAY_GAME_STAT = "displayGameStat";
+
     private final static double UPPER_LABEL_RATIO = 0.08;
     private final static double GAME_LIST_RATIO = 0.5;
 
-    private final Label intructionLabel;
+    //
+    private final Label summaryLabel;
     private final Line verticalSeparation;
+    private final Label instructionLabel;
+    private final ListView gameList;
+    private final Button gameChoiceButton;
     //for debug
     private final Rectangle background;
 
     //for calculations
     double intructionLabelWidth;
     double intructionLabelHeight;
+    double sceneHeight;
 
     public GameSelectionScreen() {
         super();
         background = new Rectangle();
-        intructionLabel = new Label("Choix du match à analyser");
+        instructionLabel = new Label("Choix du match à analyser");
+        summaryLabel = new Label("Résumé des matchs");
         verticalSeparation = new Line();
+        gameList = new ListView();
+        gameChoiceButton = new Button("Choisir le match");
         Platform.runLater(() -> initGameSelectionScreen());
     }
 
@@ -57,40 +76,97 @@ public class GameSelectionScreen extends FXScreen {
         //debug
         background.setFill(Color.BEIGE);
         //
-        intructionLabel.setTextAlignment(TextAlignment.RIGHT);
-        intructionLabel.setWrapText(true);
-        intructionLabel.setFont(new Font(36));
+        summaryLabel.setAlignment(Pos.CENTER);
+        summaryLabel.setWrapText(true);
+        summaryLabel.setFont(new Font(36));
         //
         verticalSeparation.setStroke(Color.BLACK);
         verticalSeparation.setStrokeLineCap(StrokeLineCap.ROUND);
-//        verticalSeparation.setStrokeType(StrokeType.INSIDE);
-        verticalSeparation.setStrokeWidth(8.0);
+        verticalSeparation.setStrokeWidth(4.0);
         //
-        addNode(background);
-        addNode(intructionLabel);
+        instructionLabel.setAlignment(Pos.CENTER);
+        instructionLabel.setTextFill(Color.WHITESMOKE);
+        instructionLabel.setWrapText(true);
+        instructionLabel.setFont(new Font(36));
+        //
+        gameChoiceButton.setWrapText(true);
+        gameChoiceButton.setDisable(true);
+        gameChoiceButton.setOnAction(event -> handleGameChoice(event));
+        //
+//        addNode(background);
+        addNode(summaryLabel);
         addNode(verticalSeparation);
-
+        addNode(instructionLabel);
+        addNode(gameList);
+        addNode(gameChoiceButton);
+        //
+        updateList();
     }
 
     @Override
     public void updateSize(double newWidth, double newHeight) {
+        sceneHeight = newHeight * (1 - FXScreenUtils.DOCK_VERTICAL_RATIO);
         background.setWidth(newWidth);
         background.setHeight(newHeight);
         //
         intructionLabelWidth = (newWidth - 3.0 * FXScreenUtils.DEFAULT_ELEMENT_SPACING) / 2.0;
-        intructionLabelHeight = (newHeight - 3.0 * FXScreenUtils.DEFAULT_ELEMENT_SPACING) * UPPER_LABEL_RATIO;
-        intructionLabel.setMinSize(intructionLabelWidth, intructionLabelHeight);
-        intructionLabel.setMaxSize(intructionLabelWidth, intructionLabelHeight);
-        intructionLabel.setTranslateX(2.0 * FXScreenUtils.DEFAULT_ELEMENT_SPACING + intructionLabelWidth);
-        intructionLabel.setTranslateY(FXScreenUtils.DEFAULT_ELEMENT_SPACING);
+        intructionLabelHeight = (sceneHeight - 3.0 * FXScreenUtils.DEFAULT_ELEMENT_SPACING) * UPPER_LABEL_RATIO;
+        instructionLabel.setMinSize(intructionLabelWidth, intructionLabelHeight);
+        instructionLabel.setMaxSize(intructionLabelWidth, intructionLabelHeight);
+        instructionLabel.setTranslateX(2.0 * FXScreenUtils.DEFAULT_ELEMENT_SPACING + intructionLabelWidth);
+        instructionLabel.setTranslateY(FXScreenUtils.DEFAULT_ELEMENT_SPACING);
         int fontSize = (int) (intructionLabelHeight * 0.8);
         String fontStyle = "-fx-font: " + fontSize + "px Tahoma;";
-        intructionLabel.setStyle(fontStyle);
+        instructionLabel.setStyle(fontStyle);
+        //
+        summaryLabel.setMinSize(intructionLabelWidth, intructionLabelHeight);
+        summaryLabel.setMaxSize(intructionLabelWidth, intructionLabelHeight);
+        summaryLabel.setTranslateX(FXScreenUtils.DEFAULT_ELEMENT_SPACING);
+        summaryLabel.setTranslateY(FXScreenUtils.DEFAULT_ELEMENT_SPACING);
+        summaryLabel.setStyle(fontStyle);
         //
         verticalSeparation.setStartX((FXScreenUtils.DEFAULT_ELEMENT_SPACING * 1.5) + intructionLabelWidth);
         verticalSeparation.setStartY((FXScreenUtils.DEFAULT_ELEMENT_SPACING * 0.5));
         verticalSeparation.setEndX((FXScreenUtils.DEFAULT_ELEMENT_SPACING * 1.5) + intructionLabelWidth);
-        verticalSeparation.setEndY(newHeight - (FXScreenUtils.DEFAULT_ELEMENT_SPACING * 0.5));
+        verticalSeparation.setEndY(sceneHeight - (FXScreenUtils.DEFAULT_ELEMENT_SPACING * 0.5));
+        //
+        double listHeight = sceneHeight - 4.0 * FXScreenUtils.DEFAULT_ELEMENT_SPACING - 2.0 * intructionLabelHeight;
+        gameList.setMinSize(intructionLabelWidth, listHeight);
+        gameList.setMaxSize(intructionLabelWidth, listHeight);
+        gameList.setTranslateX(2.0 * FXScreenUtils.DEFAULT_ELEMENT_SPACING + intructionLabelWidth);
+        gameList.setTranslateY(2.0 * FXScreenUtils.DEFAULT_ELEMENT_SPACING + intructionLabelHeight);
+        int listFontSize = (int) (listHeight / FXScreenUtils.NB_ITEMS_PER_LIST);
+        String listFontStyle = "-fx-font: " + listFontSize + "px Arial;";
+        gameList.setStyle(listFontStyle);
+        //
+        double buttonWidth = intructionLabelWidth / 2.0;
+        gameChoiceButton.setMinSize(buttonWidth, intructionLabelHeight);
+        gameChoiceButton.setMaxSize(buttonWidth, intructionLabelHeight);
+        gameChoiceButton.setTranslateX(newWidth - FXScreenUtils.DEFAULT_ELEMENT_SPACING - buttonWidth);
+        gameChoiceButton.setTranslateY(sceneHeight - intructionLabelHeight - FXScreenUtils.DEFAULT_ELEMENT_SPACING);
+        gameChoiceButton.setFont(new Font(FXScreenUtils.getButtonFontSize(intructionLabelHeight)));
+        //
+
+    }
+
+    private void updateList() {
+        ObservableList<Game> games = FXCollections.observableArrayList(MainCore.getCurrentTeam().getGames());
+        gameList.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
+        gameList.getItems().setAll(games);
+        gameList.getSelectionModel().selectedItemProperty().addListener((ObservableValue observable, Object oldValue, Object newValue) -> {
+            //TODO: log
+            updateGameSelection();
+        });
+    }
+
+    private void updateGameSelection() {
+        gameChoiceButton.setDisable(gameList.getSelectionModel().getSelectedItem() == null);
+    }
+
+    private void handleGameChoice(ActionEvent event) {
+        if (gameList.getSelectionModel().getSelectedItem() != null) {
+            firePropertyChangeEvent(DISPLAY_GAME_STAT, null, gameList.getSelectionModel().getSelectedItem());
+        }
     }
 
 }
