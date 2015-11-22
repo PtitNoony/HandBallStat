@@ -16,6 +16,7 @@
  */
 package fr.noony.handstats.team.hmi;
 
+import fr.noony.handstats.Poste;
 import fr.noony.handstats.core.Player;
 import fr.noony.handstats.core.Team;
 import static fr.noony.handstats.team.hmi.Events.CANCEL_EVENT;
@@ -153,12 +154,14 @@ public class TeamEditorController extends FXController implements PropertyChange
         switch (evt.getPropertyName()) {
             case PLAYER_CREATION_OK_EVENT:
                 //pas comme ca qu'il faut faire
-                Player newPlayer = (Player) evt.getNewValue();
+                //"" + name + "%%" + lastName + "%%" + number + "%%" + poste
+                String[] values = ((String) evt.getNewValue()).split("%%");
+                Player newPlayer = currentTeam.createPlayer(values[0], values[1], Integer.parseInt(values[2]), Poste.valueOf(values[3]), false);
                 restingPlayers.add(newPlayer);
                 reposListe.setItems(restingPlayers);
                 playerEditor.hide();
                 newPlayerB.setDisable(false);
-                currentTeam.addPlayer(newPlayer, false);
+//                currentTeam.addPlayer(newPlayer, false);
                 break;
             case PLAYER_EDITION_OK_EVENT:
                 //TODO : enhance

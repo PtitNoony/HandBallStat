@@ -93,7 +93,6 @@ public class GameSelectionScreen extends FXScreen {
         gameChoiceButton.setDisable(true);
         gameChoiceButton.setOnAction(event -> handleGameChoice(event));
         //
-//        addNode(background);
         addNode(summaryLabel);
         addNode(verticalSeparation);
         addNode(instructionLabel);
@@ -164,6 +163,7 @@ public class GameSelectionScreen extends FXScreen {
     }
 
     private void handleGameChoice(ActionEvent event) {
+        //TODO : LOG EVENT
         if (gameList.getSelectionModel().getSelectedItem() != null) {
             firePropertyChangeEvent(DISPLAY_GAME_STAT, null, gameList.getSelectionModel().getSelectedItem());
         }

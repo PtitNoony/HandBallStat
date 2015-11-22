@@ -68,6 +68,8 @@ public class XMLSaver {
 
     public static final String PLAYER_NUMBER_TAG = "playerNumber";
 
+    public static final String PLAYER_ID_TAG = "playerID";
+
     public static final String PLAYER_CURRENT_POSITION_TAG = "playerCurrentPosition";
 
     public static final String PLAYER_PREFERRED_POSITION_TAG = "playerPreferredPosition";
@@ -117,6 +119,7 @@ public class XMLSaver {
     public static final String GAMEACTION_GOALKEEPER_FIRSTNAME = "gameActionGoalKeeperFirstName";
 
     public static final String GAMEACTION_GOALKEEPER_NUMBER = "gameActionGoalKeeperNumber";
+    public static final String GAMEACTION_GOALKEEPER_ID = "gameActionGoalKeeperID";
 
     public static final String GAMEACTION_TIME = "gameActionTime";
 
@@ -220,6 +223,7 @@ public class XMLSaver {
         playerElement.setAttribute(PLAYER_NUMBER_TAG, "" + player.getNumber());
         playerElement.setAttribute(PLAYER_CURRENT_POSITION_TAG, player.getPositionActuelle().name());
         playerElement.setAttribute(PLAYER_PREFERRED_POSITION_TAG, player.getPositionPreferee().name());
+        playerElement.setAttribute(PLAYER_ID_TAG, Long.toString(player.getUniqueID()));
         return playerElement;
     }
 }

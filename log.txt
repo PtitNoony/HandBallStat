@@ -1,2 +1,0 @@
-2015-10-21 18:58:21 [main] fr.noony.handstats.team.hmi.MainDetaillled.main()
-INFO: Hello World!

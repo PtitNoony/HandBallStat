@@ -2,56 +2,57 @@
 <handstat>
     <team teamChampionship="NATIONAL_FEMME" teamColor="0x4d804dff" teamName="EquipeFranceFeminine">
         <activePlayers>
-            <player playerCurrentPosition="GARDIEN" playerFirstName="Cléopatre" playerLastName="DARLEUX" playerNumber="16" playerPreferredPosition="GARDIEN"/>
-            <player playerCurrentPosition="ARRIERE_DROIT" playerFirstName="Camille" playerLastName="AYGLON" playerNumber="5" playerPreferredPosition="ARRIERE_DROIT"/>
-            <player playerCurrentPosition="DEMI_CENTRE" playerFirstName="Allison" playerLastName="PINEAU" playerNumber="7" playerPreferredPosition="DEMI_CENTRE"/>
-            <player playerCurrentPosition="ARRIERE_GAUCHE" playerFirstName="Wendy" playerLastName="LAWSON" playerNumber="14" playerPreferredPosition="ARRIERE_GAUCHE"/>
-            <player playerCurrentPosition="PIVOT" playerFirstName="Julie" playerLastName="GOIORANI" playerNumber="19" playerPreferredPosition="PIVOT"/>
-            <player playerCurrentPosition="AILIER_GAUCHE" playerFirstName="Siraba" playerLastName="DEMBÉLÉ" playerNumber="17" playerPreferredPosition="AILIER_GAUCHE"/>
-            <player playerCurrentPosition="AILIER_DROIT" playerFirstName="Blandine" playerLastName="DANCETTE" playerNumber="3" playerPreferredPosition="AILIER_DROIT"/>
+            <player playerCurrentPosition="GARDIEN" playerFirstName="Cléopatre" playerLastName="DARLEUX" playerNumber="16" playerID="101" playerPreferredPosition="GARDIEN"/>
+            <player playerCurrentPosition="ARRIERE_DROIT" playerFirstName="Camille" playerLastName="AYGLON" playerNumber="5" playerID="102" playerPreferredPosition="ARRIERE_DROIT"/>
+            <player playerCurrentPosition="DEMI_CENTRE" playerFirstName="Allison" playerLastName="PINEAU" playerNumber="7" playerID="103" playerPreferredPosition="DEMI_CENTRE"/>
+            <player playerCurrentPosition="ARRIERE_GAUCHE" playerFirstName="Wendy" playerLastName="LAWSON" playerNumber="14" playerID="104" playerPreferredPosition="ARRIERE_GAUCHE"/>
+            <player playerCurrentPosition="PIVOT" playerFirstName="Julie" playerLastName="GOIORANI" playerNumber="19" playerID="105" playerPreferredPosition="PIVOT"/>
+            <player playerCurrentPosition="AILIER_GAUCHE" playerFirstName="Siraba" playerLastName="DEMBÉLÉ" playerNumber="17" playerID="106" playerPreferredPosition="AILIER_GAUCHE"/>
+            <player playerCurrentPosition="AILIER_DROIT" playerFirstName="Blandine" playerLastName="DANCETTE" playerNumber="3" playerID="107" playerPreferredPosition="AILIER_DROIT"/>
         </activePlayers>
         <restingPlayers>
-            <player playerCurrentPosition="GARDIEN" playerFirstName="Armelle" playerLastName="ATTINGRÉ" playerNumber="23" playerPreferredPosition="GARDIEN"/>
-            <player playerCurrentPosition="ARRIERE_GAUCHE" playerFirstName="Mariama" playerLastName="SIGNATE" playerNumber="24" playerPreferredPosition="ARRIERE_GAUCHE"/>
-            <player playerCurrentPosition="ARRIERE_GAUCHE" playerFirstName="Audrey" playerLastName="BRUNEAU" playerNumber="15" playerPreferredPosition="ARRIERE_GAUCHE"/>
-            <player playerCurrentPosition="GARDIEN" playerFirstName="Laura" playerLastName="GLAUSER" playerNumber="1" playerPreferredPosition="GARDIEN"/>
-            <player playerCurrentPosition="ARRIERE_GAUCHE" playerFirstName="Koumba" playerLastName="CISSÉ" playerNumber="50" playerPreferredPosition="ARRIERE_GAUCHE"/>
-            <player playerCurrentPosition="AILIER_GAUCHE" playerFirstName="Paule" playerLastName="BAUDOUIN" playerNumber="9" playerPreferredPosition="AILIER_GAUCHE"/>
-            <player playerCurrentPosition="ARRIERE_DROIT" playerFirstName="Audrey" playerLastName="DEROIN" playerNumber="18" playerPreferredPosition="ARRIERE_DROIT"/>
-            <player playerCurrentPosition="ARRIERE_DROIT" playerFirstName="Marie-Paule" playerLastName="GNABOUYOU " playerNumber="140" playerPreferredPosition="ARRIERE_DROIT"/>
-            <player playerCurrentPosition="PIVOT" playerFirstName="Nina" playerLastName="KANTO" playerNumber="4" playerPreferredPosition="PIVOT"/>
-            <player playerCurrentPosition="ARRIERE_DROIT" playerFirstName="Alexandra" playerLastName="LACRABERE" playerNumber="64" playerPreferredPosition="ARRIERE_DROIT"/>
-            <player playerCurrentPosition="GARDIEN" playerFirstName="Amandine" playerLastName="LEYNAUD" playerNumber="12" playerPreferredPosition="GARDIEN"/>
-            <player playerCurrentPosition="ARRIERE_GAUCHE" playerFirstName="Claudine" playerLastName="MENDY" playerNumber="8" playerPreferredPosition="ARRIERE_GAUCHE"/>
-            <player playerCurrentPosition="ARRIERE_GAUCHE" playerFirstName="Gnonsiane" playerLastName="NIOMBLA" playerNumber="29" playerPreferredPosition="ARRIERE_GAUCHE"/>
-            <player playerCurrentPosition="DEMI_CENTRE" playerFirstName="Grâce" playerLastName="ZAADI" playerNumber="10" playerPreferredPosition="DEMI_CENTRE"/>
-            <player playerCurrentPosition="AILIER_DROIT" playerFirstName="Marie" playerLastName="PROUVENSIER" playerNumber="11" playerPreferredPosition="AILIER_DROIT"/>
+            <player playerCurrentPosition="GARDIEN" playerFirstName="Armelle" playerLastName="ATTINGRÉ" playerNumber="23" playerID="108" playerPreferredPosition="GARDIEN"/>
+            <player playerCurrentPosition="ARRIERE_GAUCHE" playerFirstName="Mariama" playerLastName="SIGNATE" playerNumber="24"  playerID="109" playerPreferredPosition="ARRIERE_GAUCHE"/>
+            <player playerCurrentPosition="ARRIERE_GAUCHE" playerFirstName="Audrey" playerLastName="BRUNEAU" playerNumber="15"  playerID="110" playerPreferredPosition="ARRIERE_GAUCHE"/>
+            <player playerCurrentPosition="GARDIEN" playerFirstName="Laura" playerLastName="GLAUSER" playerNumber="1"  playerID="111" playerPreferredPosition="GARDIEN"/>
+            <player playerCurrentPosition="ARRIERE_GAUCHE" playerFirstName="Koumba" playerLastName="CISSÉ" playerNumber="50"  playerID="112" playerPreferredPosition="ARRIERE_GAUCHE"/>
+            <player playerCurrentPosition="AILIER_GAUCHE" playerFirstName="Paule" playerLastName="BAUDOUIN" playerNumber="9"  playerID="113"  playerPreferredPosition="AILIER_GAUCHE"/>
+            <player playerCurrentPosition="ARRIERE_DROIT" playerFirstName="Audrey" playerLastName="DEROIN" playerNumber="18"  playerID="114" playerPreferredPosition="ARRIERE_DROIT"/>
+            <player playerCurrentPosition="ARRIERE_DROIT" playerFirstName="Marie-Paule" playerLastName="GNABOUYOU "  playerID="115" playerNumber="140" playerPreferredPosition="ARRIERE_DROIT"/>
+            <player playerCurrentPosition="PIVOT" playerFirstName="Nina" playerLastName="KANTO" playerNumber="4"  playerID="116" playerPreferredPosition="PIVOT"/>
+            <player playerCurrentPosition="ARRIERE_DROIT" playerFirstName="Alexandra" playerLastName="LACRABERE"  playerID="117" playerNumber="64" playerPreferredPosition="ARRIERE_DROIT"/>
+            <player playerCurrentPosition="GARDIEN" playerFirstName="Amandine" playerLastName="LEYNAUD" playerNumber="12" playerID="118"  playerPreferredPosition="GARDIEN"/>
+            <player playerCurrentPosition="ARRIERE_GAUCHE" playerFirstName="Claudine" playerLastName="MENDY" playerNumber="8"  playerID="119" playerPreferredPosition="ARRIERE_GAUCHE"/>
+            <player playerCurrentPosition="ARRIERE_GAUCHE" playerFirstName="Gnonsiane" playerLastName="NIOMBLA" playerNumber="29"  playerID="120" playerPreferredPosition="ARRIERE_GAUCHE"/>
+            <player playerCurrentPosition="DEMI_CENTRE" playerFirstName="Grâce" playerLastName="ZAADI" playerNumber="10" playerID="121"  playerPreferredPosition="DEMI_CENTRE"/>
+            <player playerCurrentPosition="AILIER_DROIT" playerFirstName="Marie" playerLastName="PROUVENSIER" playerNumber="11"  playerID="122" playerPreferredPosition="AILIER_DROIT"/>
         </restingPlayers>
         <opposingTeams>
             <opposingTeam teamChampionship="NATIONAL_FEMME" teamColor="0x990000ff" teamName="LooneyTunes">
                 <activePlayers>
-                    <player playerCurrentPosition="UNDEFINED" playerFirstName="" playerLastName="" playerNumber="4" playerPreferredPosition="UNDEFINED"/>
-                    <player playerCurrentPosition="UNDEFINED" playerFirstName="" playerLastName="" playerNumber="8" playerPreferredPosition="UNDEFINED"/>
-                    <player playerCurrentPosition="UNDEFINED" playerFirstName="" playerLastName="" playerNumber="9" playerPreferredPosition="UNDEFINED"/>
-                    <player playerCurrentPosition="UNDEFINED" playerFirstName="" playerLastName="" playerNumber="13" playerPreferredPosition="UNDEFINED"/>
-                    <player playerCurrentPosition="GARDIEN" playerFirstName="" playerLastName="" playerNumber="17" playerPreferredPosition="GARDIEN"/>
-                    <player playerCurrentPosition="UNDEFINED" playerFirstName="" playerLastName="" playerNumber="23" playerPreferredPosition="UNDEFINED"/>
-                    <player playerCurrentPosition="UNDEFINED" playerFirstName="" playerLastName="" playerNumber="58" playerPreferredPosition="UNDEFINED"/>
+                    <player playerCurrentPosition="UNDEFINED" playerFirstName="" playerLastName="" playerNumber="4"  playerID="101" playerPreferredPosition="UNDEFINED"/>
+                    <player playerCurrentPosition="UNDEFINED" playerFirstName="" playerLastName="" playerNumber="8" playerID="102"  playerPreferredPosition="UNDEFINED"/>
+                    <player playerCurrentPosition="UNDEFINED" playerFirstName="" playerLastName="" playerNumber="9"  playerID="103" playerPreferredPosition="UNDEFINED"/>
+                    <player playerCurrentPosition="UNDEFINED" playerFirstName="" playerLastName="" playerNumber="13"  playerID="104" playerPreferredPosition="UNDEFINED"/>
+                    <player playerCurrentPosition="GARDIEN" playerFirstName="" playerLastName="" playerNumber="17"  playerID="105" playerPreferredPosition="GARDIEN"/>
+                    <player playerCurrentPosition="UNDEFINED" playerFirstName="" playerLastName="" playerNumber="23" playerID="106"  playerPreferredPosition="UNDEFINED"/>
+                    <player playerCurrentPosition="UNDEFINED" playerFirstName="" playerLastName="" playerNumber="58" playerID="107"  playerPreferredPosition="UNDEFINED"/>
                 </activePlayers>
             </opposingTeam>
             <opposingTeam teamChampionship="NATIONAL_FEMME" teamColor="0x4d804dff" teamName="Pirates">
                 <activePlayers>
-                    <player playerCurrentPosition="UNDEFINED" playerFirstName="" playerLastName="" playerNumber="3" playerPreferredPosition="UNDEFINED"/>
-                    <player playerCurrentPosition="UNDEFINED" playerFirstName="" playerLastName="" playerNumber="7" playerPreferredPosition="UNDEFINED"/>
-                    <player playerCurrentPosition="UNDEFINED" playerFirstName="" playerLastName="" playerNumber="11" playerPreferredPosition="UNDEFINED"/>
-                    <player playerCurrentPosition="UNDEFINED" playerFirstName="" playerLastName="" playerNumber="13" playerPreferredPosition="UNDEFINED"/>
-                    <player playerCurrentPosition="GARDIEN" playerFirstName="" playerLastName="" playerNumber="17" playerPreferredPosition="GARDIEN"/>
-                    <player playerCurrentPosition="UNDEFINED" playerFirstName="" playerLastName="" playerNumber="23" playerPreferredPosition="UNDEFINED"/>
-                    <player playerCurrentPosition="UNDEFINED" playerFirstName="" playerLastName="" playerNumber="79" playerPreferredPosition="UNDEFINED"/>
+                    <player playerCurrentPosition="UNDEFINED" playerFirstName="" playerLastName="" playerNumber="3"  playerID="108" playerPreferredPosition="UNDEFINED"/>
+                    <player playerCurrentPosition="UNDEFINED" playerFirstName="" playerLastName="" playerNumber="7"  playerID="109" playerPreferredPosition="UNDEFINED"/>
+                    <player playerCurrentPosition="UNDEFINED" playerFirstName="" playerLastName="" playerNumber="11"  playerID="110" playerPreferredPosition="UNDEFINED"/>
+                    <player playerCurrentPosition="UNDEFINED" playerFirstName="" playerLastName="" playerNumber="13"  playerID="111" playerPreferredPosition="UNDEFINED"/>
+                    <player playerCurrentPosition="GARDIEN" playerFirstName="" playerLastName="" playerNumber="17"  playerID="112" playerPreferredPosition="GARDIEN"/>
+                    <player playerCurrentPosition="UNDEFINED" playerFirstName="" playerLastName="" playerNumber="23"  playerID="113" playerPreferredPosition="UNDEFINED"/>
+                    <player playerCurrentPosition="UNDEFINED" playerFirstName="" playerLastName="" playerNumber="79"  playerID="114" playerPreferredPosition="UNDEFINED"/>
                 </activePlayers>
             </opposingTeam>
         </opposingTeams>
         <games>
+            <!--
             <game gameAwayScore="1" gameAwayTeam="LooneyTunes" gameDate="2015-03-25" gameHomeScore="2" gameHomeTeam="EquipeFranceFeminine">
                 <gameAction gameActionGoalKeeperFirstName="" gameActionGoalKeeperLastName="" gameActionGoalKeeperNumber="17" gameActionGoalZone="IN_2_1" gameActionPlayerFirstName="Camille" gameActionPlayerLastName="AYGLON" gameActionPlayerNumber="5" gameActionShotZone="RIGHT_COURT_2" gameActionTeam="EquipeFranceFeminine" gameActionTime="00:03" gameActionType="gameActionShotStop"/>
                 <gameAction gameActionGoalZone="IN_1_1" gameActionPlayerFirstName="" gameActionPlayerLastName="" gameActionPlayerNumber="23" gameActionShotZone="LEFT_COURT_2" gameActionTeam="LooneyTunes" gameActionTime="00:05" gameActionType="gameActionGoodShot"/>
@@ -88,6 +89,7 @@
                 <gameAction gameActionFaultDescription="TWO_MINUTES" gameActionPlayerFirstName="Wendy" gameActionPlayerLastName="LAWSON" gameActionPlayerNumber="14" gameActionTeam="EquipeFranceFeminine" gameActionTime="01:01" gameActionType="gameActionFault"/>
                 <gameAction gameActionFaultDescription="RED_CARD" gameActionPlayerFirstName="" gameActionPlayerLastName="" gameActionPlayerNumber="13" gameActionTeam="LooneyTunes" gameActionTime="01:03" gameActionType="gameActionFault"/>
             </game>
+            -->
         </games>
     </team>
 </handstat>

@@ -38,6 +38,8 @@ public class Team {
 
     public static final String NEW_PLAYER = "newPlayer";
 
+    private static final Long START_ID = 101L;
+
     private final PropertyChangeSupport propertyChangeSupport;
     private final InstanceContent lookupContents = new InstanceContent();
     private final AbstractLookup alookup = new AbstractLookup(lookupContents);
@@ -54,6 +56,8 @@ public class Team {
 
     private Player currentGoalKeeper = null;
 
+    private long newPlayerID = START_ID;
+
     public Team(String name, Championship c) {
         propertyChangeSupport = new PropertyChangeSupport(Team.this);
         lookupContents.add(propertyChangeSupport);
@@ -65,20 +69,48 @@ public class Team {
         opponentTeams = new LinkedList<>();
     }
 
-    public void addPlayer(Player j, boolean active) {
-        for (Player joueur : allPlayers) {
-            if (joueur.getNumber() == j.getNumber()) {
-                throw new IllegalArgumentException("Le numéro " + j.getNumber() + " est deja pris par " + joueur.getFirstName());
+    public Player createPlayer(String premon, String nom, int number, Poste positionPreferee, boolean active) {
+        return createPlayer(premon, nom, number, positionPreferee, positionPreferee, active);
+    }
+
+    public Player createPlayer(String premon, String nom, int number, Poste positionPreferee, Poste positionActuelle, boolean active) {
+        for (Player p : allPlayers) {
+            if (p.getNumber() == number) {
+                throw new IllegalArgumentException("Le numéro " + number + " est deja pris par " + p.getFirstName());
             }
         }
+        Player newPlayer = new Player(premon, nom, number, positionPreferee, newPlayerID);
+        newPlayerID++;
         if (active) {
             if (activePlayers.size() > MAX_PLAYERS_PER_MATCH) {
                 throw new IllegalArgumentException("La liste des joueurs actifs est deja pleine");
             }
-            activePlayers.add(j);
+            activePlayers.add(newPlayer);
         }
-        allPlayers.add(j);
-        firePropertyChange(NEW_PLAYER, active, j);
+        allPlayers.add(newPlayer);
+        firePropertyChange(NEW_PLAYER, active, newPlayer);
+        return newPlayer;
+    }
+
+    //TODO: use factory (no time)
+    public Player addPlayer(String premon, String nom, int number, Poste positionPreferee, Poste positionActuelle, long id, boolean active) {
+        for (Player p : allPlayers) {
+            if (p.getNumber() == number) {
+                throw new IllegalArgumentException("Le numéro " + number + " est deja pris par " + p.getFirstName());
+            }
+            if (p.getUniqueID() == id);
+        }
+        Player newPlayer = new Player(premon, nom, number, positionPreferee, id);
+        newPlayerID = Math.max(newPlayerID, id + 1);
+        if (active) {
+            if (activePlayers.size() > MAX_PLAYERS_PER_MATCH) {
+                throw new IllegalArgumentException("La liste des joueurs actifs est deja pleine");
+            }
+            activePlayers.add(newPlayer);
+        }
+        allPlayers.add(newPlayer);
+        firePropertyChange(NEW_PLAYER, active, newPlayer);
+        return newPlayer;
     }
 
     public void addOpponentTeam(Team t) {
@@ -175,6 +207,7 @@ public class Team {
         return null;
     }
 
+    @Deprecated
     public Player getPlayer(String playerLastName, String playerFirstName, int playerNumber) {
         for (Player p : getActivePlayers()) {
             if (playerLastName.equals(p.getLastName()) && playerFirstName.equals(p.getFirstName()) && playerNumber == p.getNumber()) {
@@ -188,6 +221,21 @@ public class Team {
         }
         System.err.println(" PLAYER IS NOT FOUND :: " + playerLastName + "_" + playerFirstName + "_" + playerNumber + " in team " + teamName);
         return null;
+    }
+
+    public Player getPlayer(long uniqueID) {
+        for (Player p : getActivePlayers()) {
+            if (p.getUniqueID() == uniqueID) {
+                return p;
+            }
+        }
+        for (Player p : getRestingPlayers()) {
+            if (p.getUniqueID() == uniqueID) {
+                return p;
+            }
+        }
+        throw new IllegalArgumentException(" PLAYER IS NOT FOUND :: " + uniqueID + " in team " + teamName);
+//        return null;
     }
 
     @Override

@@ -32,6 +32,8 @@ import javafx.scene.control.Button;
  */
 public class StatViewController extends FXScreen {
 
+    private static final String STATISTIQUES_MATCH = "Statistiques match : ";
+
     //local copy used to update children's size
     private double width = 0;
     private double height = 0;
@@ -52,7 +54,7 @@ public class StatViewController extends FXScreen {
         super();
         screens = new HashMap<>();
         goToGameSelectionButton = new Button("Sélection du match");
-        goToGameStatButton = new Button("Statistiques match");
+        goToGameStatButton = new Button(STATISTIQUES_MATCH);
         currentStatsScreenType = StatsScreens.GAME_SELECTION;
         Platform.runLater(() -> initStatScreens());
     }
@@ -85,6 +87,7 @@ public class StatViewController extends FXScreen {
         currentStatsScreenType = StatsScreens.GAME_SUMMARY;
         goToGameSelectionButton.setDisable(false);
         HeaderPanel.getInstance().addControl(goToGameStatButton);
+        goToGameStatButton.setText(STATISTIQUES_MATCH + "du " + game.getDate() + " contre " + game.getAwayTeam().getName());
         goToGameStatButton.setDisable(true);
         if (currentScreen != null) {
             removeNode(currentScreen.getNode());
@@ -94,6 +97,7 @@ public class StatViewController extends FXScreen {
             screens.put(StatsScreens.GAME_SUMMARY, gameSummaryScreen);
         }
         currentScreen = screens.get(StatsScreens.GAME_SUMMARY);
+        currentScreen.updateSize(width, height);
         addNode(currentScreen.getNode());
         ((GameSummaryScreen) currentScreen).setGame(game);
     }

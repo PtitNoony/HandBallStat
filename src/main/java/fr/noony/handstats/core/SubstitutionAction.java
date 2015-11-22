@@ -16,10 +16,8 @@
  */
 package fr.noony.handstats.core;
 
+import fr.noony.handstats.utils.XMLSaver;
 import static fr.noony.handstats.utils.XMLSaver.GAMEACTION_GOALKEEPER_SUBS;
-import static fr.noony.handstats.utils.XMLSaver.GAMEACTION_PLAYER_FIRSTNAME;
-import static fr.noony.handstats.utils.XMLSaver.GAMEACTION_PLAYER_LASTNAME;
-import static fr.noony.handstats.utils.XMLSaver.GAMEACTION_PLAYER_NUMBER;
 import static fr.noony.handstats.utils.XMLSaver.GAMEACTION_TAG;
 import static fr.noony.handstats.utils.XMLSaver.GAMEACTION_TEAM;
 import static fr.noony.handstats.utils.XMLSaver.GAMEACTION_TIME;
@@ -47,9 +45,10 @@ public class SubstitutionAction extends GameAction {
         Element gameActionElement = doc.createElement(GAMEACTION_TAG);
         gameActionElement.setAttribute(GAMEACTION_TYPE, GAMEACTION_GOALKEEPER_SUBS);
         gameActionElement.setAttribute(GAMEACTION_TEAM, playerTeam.getName());
-        gameActionElement.setAttribute(GAMEACTION_PLAYER_LASTNAME, player.getLastName());
-        gameActionElement.setAttribute(GAMEACTION_PLAYER_FIRSTNAME, player.getFirstName());
-        gameActionElement.setAttribute(GAMEACTION_PLAYER_NUMBER, "" + player.getNumber());
+//        gameActionElement.setAttribute(GAMEACTION_PLAYER_LASTNAME, player.getLastName());
+//        gameActionElement.setAttribute(GAMEACTION_PLAYER_FIRSTNAME, player.getFirstName());
+//        gameActionElement.setAttribute(GAMEACTION_PLAYER_NUMBER, "" + player.getNumber());
+        gameActionElement.setAttribute(XMLSaver.PLAYER_ID_TAG, "" + player.getUniqueID());
         gameActionElement.setAttribute(GAMEACTION_TIME, getActionTime());
         return gameActionElement;
     }

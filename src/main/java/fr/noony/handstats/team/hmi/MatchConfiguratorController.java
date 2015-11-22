@@ -335,11 +335,9 @@ public class MatchConfiguratorController extends FXController implements Propert
                 reg = playerString.split(" ");
                 playerNum = Integer.parseInt(reg[0]);
                 if (reg.length == 2) {
-                    p = new Player("", "", playerNum, Poste.GARDIEN);
-                    oppTeam.addPlayer(p, true);
+                    oppTeam.createPlayer("", "", playerNum, Poste.GARDIEN, true);
                 } else {
-                    p = new Player("", "", playerNum, Poste.UNDEFINED);
-                    oppTeam.addPlayer(p, true);
+                    oppTeam.createPlayer("", "", playerNum, Poste.UNDEFINED, true);
                 }
             }
             oppTeam.setPreferedColor(awayColor);

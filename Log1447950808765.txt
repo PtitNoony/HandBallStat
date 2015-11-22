@@ -1,2 +1,0 @@
-2015-11-19 17:33:28 [main] fr.noony.handstats.utils.log.MainLogger.log()
-INFO: Launching the application

@@ -1,0 +1,46 @@
+2015-11-22 16:00:05 [main] fr.noony.handstats.utils.log.MainLogger.log()
+INFO: Launching the application
+2015-11-22 16:00:05 [JavaFX Application Thread] fr.noony.handstats.utils.log.MainLogger.log()
+INFO: new key frame on event
+2015-11-22 16:00:06 [JavaFX Application Thread] fr.noony.handstats.utils.log.MainLogger.log()
+INFO: Init Team creator panel
+2015-11-22 16:00:06 [JavaFX Application Thread] fr.noony.handstats.utils.log.MainLogger.log()
+INFO: Init Team editor panel
+2015-11-22 16:00:06 [JavaFX Application Thread] fr.noony.handstats.utils.log.MainLogger.log()
+INFO: Init Team editor panel
+2015-11-22 16:00:07 [JavaFX Application Thread] fr.noony.handstats.utils.log.MainLogger.log()
+INFO: new key frame on event
+2015-11-22 16:00:07 [JavaFX Application Thread] fr.noony.handstats.utils.log.MainLogger.log()
+INFO: new key frame on event
+2015-11-22 16:00:08 [JavaFX Application Thread] fr.noony.handstats.utils.log.MainLogger.log()
+INFO: new width : {0} old {1} new {2}
+2015-11-22 16:00:08 [JavaFX Application Thread] fr.noony.handstats.utils.log.MainLogger.log()
+INFO: new height : {0} old {1} new {2}
+2015-11-22 16:00:08 [JavaFX Application Thread] fr.noony.handstats.utils.log.MainLogger.log()
+INFO: new width : {0} old {1} new {2}
+2015-11-22 16:00:08 [JavaFX Application Thread] fr.noony.handstats.utils.log.MainLogger.log()
+INFO: new height : {0} old {1} new {2}
+2015-11-22 16:00:09 [JavaFX Application Thread] fr.noony.handstats.utils.log.MainLogger.log()
+INFO: new width : {0} old {1} new {2}
+2015-11-22 16:00:09 [JavaFX Application Thread] fr.noony.handstats.utils.log.MainLogger.log()
+INFO: new height : {0} old {1} new {2}
+2015-11-22 16:00:11 [JavaFX Application Thread] fr.noony.handstats.utils.log.MainLogger.log()
+INFO: new key frame on event
+2015-11-22 16:00:12 [JavaFX Application Thread] fr.noony.handstats.utils.log.MainLogger.log()
+INFO: seeStatsAction {0}
+2015-11-22 16:00:12 [JavaFX Application Thread] fr.noony.handstats.utils.log.MainLogger.log()
+INFO: new key frame on event
+2015-11-22 16:00:15 [JavaFX Application Thread] fr.noony.handstats.utils.log.MainLogger.log()
+INFO: new key frame on event
+2015-11-22 16:00:17 [JavaFX Application Thread] fr.noony.handstats.utils.log.MainLogger.log()
+INFO: new key frame on event
+2015-11-22 16:00:18 [JavaFX Application Thread] fr.noony.handstats.utils.log.MainLogger.log()
+INFO: Event {0} in Zone {1}
+2015-11-22 16:00:18 [JavaFX Application Thread] fr.noony.handstats.utils.log.MainLogger.log()
+INFO: Event {0} in Zone {1}
+2015-11-22 16:00:18 [JavaFX Application Thread] fr.noony.handstats.utils.log.MainLogger.log()
+INFO: Event {0} in Zone {1}
+2015-11-22 16:00:18 [JavaFX Application Thread] fr.noony.handstats.utils.log.MainLogger.log()
+INFO: Event {0} in Zone {1}
+2015-11-22 16:00:21 [JavaFX Application Thread] fr.noony.handstats.utils.log.MainLogger.log()
+INFO: Closing application window on event :: {0}

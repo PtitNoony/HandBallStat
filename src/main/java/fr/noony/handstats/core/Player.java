@@ -37,30 +37,33 @@ public class Player {
     private final InstanceContent lookupContents = new InstanceContent();
     private final AbstractLookup alookup = new AbstractLookup(lookupContents);
 
-    private final String premon;
-    private final String nom;
-    private int numero;
+    private final String firstName;
+    private final String lastName;
+    private int number;
     //TODO: is it the rigth way ??
     private int twoMinSecondsRemaining = 0;
 
-    private Poste positionPreferee;
-    private Poste positionActuelle;
+    private Poste preferedPosition;
+    private Poste currentPosition;
 
     private boolean isInPlace = false;
 
-    public Player(String premon, String nom, int numero, Poste positionPreferee, Poste positionActuelle) {
+    private final long uniqueID;
+
+    protected Player(String premon, String nom, int numero, Poste positionPreferee, Poste positionActuelle, long id) {
         propertyChangeSupport = new PropertyChangeSupport(Player.this);
         lookupContents.add(propertyChangeSupport);
         //
-        this.premon = premon;
-        this.nom = nom;
-        this.numero = numero;
-        this.positionPreferee = positionPreferee;
-        this.positionActuelle = positionActuelle;
+        this.firstName = premon;
+        this.lastName = nom;
+        this.number = numero;
+        this.preferedPosition = positionPreferee;
+        this.currentPosition = positionActuelle;
+        uniqueID = id;
     }
 
-    public Player(String premon, String nom, int numero, Poste positionPreferee) {
-        this(premon, nom, numero, positionPreferee, positionPreferee);
+    protected Player(String premon, String nom, int numero, Poste positionPreferee, long id) {
+        this(premon, nom, numero, positionPreferee, positionPreferee, id);
     }
 
     public Lookup getLookup() {
@@ -68,47 +71,51 @@ public class Player {
     }
 
     public void setNumero(int numero) {
-        this.numero = numero;
+        this.number = numero;
     }
 
     public String getLastName() {
-        return nom;
+        return lastName;
+    }
+
+    public long getUniqueID() {
+        return uniqueID;
     }
 
     public int getNumber() {
-        return numero;
+        return number;
     }
 
     public Poste getPositionPreferee() {
-        return positionPreferee;
+        return preferedPosition;
     }
 
     public void setPositionPreferee(Poste positionPreferee) {
-        this.positionPreferee = positionPreferee;
+        this.preferedPosition = positionPreferee;
     }
 
     public String getFirstName() {
-        return premon;
+        return firstName;
     }
 
     public void setPositionActuelle(Poste positionActuelle) {
-        this.positionActuelle = positionActuelle;
+        this.currentPosition = positionActuelle;
     }
 
     public Poste getPositionActuelle() {
-        return positionActuelle;
+        return currentPosition;
     }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append(nom);
+        sb.append(lastName);
         sb.append(" ");
-        sb.append(premon);
+        sb.append(firstName);
         sb.append(" n°");
-        sb.append(numero);
+        sb.append(number);
         sb.append(" ");
-        sb.append(positionPreferee);
+        sb.append(preferedPosition);
         return sb.toString();
     }
 

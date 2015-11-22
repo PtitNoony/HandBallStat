@@ -1,0 +1,6 @@
+2015-11-22 16:00:44 [main] fr.noony.handstats.utils.log.MainLogger.log()
+INFO: Launching the application
+2015-11-22 16:00:45 [JavaFX Application Thread] fr.noony.handstats.utils.log.MainLogger.log()
+INFO: new key frame on event
+2015-11-22 16:00:48 [JavaFX Application Thread] fr.noony.handstats.utils.log.MainLogger.log()
+INFO: Closing application window on event :: {0}

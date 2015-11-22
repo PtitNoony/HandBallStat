@@ -36,7 +36,7 @@ public class HeaderPanel implements PropertyChangeListener {
 
     public static final String SWITCH_FULL_SCREEN_MODE = "switchFullScreenMode";
 
-    private static final double MAX_CONTROL_WIDTH_RATIO = 4;
+    private static final double MAX_CONTROL_WIDTH_RATIO = 3;
 
     private static HeaderPanel instance;
 
@@ -102,7 +102,6 @@ public class HeaderPanel implements PropertyChangeListener {
             control.setMinSize(controlSize, FXScreenUtils.UPPER_BORDER_HEIGHT);
             control.setMaxSize(controlSize, FXScreenUtils.UPPER_BORDER_HEIGHT);
             control.setTranslateX(controlSize * controls.indexOf(control));
-            System.err.println(" Control " + control + " " + (width * controls.indexOf(control)));
         });
     }
 
@@ -113,7 +112,6 @@ public class HeaderPanel implements PropertyChangeListener {
 
     public void addControl(Control control) {
         if (!controls.contains(control)) {
-            System.err.println(" ADDING " + control);
             controls.add(control);
             String fontStyle = "-fx-font: " + FXScreenUtils.getButtonFontSize(FXScreenUtils.UPPER_BORDER_HEIGHT) + "px Courrier;";
             control.setStyle(fontStyle);

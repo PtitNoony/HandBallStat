@@ -161,7 +161,9 @@ public class PlayerEditorController extends FXController implements PropertyChan
     public void okAction(ActionEvent event) {
         switch (myPopUpMode) {
             case CREATION:
-                firePropertyChange(PLAYER_CREATION_OK_EVENT, null, new Player(name, lastName, number, poste));
+
+                //TODO: change
+                firePropertyChange(PLAYER_CREATION_OK_EVENT, null, "" + name + "%%" + lastName + "%%" + number + "%%" + poste);
                 break;
             case EDITION:
                 updatePlayerEdited();

@@ -29,14 +29,8 @@ import fr.noony.handstats.core.Team;
 import static fr.noony.handstats.utils.XMLSaver.GAMEACTION_DEFENSE_BLOCKEDSHOT;
 import static fr.noony.handstats.utils.XMLSaver.GAMEACTION_FAULT;
 import static fr.noony.handstats.utils.XMLSaver.GAMEACTION_FAULT_DESCRIPTION;
-import static fr.noony.handstats.utils.XMLSaver.GAMEACTION_GOALKEEPER_FIRSTNAME;
-import static fr.noony.handstats.utils.XMLSaver.GAMEACTION_GOALKEEPER_NAME;
-import static fr.noony.handstats.utils.XMLSaver.GAMEACTION_GOALKEEPER_NUMBER;
 import static fr.noony.handstats.utils.XMLSaver.GAMEACTION_GOALZONE;
 import static fr.noony.handstats.utils.XMLSaver.GAMEACTION_GOOD_SHOT;
-import static fr.noony.handstats.utils.XMLSaver.GAMEACTION_PLAYER_FIRSTNAME;
-import static fr.noony.handstats.utils.XMLSaver.GAMEACTION_PLAYER_LASTNAME;
-import static fr.noony.handstats.utils.XMLSaver.GAMEACTION_PLAYER_NUMBER;
 import static fr.noony.handstats.utils.XMLSaver.GAMEACTION_SHOTZONE;
 import static fr.noony.handstats.utils.XMLSaver.GAMEACTION_SHOT_STOP;
 import static fr.noony.handstats.utils.XMLSaver.GAMEACTION_TAG;
@@ -51,6 +45,7 @@ import static fr.noony.handstats.utils.XMLSaver.GAME_HOME_TEAM_SCORE_TAG;
 import static fr.noony.handstats.utils.XMLSaver.GAME_HOME_TEAM_TAG;
 import static fr.noony.handstats.utils.XMLSaver.PLAYER_CURRENT_POSITION_TAG;
 import static fr.noony.handstats.utils.XMLSaver.PLAYER_FIRST_NAME_TAG;
+import static fr.noony.handstats.utils.XMLSaver.PLAYER_ID_TAG;
 import static fr.noony.handstats.utils.XMLSaver.PLAYER_LAST_NAME_TAG;
 import static fr.noony.handstats.utils.XMLSaver.PLAYER_NUMBER_TAG;
 import static fr.noony.handstats.utils.XMLSaver.PLAYER_PREFERRED_POSITION_TAG;
@@ -161,8 +156,8 @@ public final class XMLLoader {
         int playerNumber = Integer.parseInt(playerElement.getAttribute(PLAYER_NUMBER_TAG));
         Poste playerCurrentPosition = Poste.valueOf(playerElement.getAttribute(PLAYER_CURRENT_POSITION_TAG));
         Poste playerPreferedPosition = Poste.valueOf(playerElement.getAttribute(PLAYER_PREFERRED_POSITION_TAG));
-        Player p = new Player(playerFirstName, playerLastName, playerNumber, playerPreferedPosition, playerCurrentPosition);
-        team.addPlayer(p, active);
+        long playerID = Long.parseLong(playerElement.getAttribute(PLAYER_ID_TAG));
+        team.addPlayer(playerFirstName, playerLastName, playerNumber, playerPreferedPosition, playerCurrentPosition, playerID, active);
     }
 
     private static void addOppTeam(Team mainTeam, Element teamElement) {
@@ -235,9 +230,10 @@ public final class XMLLoader {
         //TODO: a faire par une autre classe
         String actionType = gameActionElement.getAttribute(GAMEACTION_TYPE);
         String teamName = gameActionElement.getAttribute(GAMEACTION_TEAM);
-        String playerLastName = gameActionElement.getAttribute(GAMEACTION_PLAYER_LASTNAME);
-        String playerFirstName = gameActionElement.getAttribute(GAMEACTION_PLAYER_FIRSTNAME);
-        int playerNumber = Integer.parseInt(gameActionElement.getAttribute(GAMEACTION_PLAYER_NUMBER));
+//        String playerLastName = gameActionElement.getAttribute(GAMEACTION_PLAYER_LASTNAME);
+//        String playerFirstName = gameActionElement.getAttribute(GAMEACTION_PLAYER_FIRSTNAME);
+//        int playerNumber = Integer.parseInt(gameActionElement.getAttribute(GAMEACTION_PLAYER_NUMBER));
+        long playerID = Long.parseLong(gameActionElement.getAttribute(PLAYER_ID_TAG));
         String actionTime = gameActionElement.getAttribute(GAMEACTION_TIME);
         Team shootingTeam;
         if (teamName.equals(game.getHomeTeam().getName())) {
@@ -245,7 +241,7 @@ public final class XMLLoader {
         } else {
             shootingTeam = game.getAwayTeam();
         }
-        Player player = shootingTeam.getPlayer(playerLastName, playerFirstName, playerNumber);
+        Player player = shootingTeam.getPlayer(playerID);
         Player goalKeeper;
         // TODO : optmiser
         String shotZone;
@@ -263,13 +259,14 @@ public final class XMLLoader {
                 game.addAction(faultAction);
                 break;
             case GAMEACTION_SHOT_STOP:
-                String goalLastName = gameActionElement.getAttribute(GAMEACTION_GOALKEEPER_NAME);
-                String goalFirstName = gameActionElement.getAttribute(GAMEACTION_GOALKEEPER_FIRSTNAME);
-                int goalNumber = Integer.parseInt(gameActionElement.getAttribute(GAMEACTION_GOALKEEPER_NUMBER));
+//                String goalLastName = gameActionElement.getAttribute(GAMEACTION_GOALKEEPER_NAME);
+//                String goalFirstName = gameActionElement.getAttribute(GAMEACTION_GOALKEEPER_FIRSTNAME);
+//                int goalNumber = Integer.parseInt(gameActionElement.getAttribute(GAMEACTION_GOALKEEPER_NUMBER));
+                long goalID = Long.parseLong(gameActionElement.getAttribute(XMLSaver.GAMEACTION_GOALKEEPER_ID));
                 if (teamName.equals(game.getHomeTeam().getName())) {
-                    goalKeeper = game.getAwayTeam().getPlayer(goalLastName, goalFirstName, goalNumber);
+                    goalKeeper = game.getAwayTeam().getPlayer(goalID);
                 } else {
-                    goalKeeper = game.getHomeTeam().getPlayer(goalLastName, goalFirstName, goalNumber);
+                    goalKeeper = game.getHomeTeam().getPlayer(goalID);
                 }
                 shotZone = gameActionElement.getAttribute(GAMEACTION_SHOTZONE);
                 goalZone = gameActionElement.getAttribute(GAMEACTION_GOALZONE);

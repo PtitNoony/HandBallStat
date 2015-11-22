@@ -17,7 +17,6 @@ package fr.noony.handstats.team.hmi;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 import fr.noony.handstats.core.Game;
-import fr.noony.handstats.Poste;
 import fr.noony.handstats.core.Player;
 import fr.noony.handstats.core.Team;
 import fr.noony.handstats.stats.GameProcessor;
@@ -87,8 +86,8 @@ public class StatMainPageController extends FXController implements PropertyChan
     private StatPageState previousState = StatPageState.ALL_GAMES;
     //
     private Team homeTeam;
-    private final Player homeP = new Player("", "TOUS ", 0, Poste.UNDEFINED);
-    private final Player awayP = new Player("", "TOUS Adversaires", 0, Poste.UNDEFINED);
+//    private final Player homeP = new Player("", "TOUS ", 0, Poste.UNDEFINED);
+//    private final Player awayP = new Player("", "TOUS Adversaires", 0, Poste.UNDEFINED);
     private ObservableList<Game> games;
     private ObservableList<Player> homePlayers;
     private ObservableList<Player> awayPlayers;
@@ -157,10 +156,10 @@ public class StatMainPageController extends FXController implements PropertyChan
     @Override
     public void loadParameters(Object... params) {
         homeTeam = (Team) params[0];
-        homePlayers.add(homeP);
+//        homePlayers.add(homeP);
         homePlayers.addAll(homeTeam.getAllPlayers());
         homePlayerChoiceBox.setItems(homePlayers);
-        homePlayerChoiceBox.getSelectionModel().select(homeP);
+//        homePlayerChoiceBox.getSelectionModel().select(homeP);
         //
         gameProcessor = new GameProcessor(homeTeam);
         //
@@ -210,10 +209,10 @@ public class StatMainPageController extends FXController implements PropertyChan
         if (selectedGame != null) {
             //
             awayPlayers.clear();
-            awayPlayers.add(awayP);
+//            awayPlayers.add(awayP);
             awayPlayers.addAll(selectedGame.getAwayTeam().getAllPlayers());
             awayPlayerChoiceBox.setItems(awayPlayers);
-            awayPlayerChoiceBox.getSelectionModel().select(awayP);
+//            awayPlayerChoiceBox.getSelectionModel().select(awayP);
             //
             setStatPageState(StatPageState.ONE_MATCH);
         }
@@ -238,7 +237,7 @@ public class StatMainPageController extends FXController implements PropertyChan
         homeToggleB.setDisable(false);
         homeToggleB.setSelected(false);
         homePlayerChoiceBox.setDisable(true);
-        homePlayerChoiceBox.getSelectionModel().select(homeP);
+//        homePlayerChoiceBox.getSelectionModel().select(homeP);
         awayToggleB.setDisable(false);
         awayToggleB.setSelected(false);
         awayPlayerChoiceBox.setDisable(true);
@@ -252,7 +251,7 @@ public class StatMainPageController extends FXController implements PropertyChan
         homeToggleB.setDisable(true);
         homeToggleB.setSelected(true);
         homePlayerChoiceBox.setDisable(false);
-        homePlayerChoiceBox.getSelectionModel().select(homeP);
+//        homePlayerChoiceBox.getSelectionModel().select(homeP);
         awayToggleB.setDisable(false);
         awayToggleB.setSelected(false);
         awayPlayerChoiceBox.setDisable(true);
@@ -270,6 +269,6 @@ public class StatMainPageController extends FXController implements PropertyChan
         awayToggleB.setDisable(true);
         awayToggleB.setSelected(true);
         awayPlayerChoiceBox.setDisable(false);
-        awayPlayerChoiceBox.getSelectionModel().select(awayP);
+//        awayPlayerChoiceBox.getSelectionModel().select(awayP);
     }
 }

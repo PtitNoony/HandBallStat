@@ -16,10 +16,8 @@
  */
 package fr.noony.handstats.core;
 
+import fr.noony.handstats.utils.XMLSaver;
 import static fr.noony.handstats.utils.XMLSaver.GAMEACTION_DEFENSE_BLOCKEDSHOT;
-import static fr.noony.handstats.utils.XMLSaver.GAMEACTION_PLAYER_FIRSTNAME;
-import static fr.noony.handstats.utils.XMLSaver.GAMEACTION_PLAYER_LASTNAME;
-import static fr.noony.handstats.utils.XMLSaver.GAMEACTION_PLAYER_NUMBER;
 import static fr.noony.handstats.utils.XMLSaver.GAMEACTION_SHOTZONE;
 import static fr.noony.handstats.utils.XMLSaver.GAMEACTION_TAG;
 import static fr.noony.handstats.utils.XMLSaver.GAMEACTION_TEAM;
@@ -62,9 +60,10 @@ public class DefenseBlockedShot extends GameAction {
         Element gameActionElement = doc.createElement(GAMEACTION_TAG);
         gameActionElement.setAttribute(GAMEACTION_TYPE, GAMEACTION_DEFENSE_BLOCKEDSHOT);
         gameActionElement.setAttribute(GAMEACTION_TEAM, playerTeam.getName());
-        gameActionElement.setAttribute(GAMEACTION_PLAYER_LASTNAME, player.getLastName());
-        gameActionElement.setAttribute(GAMEACTION_PLAYER_FIRSTNAME, player.getFirstName());
-        gameActionElement.setAttribute(GAMEACTION_PLAYER_NUMBER, "" + player.getNumber());
+//        gameActionElement.setAttribute(GAMEACTION_PLAYER_LASTNAME, player.getLastName());
+//        gameActionElement.setAttribute(GAMEACTION_PLAYER_FIRSTNAME, player.getFirstName());
+//        gameActionElement.setAttribute(GAMEACTION_PLAYER_NUMBER, "" + player.getNumber());
+        gameActionElement.setAttribute(XMLSaver.PLAYER_ID_TAG, "" + player.getUniqueID());
         gameActionElement.setAttribute(GAMEACTION_TIME, getActionTime());
         gameActionElement.setAttribute(GAMEACTION_SHOTZONE, shootingZone);
         return gameActionElement;
