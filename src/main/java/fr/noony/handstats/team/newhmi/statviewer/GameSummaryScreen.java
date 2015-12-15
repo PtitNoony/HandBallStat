@@ -17,6 +17,7 @@
 package fr.noony.handstats.team.newhmi.statviewer;
 
 import fr.noony.handstats.core.Game;
+import fr.noony.handstats.stats.GameStat;
 import fr.noony.handstats.team.newhmi.FXScreen;
 import fr.noony.handstats.team.newhmi.FXScreenUtils;
 import javafx.scene.control.ToggleButton;
@@ -154,7 +155,8 @@ public class GameSummaryScreen extends FXScreen {
     }
 
     public void setGame(Game game) {
-
+        GameStat gameStat = new GameStat(game);
+        gameSummaryGroup.setGameStat(gameStat);
     }
 
     private void setSummaryMode(SummaryMode mode) {
@@ -190,14 +192,16 @@ public class GameSummaryScreen extends FXScreen {
         summaryTB.setSelected(false);
         homeTeamTB.setSelected(true);
         awayTeamTB.setSelected(false);
-
+        //
+        gameSummaryGroup.setVisible(false);
     }
 
     private void setAwayTeamSummary() {
         summaryTB.setSelected(false);
         homeTeamTB.setSelected(false);
         awayTeamTB.setSelected(true);
-
+        //
+        gameSummaryGroup.setVisible(false);
     }
 
 }

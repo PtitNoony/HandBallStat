@@ -40,7 +40,7 @@ import org.openide.util.lookup.InstanceContent;
 public class Game implements PropertyChangeListener {
 
     public static final int MIN_PLAYERS_PER_MATCH = 6;
-    public static final int MAX_PLAYERS_PER_MATCH = 12;
+    public static final int MAX_PLAYERS_PER_MATCH = 15;
     public static final int HALF_TIME_DURATION = 30 * 60 * 1000;
     //
     private final PropertyChangeSupport propertyChangeSupport;

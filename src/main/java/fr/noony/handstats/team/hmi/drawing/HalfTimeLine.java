@@ -208,9 +208,7 @@ public class HalfTimeLine {
         Polygon homeTimeline = new Polygon(homeVertices);
         homeTimeline.setFill(homeColor);
         mainNode.getChildren().add(homeTimeline);
-        for (Circle c : goals) {
-            mainNode.getChildren().add(c);
-        }
+        goals.stream().forEach(c -> mainNode.getChildren().add(c));
         timeLine.toFront();
         tickLines.stream().forEach(tickLine -> tickLine.toFront());
     }

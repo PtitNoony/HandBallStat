@@ -16,9 +16,9 @@
  */
 package fr.noony.handstats.stats;
 
-import fr.noony.handstats.core.Game;
 import fr.noony.handstats.core.DefenseBlockedShot;
 import fr.noony.handstats.core.FaultAction;
+import fr.noony.handstats.core.Game;
 import fr.noony.handstats.core.GameAction;
 import fr.noony.handstats.core.GameActionComparator;
 import fr.noony.handstats.core.GoodShot;
@@ -109,6 +109,10 @@ public class GameStat {
                 throw new UnsupportedOperationException("cannont process unkwnon type of game action :" + action);
             }
         }
+    }
+
+    public final Game getGame() {
+        return myGame;
     }
 
     public Team getVictor() {

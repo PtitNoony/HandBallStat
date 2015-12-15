@@ -95,10 +95,12 @@ public class Team {
     //TODO: use factory (no time)
     public Player addPlayer(String premon, String nom, int number, Poste positionPreferee, Poste positionActuelle, long id, boolean active) {
         for (Player p : allPlayers) {
-            if (p.getNumber() == number) {
-                throw new IllegalArgumentException("Le numéro " + number + " est deja pris par " + p.getFirstName());
+//            if (p.getNumber() == number) {
+//                throw new IllegalArgumentException("Le numéro " + number + " est deja pris par " + p.getFirstName());
+//            }
+            if (p.getUniqueID() == id) {
+                throw new IllegalArgumentException("L'ID " + id + " est deja pris par " + p.getFirstName());
             }
-            if (p.getUniqueID() == id);
         }
         Player newPlayer = new Player(premon, nom, number, positionPreferee, id);
         newPlayerID = Math.max(newPlayerID, id + 1);
